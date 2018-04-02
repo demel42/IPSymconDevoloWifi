@@ -1,0 +1,11 @@
+{
+	"id": "{23D74FD6-2468-4239-9D37-83D39CC3FEC1}",
+	"name": "DevoloAccesspoint",
+	"type": 3,
+	"vendor": "Devolo",
+	"aliases": [],
+	"parentRequirements": ["{232A0372-880F-4535-AF1E-8ECF0C7EEF00}"],
+	"childRequirements": [],
+	"implemented": [],
+	"prefix": "DevoloAP"
+}

@@ -1,0 +1,57 @@
+{
+	"translations": {
+		"de": {
+			"name can be a hostname or ip-address": "Bezeichnung kann Name oder IP-Adresse sein",
+			"Name": "Bezeichnung",
+
+			"must only be filled, if restricted access is configured": "muss nur ausgefüllt werden, wenn der Zugriff geschützt ist",
+			"Username": "Benutzerkennung",
+			"Password": "Passwort",
+
+			"optional data of accesspoint": "Zusatzdaten zum Accesspoint",
+			"Details": "Detail",
+
+			"optional data of WLAN": "Zusatzdaten zum WLAN",
+			"Informations": "Informationen",
+			"Details": "Details",
+
+			"optional data of Guest-WLAN": "Zusatzdaten zum Gast-WLAN",
+
+			"Number of ethernet-port connected to LAN/WAN": "Nummer des Ethernet-Ports der mit dem LAN/WAN verbunden ist",
+			"Portnumber": "Port-Nummer",
+			"MAC of the dLAN-Adapter next to ethernet": "MAC-Adresse des dLAN-Adapters, der die Verbindung zum Ethernet herstellt",
+			"MAC-Address": "MAC-Adresse",
+
+			"query accesspoint every X minutes": "Abfrage der Accesspoints alle X Minuten",
+			"Minutes": "Minuten",
+
+			"off": "aus",
+			"count of clients": "Anzahl der WLAN-Clients",
+			"Guest-WLAN": "Gast-WLAN",
+			"Guest-SID": "SID des Gast-WLAN",
+			"Guest-Timeout": "Begrenzungszeit des Gast-WLAN",
+			"Hostname": "Hostname",
+			"IP-Address": "IP-Adresse",
+			"last status": "letzter Status",
+			"MAC-Address": "MAC-Adresse",
+			"receive data": "Datenempfang",
+			"transmit data": "Datenübertragung",
+			"SID 2.4": "SID 2.4",
+			"SID 5": "SID 5",
+			"WLAN": "WLAN",
+			"Band": "Frequenzband",
+			"SID": "SID",
+
+			"one query makes take several seconds to complete": "eine Abfrage kann einige Sekunden bis zur Fertigstellung dauern",
+			"Perform query": "Abfrage durchführen",
+
+			"Instance getting created": "Instanz wird erstellt",
+			"Instance is active": "Instanz ist aktiv",
+			"Instance is inactive": "Instanz ist inaktiv",
+			"Instance is inactive (unauthorized)": "Instanz ist inaktiv (Authorisierung fehlerhaft)",
+			"Instance is inactive (server error)": "Instanz ist inaktiv (Serverfehler)",
+			"Instance is inactive (http error)": "Instanz ist inaktiv (HTTP-Fehler)",
+			"Instance is inactive (invalid data)": "Instanz ist inaktiv (ungültige Daten)"
+		}
+	}
+}

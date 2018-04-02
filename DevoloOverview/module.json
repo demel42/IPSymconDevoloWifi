@@ -1,0 +1,11 @@
+{
+	"id": "{C3550FAA-C939-4E85-BA63-7C4DE72ED487}",
+	"name": "DevoloOverview",
+	"type": 3,
+	"vendor": "Devolo",
+	"aliases": [],
+	"parentRequirements": [],
+	"childRequirements": [],
+	"implemented": ["{232A0372-880F-4535-AF1E-8ECF0C7EEF00}"],
+	"prefix": "DevoloOverview"
+}

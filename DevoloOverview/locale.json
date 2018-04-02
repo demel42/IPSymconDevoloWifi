@@ -1,0 +1,16 @@
+{
+	"translations": {
+		"de": {
+			"rate of LAN/WAN (in MBit/s)": "Geschwindigkeit der LAN/WAN-Verbindung (in MBit/s)",
+			"download": "Download",
+			"upload": "Upload",
+
+			"count of accesspoints": "Anzahl der Accesspoints",
+			"count of clients": "Anzahl der WLAN-Clients",
+
+			"Instance getting created": "Instanz wird erstellt",
+			"Instance is active": "Instanz ist aktiv",
+			"Instance is inactive": "Instanz ist inaktiv"
+		}
+	}
+}
