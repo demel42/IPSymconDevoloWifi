@@ -357,7 +357,7 @@ class DevoloAccesspoint extends IPSModule
 				$wlan_24['key'] = $network_24['key'];
 			}
 
-			$has_5 = false;
+			$wlan_5 = [];
 			$wlan_5['active'] = $wlanRadio1 == "on";
 			$wlan_5['security'] = $security1;
 			if ($network_5 != '') {
@@ -377,7 +377,7 @@ class DevoloAccesspoint extends IPSModule
 			$this->MaintainVariable('wlan_active', $this->Translate('WLAN'), IPS_BOOLEAN, '~Switch', $vpos++, $with_wlan_info);
 			$wlan_active = $wlan_24['active'] || $wlan_5['active'];
 			if ($with_wlan_info) {
-				$this->SetValue('wlan_active', $with_wlan_info);
+				$this->SetValue('wlan_active', $wlan_active);
 				$this->EnableAction('wlan_active');
 			}
 
@@ -518,21 +518,18 @@ class DevoloAccesspoint extends IPSModule
 		}
 	}
 
-							    // string(13) "dLAN 550 WiFi"
-				//':sys:Wireless.Radio[0].AP[0].Active'       => $onoff,
-				//':sys:Wireless.Radio[1].AP[0].Active'       => $onoff,
 	public function SwitchWLAN(boolean $value) {
 		$onoff = $value ? "on" : "off";
 
 		$accesspoint = json_decode($this->GetBuffer('Accesspoint'), true);
 		$dlan_type = $accesspoint["dlan_type"];
 		switch ($dlan_type) {
-			"dLAN 550 WiFi":
+			case "dLAN 550 WiFi":
 				$postdata = [
 						':sys:Wireless.Radio[0].WLANRadio'			=> $onoff,
 					];
 				break;
-			"dLAN 1200+ WiFi ac":
+			case "dLAN 1200+ WiFi ac":
 				$postdata = [
 						':sys:Wireless.Radio[0].WLANRadio'			=> $onoff,
 						':sys:Wireless.Radio[1].WLANRadio'			=> $onoff,
@@ -555,17 +552,19 @@ class DevoloAccesspoint extends IPSModule
 		$accesspoint = json_decode($this->GetBuffer('Accesspoint'), true);
 		$dlan_type = $accesspoint["dlan_type"];
 		switch ($dlan_type) {
-			"dLAN 550 WiFi":
+			case "dLAN 550 WiFi":
 				$postdata = [
-					':sys:Wireless.GuestTimeout'                => $timeout,
-					':sys:Wireless.Radio[0].AP[1].Active'       => $onoff,
-				];
-			"dLAN 1200+ WiFi ac":
+						':sys:Wireless.GuestTimeout'                => $timeout,
+						':sys:Wireless.Radio[0].AP[1].Active'       => $onoff,
+					];
+				break;
+			case "dLAN 1200+ WiFi ac":
 				$postdata = [
-					':sys:Wireless.GuestTimeout'                => $timeout,
-					':sys:Wireless.Radio[0].AP[1].Active'       => $onoff,
-					':sys:Wireless.Radio[1].AP[1].Active'       => $onoff,
-				];
+						':sys:Wireless.GuestTimeout'                => $timeout,
+						':sys:Wireless.Radio[0].AP[1].Active'       => $onoff,
+						':sys:Wireless.Radio[1].AP[1].Active'       => $onoff,
+					];
+				break;
 			default:
 				$this->SendDebug(__FUNCTION__, "unknown dlan_type $dlan_type", 0);
 				return false;
