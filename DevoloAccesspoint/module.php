@@ -102,7 +102,7 @@ class DevoloAccesspoint extends IPSModule
         $this->reallyUpdateData(false);
     }
 
-    public function reallyUpdateData($status_only)
+    private function reallyUpdateData($status_only)
     {
         $ap_name = $this->ReadPropertyString('ap_name');
 
