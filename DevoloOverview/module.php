@@ -30,18 +30,18 @@ class DevoloOverview extends IPSModule
         $this->RegisterPropertyInteger('wan_download', 0);
         $this->RegisterPropertyInteger('wan_upload', 0);
 
-		$this->RegisterPropertyBoolean('with_guest_info', true);
+        $this->RegisterPropertyBoolean('with_guest_info', true);
 
-		$this->RegisterPropertyBoolean('with_status_box', false);
+        $this->RegisterPropertyBoolean('with_status_box', false);
 
-		$this->RegisterPropertyInteger('statusbox_script', 0);
-		$this->RegisterPropertyInteger('webhook_script', 0);
+        $this->RegisterPropertyInteger('statusbox_script', 0);
+        $this->RegisterPropertyInteger('webhook_script', 0);
 
-		$associations = [];
-		$associations[] = ['Wert' => 1, 'Name' => 'An'];
-		$associations[] = ['Wert' => 0, 'Name' => 'Aus'];
-		$associations[] = ['Wert' => -1, 'Name' => 'teilweise an'];
-		$this->CreateVarProfile('DevoloWifi.WLAN', IPS_INTEGER, '', 0, 0, 0, 1, 'Power', $associations);
+        $associations = [];
+        $associations[] = ['Wert' => 1, 'Name' => 'An'];
+        $associations[] = ['Wert' => 0, 'Name' => 'Aus'];
+        $associations[] = ['Wert' => -1, 'Name' => 'teilweise an'];
+        $this->CreateVarProfile('DevoloWifi.WLAN', IPS_INTEGER, '', 0, 0, 0, 1, 'Power', $associations);
 
         // Inspired by module SymconTest/HookServe
         // We need to call the RegisterHook function on Kernel READY
@@ -147,8 +147,8 @@ class DevoloOverview extends IPSModule
 
     private function DecodeData($accesspoints)
     {
-		$with_guest_info = $this->ReadPropertyBoolean('with_guest_info');
-		$with_status_box = $this->ReadPropertyBoolean('with_status_box');
+        $with_guest_info = $this->ReadPropertyBoolean('with_guest_info');
+        $with_status_box = $this->ReadPropertyBoolean('with_status_box');
 
         $accesspoint_n = 0;
         $client_n = 0;
@@ -167,68 +167,68 @@ class DevoloOverview extends IPSModule
         $this->MaintainVariable('clients', $this->Translate('count of clients'), IPS_INTEGER, '', $vpos++, true);
         $this->SetValue('clients', $client_n);
 
-		$this->MaintainVariable('StatusBox', $this->Translate('State of accesspoints / clients'), IPS_STRING, '~HTMLBox', $vpos++, $with_status_box);
-		if ($with_status_box) {
-			$statusbox_script = $this->ReadPropertyInteger('statusbox_script');
-			if ($statusbox_script > 0) {
-				$html = IPS_RunScriptWaitEx($statusbox_script, ['InstanceID' => $this->InstanceID]);
-			} else {
-				$html = $this->Build_StatusBox(json_encode($accesspoints));
-			}
-			$this->SetValue('StatusBox', $html);
-		}
+        $this->MaintainVariable('StatusBox', $this->Translate('State of accesspoints / clients'), IPS_STRING, '~HTMLBox', $vpos++, $with_status_box);
+        if ($with_status_box) {
+            $statusbox_script = $this->ReadPropertyInteger('statusbox_script');
+            if ($statusbox_script > 0) {
+                $html = IPS_RunScriptWaitEx($statusbox_script, ['InstanceID' => $this->InstanceID]);
+            } else {
+                $html = $this->Build_StatusBox(json_encode($accesspoints));
+            }
+            $this->SetValue('StatusBox', $html);
+        }
 
-		$n_guest_active = 0;
-		$n_guest_inactive = 0;
-		$n_wlan_active = 0;
-		$n_wlan_inactive = 0;
+        $n_guest_active = 0;
+        $n_guest_inactive = 0;
+        $n_wlan_active = 0;
+        $n_wlan_inactive = 0;
 
-		$instIDs = IPS_GetInstanceListByModuleID("{23D74FD6-2468-4239-9D37-83D39CC3FEC1}");
-		foreach ($instIDs as $instID) {
-			$r = IPS_GetObject ($instID);
-			$childIDs = $r['ChildrenIDs'];
-			foreach ($childIDs as $childID) {
-				$r = IPS_GetObject ($childID);
-				if ($r['ObjectIdent'] == 'wlan_active') {
-					if (GetValueBoolean($r['ObjectID'])) {
-						$n_wlan_active++;
-					} else {
-						$n_wlan_inactive++;
-					}
-				}
-				if ($r['ObjectIdent'] == 'guest_active') {
-					if (GetValueBoolean($r['ObjectID'])) {
-						$n_guest_active++;
-					} else {
-						$n_guest_inactive++;
-					}
-				}
-			}
-		}
+        $instIDs = IPS_GetInstanceListByModuleID('{23D74FD6-2468-4239-9D37-83D39CC3FEC1}');
+        foreach ($instIDs as $instID) {
+            $r = IPS_GetObject($instID);
+            $childIDs = $r['ChildrenIDs'];
+            foreach ($childIDs as $childID) {
+                $r = IPS_GetObject($childID);
+                if ($r['ObjectIdent'] == 'wlan_active') {
+                    if (GetValueBoolean($r['ObjectID'])) {
+                        $n_wlan_active++;
+                    } else {
+                        $n_wlan_inactive++;
+                    }
+                }
+                if ($r['ObjectIdent'] == 'guest_active') {
+                    if (GetValueBoolean($r['ObjectID'])) {
+                        $n_guest_active++;
+                    } else {
+                        $n_guest_inactive++;
+                    }
+                }
+            }
+        }
 
-		if ($n_wlan_active && $n_wlan_inactive) {
-			$total_wlan_active = -1;
-		} else if ($n_wlan_active) {
-			$total_wlan_active = 1;
-		} else if ($n_wlan_inactive) {
-			$total_wlan_active = 0;
-		}
-		$this->MaintainVariable('total_wlan_active', $this->Translate('WLAN'), IPS_INTEGER, 'DevoloWifi.WLAN', $vpos++, true);
+        if ($n_wlan_active && $n_wlan_inactive) {
+            $total_wlan_active = -1;
+        } elseif ($n_wlan_active) {
+            $total_wlan_active = 1;
+        } elseif ($n_wlan_inactive) {
+            $total_wlan_active = 0;
+        }
+        $this->MaintainVariable('total_wlan_active', $this->Translate('WLAN'), IPS_INTEGER, 'DevoloWifi.WLAN', $vpos++, true);
         $this->SetValue('total_wlan_active', $total_wlan_active);
-		$this->EnableAction('total_wlan_active');
+        $this->EnableAction('total_wlan_active');
 
-		if ($n_guest_active && $n_guest_inactive) {
-			$total_guest_active = -1;
-		} else if ($n_guest_active) {
-			$total_guest_active = 1;
-		} else if ($n_guest_inactive) {
-			$total_guest_active = 0;
-		}
-		$this->MaintainVariable('total_guest_active', $this->Translate('Guest-WLAN'), IPS_INTEGER, 'DevoloWifi.WLAN', $vpos++, $with_guest_info);
-		if ($with_guest_info) {
-			$this->SetValue('total_guest_active', $total_guest_active);
-			$this->EnableAction('total_guest_active');
-		}
+        if ($n_guest_active && $n_guest_inactive) {
+            $total_guest_active = -1;
+        } elseif ($n_guest_active) {
+            $total_guest_active = 1;
+        } elseif ($n_guest_inactive) {
+            $total_guest_active = 0;
+        }
+        $this->MaintainVariable('total_guest_active', $this->Translate('Guest-WLAN'), IPS_INTEGER, 'DevoloWifi.WLAN', $vpos++, $with_guest_info);
+        if ($with_guest_info) {
+            $this->SetValue('total_guest_active', $total_guest_active);
+            $this->EnableAction('total_guest_active');
+        }
     }
 
     public function RequestAction($Ident, $Value)
@@ -237,18 +237,18 @@ class DevoloOverview extends IPSModule
 
         switch ($Ident) {
             case 'total_wlan_active':
-				if ($Value != 0 && $Value != 1) {
-					$this->SendDebug(__FUNCTION__, "unusable value $Value for Ident $Ident", 0);
-					break;
-				}
-				$this->SwitchWLAN($Value);
+                if ($Value != 0 && $Value != 1) {
+                    $this->SendDebug(__FUNCTION__, "unusable value $Value for Ident $Ident", 0);
+                    break;
+                }
+                $this->SwitchWLAN($Value);
                 break;
             case 'total_guest_active':
-				if ($Value != 0 && $Value != 1) {
-					$this->SendDebug(__FUNCTION__, "unusable value $Value for Ident $Ident", 0);
-					break;
-				}
-				$this->SwitchGuestWLAN($Value);
+                if ($Value != 0 && $Value != 1) {
+                    $this->SendDebug(__FUNCTION__, "unusable value $Value for Ident $Ident", 0);
+                    break;
+                }
+                $this->SwitchGuestWLAN($Value);
                 break;
             default:
                 $this->SendDebug(__FUNCTION__, "invalid ident $Ident", 0);
@@ -256,21 +256,21 @@ class DevoloOverview extends IPSModule
         }
     }
 
-	public function SwitchWLAN(boolean $value)
-	{
-		$instIDs = IPS_GetInstanceListByModuleID("{23D74FD6-2468-4239-9D37-83D39CC3FEC1}");
-		foreach ($instIDs as $instID) {
-			DevoloAP_SwitchWLAN($instID, $value);
-		}
-	}
+    public function SwitchWLAN(boolean $value)
+    {
+        $instIDs = IPS_GetInstanceListByModuleID('{23D74FD6-2468-4239-9D37-83D39CC3FEC1}');
+        foreach ($instIDs as $instID) {
+            DevoloAP_SwitchWLAN($instID, $value);
+        }
+    }
 
-	public function SwitchGuestWLAN(boolean $value, integer $timeout = null)
-	{
-		$instIDs = IPS_GetInstanceListByModuleID("{23D74FD6-2468-4239-9D37-83D39CC3FEC1}");
-		foreach ($instIDs as $instID) {
-			DevoloAP_SwitchGuestWLAN($instID, $value, $timeout);
-		}
-	}
+    public function SwitchGuestWLAN(boolean $value, integer $timeout = null)
+    {
+        $instIDs = IPS_GetInstanceListByModuleID('{23D74FD6-2468-4239-9D37-83D39CC3FEC1}');
+        foreach ($instIDs as $instID) {
+            DevoloAP_SwitchGuestWLAN($instID, $value, $timeout);
+        }
+    }
 
     // Inspired from module SymconTest/HookServe
     private function RegisterHook($WebHook)
@@ -296,11 +296,11 @@ class DevoloOverview extends IPSModule
         }
     }
 
-	private function Build_StatusBox($data)
-	{
+    private function Build_StatusBox($data)
+    {
         $accesspoints = json_decode($data, true);
 
-		$html = '';
+        $html = '';
 
         $html .= "<style>\n";
         $html .= ".right-align { text-align: right; }\n";
@@ -311,69 +311,69 @@ class DevoloOverview extends IPSModule
         $html .= "tbody th { text-align: left; }\n";
         $html .= "</style>\n";
 
-			$html .= "<table>\n";
-			$html .= "<thead>\n";
-			$html .= "<tr class=\"row_title\">\n";
-			$html .= "<th>Accesspoint / Client</th>\n";
-			$html .= "<th>IP</th>\n";
-			$html .= "<th>Frequenz</th>\n";
-			$html .= "<th>Übertragungsrate</th>\n";
-			$html .= "<th>verbunden seit</th>\n";
-			$html .= "<th>Gast</th>\n";
-			$html .= "</tr>\n";
-			$html .= "</thead>\n";
-			$html .= "<tdata>\n";
+        $html .= "<table>\n";
+        $html .= "<thead>\n";
+        $html .= "<tr class=\"row_title\">\n";
+        $html .= "<th>Accesspoint / Client</th>\n";
+        $html .= "<th>IP</th>\n";
+        $html .= "<th>Frequenz</th>\n";
+        $html .= "<th>Übertragungsrate</th>\n";
+        $html .= "<th>verbunden seit</th>\n";
+        $html .= "<th>Gast</th>\n";
+        $html .= "</tr>\n";
+        $html .= "</thead>\n";
+        $html .= "<tdata>\n";
 
-			if ($accesspoints != '') {
-				usort($accesspoints, ['DevoloOverview', 'cmp_accesspoint']);
-				foreach ($accesspoints as $accesspoint) {
-					$ap_name = $accesspoint['name'];
+        if ($accesspoints != '') {
+            usort($accesspoints, ['DevoloOverview', 'cmp_accesspoint']);
+            foreach ($accesspoints as $accesspoint) {
+                $ap_name = $accesspoint['name'];
 
-					$html .= "<tr>\n";
-					$html .= "<td colspan=\"6\">$ap_name</td>\n";
-					$html .= "</tr>\n";
+                $html .= "<tr>\n";
+                $html .= "<td colspan=\"6\">$ap_name</td>\n";
+                $html .= "</tr>\n";
 
-					$clients = $accesspoint['clients'];
-					if ($clients != '') {
-						usort($clients, ['DevoloOverview', 'cmp_client']);
-						$row_no = 0;
-						foreach ($clients as $client) {
-							$ip = $client['ip'];
-							$name = $client['name'];
-							$band = $client['band'];
-							$rate = $client['rate'];
-							$time = date('d.m. H:i', $client['connected_ts']);
-							$guest = $client['guest'] ? 'Ja' : 'Nein';
+                $clients = $accesspoint['clients'];
+                if ($clients != '') {
+                    usort($clients, ['DevoloOverview', 'cmp_client']);
+                    $row_no = 0;
+                    foreach ($clients as $client) {
+                        $ip = $client['ip'];
+                        $name = $client['name'];
+                        $band = $client['band'];
+                        $rate = $client['rate'];
+                        $time = date('d.m. H:i', $client['connected_ts']);
+                        $guest = $client['guest'] ? 'Ja' : 'Nein';
 
-							$html .= "<tr class=\"row_$row_no\">\n";
-							$html .= "<td>&emsp;$name</td>\n";
-							$html .= "<td>$ip</td>\n";
-							$html .= "<td class=\"right-align\">$band GHz</td>\n";
-							$html .= "<td class=\"right-align\">$rate Mbit/s</td>\n";
-							$html .= "<td>$time</td>\n";
-							$html .= "<td>$guest</td>\n";
-							$html .= "</tr>\n";
-							$row_no = $row_no ? 0 : 1;
-						}
-					}
-				}
-			}
+                        $html .= "<tr class=\"row_$row_no\">\n";
+                        $html .= "<td>&emsp;$name</td>\n";
+                        $html .= "<td>$ip</td>\n";
+                        $html .= "<td class=\"right-align\">$band GHz</td>\n";
+                        $html .= "<td class=\"right-align\">$rate Mbit/s</td>\n";
+                        $html .= "<td>$time</td>\n";
+                        $html .= "<td>$guest</td>\n";
+                        $html .= "</tr>\n";
+                        $row_no = $row_no ? 0 : 1;
+                    }
+                }
+            }
+        }
 
-			$html .= "</tdata>\n";
-			$html .= "</table>\n";
+        $html .= "</tdata>\n";
+        $html .= "</table>\n";
 
-			$html .= "<br>\n";
+        $html .= "<br>\n";
 
-		$html .= "</body>\n";
+        $html .= "</body>\n";
 
-		return $html;
-	}
+        return $html;
+    }
 
-	public function GetRawData()
-	{
-		$s = $this->GetBuffer('Accesspoints');
-		return $s;
-	}
+    public function GetRawData()
+    {
+        $s = $this->GetBuffer('Accesspoints');
+        return $s;
+    }
 
     private function ProcessHook_Status()
     {
@@ -557,13 +557,13 @@ class DevoloOverview extends IPSModule
         }
         $basename = substr($uri, strlen('/hook/DevoloWifi/'));
         if ($basename == 'status') {
-			$webhook_script = $this->ReadPropertyInteger('webhook_script');
+            $webhook_script = $this->ReadPropertyInteger('webhook_script');
             if ($webhook_script > 0) {
-				$html = IPS_RunScriptWaitEx($webhook_script, ['InstanceID' => $this->InstanceID]);
-				echo $html;
-			} else {
-				$this->ProcessHook_Status();
-			}
+                $html = IPS_RunScriptWaitEx($webhook_script, ['InstanceID' => $this->InstanceID]);
+                echo $html;
+            } else {
+                $this->ProcessHook_Status();
+            }
             return;
         }
         $path = realpath($root . '/' . $basename);
