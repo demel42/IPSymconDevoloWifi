@@ -3,11 +3,16 @@
 			[
 				{ "type": "Label", "label": "rate of LAN/WAN (in MBit/s)" },
 				{ "type": "NumberSpinner", "name": "wan_download", "caption": "download" },
-				{ "type": "NumberSpinner", "name": "wan_upload", "caption": "upload" }
+				{ "type": "NumberSpinner", "name": "wan_upload", "caption": "upload" },
+
+				{ "type": "Label", "label": "optional data" },
+				{ "type": "CheckBox", "name": "with_status_box", "caption": " ... html-box with list of clients" },
+				{ "type": "CheckBox", "name": "with_guest_info", "caption": " ... information of Guest-WLAN" },
+
+				{ "type": "Label", "label": "alternate script to use for ..." },
+				{ "type": "SelectScript", "name": "statusbox_script", "caption": " ... \"StatusBox\"" },
+				{ "type": "SelectScript", "name": "webhook_script", "caption": " ... Webhook" }
 			],
-	"actions":
-			[
-			],		
 	"status":
 			[
 				{ "code": 101, "icon": "inactive", "caption": "Instance getting created" },

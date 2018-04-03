@@ -5,6 +5,18 @@
 			"download": "Download",
 			"upload": "Upload",
 
+			"optional data": "Zusatzdaten",
+			" ... information of Guest-WLAN": "Informationen zum Gast-WLAN",
+			" ... html-box with list of clients": "HTML-Box mit Anzeige der WLAN-Clients",
+
+			"alternate script to use for ...": "alternative Scripte zur Verwendung für ...",
+			" ... \"StatusBox\"": " ... \"StatusBox\"",
+			" ... Webhook": " ... Webhook",
+
+			"Guest-WLAN": "Gast-WLAN",
+			"WLAN": "WLAN",
+			"State of accesspoints / clients": "Status der Accesspoints / Clients",
+
 			"count of accesspoints": "Anzahl der Accesspoints",
 			"count of clients": "Anzahl der WLAN-Clients",
 

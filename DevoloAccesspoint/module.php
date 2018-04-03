@@ -397,7 +397,7 @@ class DevoloAccesspoint extends IPSModule
                 $this->SetValue('wlan_band', $band);
             }
 
-            $use_wlan_sid = $with_wlan_detail && ($wlan_unified || ($wlan_24['active'] == $wlan_5['active']) && $wlan_active);
+            $use_wlan_sid = $with_wlan_detail && ($wlan_unified || ($wlan_24['active'] != $wlan_5['active']) && $wlan_active);
             $this->MaintainVariable('wlan_sid', $this->Translate('SID'), IPS_STRING, '', $vpos++, $use_wlan_sid);
             if ($use_wlan_sid) {
                 $sid = $wlan_24['sid'] != '' ? $wlan_24['sid'] : $wlan_5['sid'];
@@ -410,7 +410,7 @@ class DevoloAccesspoint extends IPSModule
                 $this->SetValue('wlan24_sid', $wlan_24['sid']);
             }
 
-            $use_wlan5_sid = $with_wlan_detail && $wlan_5['active'] && !$use_wlan_sid && wlan_active;
+            $use_wlan5_sid = $with_wlan_detail && $wlan_5['active'] && !$use_wlan_sid && $wlan_active;
             $this->MaintainVariable('wlan5_sid', $this->Translate('SID 5'), IPS_STRING, '', $vpos++, $use_wlan5_sid);
             if ($use_wlan5_sid) {
                 $this->SetValue('wlan5_sid', $wlan_5['sid']);
@@ -436,8 +436,8 @@ class DevoloAccesspoint extends IPSModule
             }
         }
 
-        if (!$status_only) {
-            if (!$do_abort) {
+		if (!$do_abort) {
+			if (!$status_only) {
                 $this->MaintainVariable('receive', $this->Translate('receive data'), IPS_INTEGER, 'Devolo.TransferRate', $vpos++, $with_ap_detail);
                 $this->MaintainVariable('transmit', $this->Translate('transmit data'), IPS_INTEGER, 'Devolo.TransferRate', $vpos++, $with_ap_detail);
                 if ($with_ap_detail) {
@@ -470,35 +470,41 @@ class DevoloAccesspoint extends IPSModule
                         'wlan_5'       => $wlan_5,
                         'wlan_guest'   => $wlan_guest,
                     ];
+			} else {
+				$accesspoint = json_decode($this->GetBuffer('Accesspoint'), true);
+				$accesspoint['wlan_unified'] = $wlan_unified;
+				$accesspoint['wlan_24'] = $wlan_24;
+				$accesspoint['wlan_5'] = $wlan_5;
+				$accesspoint['wlan_guest'] = $wlan_guest;
+			}
 
-                $this->SendDebug(__FUNCTION__, 'accesspoint=' . print_r($accesspoint, true), 0);
-                $this->SetBuffer('Accesspoint', json_encode($accesspoint));
+			$this->SendDebug(__FUNCTION__, 'accesspoint=' . print_r($accesspoint, true), 0);
+			$this->SetBuffer('Accesspoint', json_encode($accesspoint));
 
-                $this->SetStatus(102);
-                $data = [
-                        'DataID'      => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
-                        'accesspoint' => $accesspoint
-                    ];
-                $this->SendDataToParent(json_encode($data));
-            }
+			$this->SetStatus(102);
+			$data = [
+					'DataID'      => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
+					'accesspoint' => $accesspoint
+				];
+			$this->SendDataToParent(json_encode($data));
+		}
 
-            if ($do_abort) {
-                $accesspoint = [
-                        'timestamp'    => $now,
-                        'pos'          => $ap_pos,
-                        'name'         => $ap_name,
-                        'hostname'     => $ap_hostname,
-                        'ip'           => $ap_ip,
-                        'mac'          => $ap_mac,
-                    ];
-                $data = [
-                        'DataID'      => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
-                        'accesspoint' => $accesspoint
-                    ];
-                $this->SendDataToParent(json_encode($data));
-                $this->SetBuffer('Accesspoint', '');
-            }
-        }
+		if ($do_abort) {
+			$accesspoint = [
+					'timestamp'    => $now,
+					'pos'          => $ap_pos,
+					'name'         => $ap_name,
+					'hostname'     => $ap_hostname,
+					'ip'           => $ap_ip,
+					'mac'          => $ap_mac,
+				];
+			$data = [
+					'DataID'      => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
+					'accesspoint' => $accesspoint
+				];
+			$this->SendDataToParent(json_encode($data));
+			$this->SetBuffer('Accesspoint', '');
+		}
     }
 
     public function RequestAction($Ident, $Value)
