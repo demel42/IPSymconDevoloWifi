@@ -256,7 +256,7 @@ class DevoloOverview extends IPSModule
         }
     }
 
-    public function SwitchWLAN(boolean $value)
+    public function SwitchWLAN(bool $value)
     {
         $instIDs = IPS_GetInstanceListByModuleID('{23D74FD6-2468-4239-9D37-83D39CC3FEC1}');
         foreach ($instIDs as $instID) {
@@ -264,7 +264,7 @@ class DevoloOverview extends IPSModule
         }
     }
 
-    public function SwitchGuestWLAN(boolean $value, integer $timeout = null)
+    public function SwitchGuestWLAN(bool $value, int $timeout = null)
     {
         $instIDs = IPS_GetInstanceListByModuleID('{23D74FD6-2468-4239-9D37-83D39CC3FEC1}');
         foreach ($instIDs as $instID) {

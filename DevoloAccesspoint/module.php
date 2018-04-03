@@ -524,7 +524,7 @@ class DevoloAccesspoint extends IPSModule
         }
     }
 
-    public function SwitchWLAN(boolean $value)
+    public function SwitchWLAN(bool $value)
     {
         $onoff = $value ? 'on' : 'off';
 
@@ -552,7 +552,7 @@ class DevoloAccesspoint extends IPSModule
         return $r;
     }
 
-    public function SwitchGuestWLAN(boolean $value, integer $timeout = null)
+    public function SwitchGuestWLAN(bool $value, int $timeout = null)
     {
         $onoff = $value ? 'on' : 'off';
         $tmout = $timeout != null && is_numeric($timeout) ? $timeout : 0;
