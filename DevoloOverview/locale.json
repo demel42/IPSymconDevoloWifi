@@ -5,6 +5,12 @@
 			"download": "Download",
 			"upload": "Upload",
 
+			"optional data of Guest-WLAN": "Zusatzdaten zum Gast-WLAN",
+			"Informations": "Informationen",
+
+			"Guest-WLAN": "Gast-WLAN",
+			"WLAN": "WLAN",
+
 			"count of accesspoints": "Anzahl der Accesspoints",
 			"count of clients": "Anzahl der WLAN-Clients",
 

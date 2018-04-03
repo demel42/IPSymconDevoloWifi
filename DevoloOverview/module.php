@@ -30,6 +30,14 @@ class DevoloOverview extends IPSModule
         $this->RegisterPropertyInteger('wan_download', 0);
         $this->RegisterPropertyInteger('wan_upload', 0);
 
+		$this->RegisterPropertyBoolean('with_guest_info', true);
+
+		$associations = [];
+		$associations[] = ['Wert' => 1, 'Name' => 'An'];
+		$associations[] = ['Wert' => 0, 'Name' => 'Aus'];
+		$associations[] = ['Wert' => -1, 'Name' => 'teilweise an'];
+		$this->CreateVarProfile('DevoloWifi.WLAN', IPS_INTEGER, '', 0, 0, 0, 1, 'Power', $associations);
+
         // Inspired by module SymconTest/HookServe
         // We need to call the RegisterHook function on Kernel READY
         $this->RegisterMessage(0, IPS_KERNELMESSAGE);
@@ -58,6 +66,27 @@ class DevoloOverview extends IPSModule
             parent::SetValue($Ident, $Value);
         } else {
             SetValue($this->GetIDForIdent($Ident), $Value);
+        }
+    }
+
+    // Variablenprofile erstellen
+    private function CreateVarProfile($Name, $ProfileType, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits, $Icon, $Asscociations = '')
+    {
+        if (!IPS_VariableProfileExists($Name)) {
+            IPS_CreateVariableProfile($Name, $ProfileType);
+            IPS_SetVariableProfileText($Name, '', $Suffix);
+            IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
+            IPS_SetVariableProfileDigits($Name, $Digits);
+            IPS_SetVariableProfileIcon($Name, $Icon);
+            if ($Asscociations != '') {
+                foreach ($Asscociations as $a) {
+                    $w = isset($a['Wert']) ? $a['Wert'] : '';
+                    $n = isset($a['Name']) ? $a['Name'] : '';
+                    $i = isset($a['Icon']) ? $a['Icon'] : '';
+                    $f = isset($a['Farbe']) ? $a['Farbe'] : 0;
+                    IPS_SetVariableProfileAssociation($Name, $w, $n, $i, $f);
+                }
+            }
         }
     }
 
@@ -113,6 +142,8 @@ class DevoloOverview extends IPSModule
 
     private function DecodeData($accesspoints)
     {
+		$with_guest_info = $this->ReadPropertyBoolean('with_guest_info');
+
         $accesspoint_n = 0;
         $client_n = 0;
         foreach ($accesspoints as $accesspoint) {
@@ -124,14 +155,105 @@ class DevoloOverview extends IPSModule
 
         $vpos = 0;
 
-        $this->MaintainVariable('accesspoints', $this->Translate('count of accesspoints'), IPS_INTEGER, '', $vpos, true);
+        $this->MaintainVariable('accesspoints', $this->Translate('count of accesspoints'), IPS_INTEGER, '', $vpos++, true);
         $this->SetValue('accesspoints', $accesspoint_n);
-        $vpos++;
 
-        $this->MaintainVariable('clients', $this->Translate('count of clients'), IPS_INTEGER, '', $vpos, true);
+        $this->MaintainVariable('clients', $this->Translate('count of clients'), IPS_INTEGER, '', $vpos++, true);
         $this->SetValue('clients', $client_n);
-        $vpos++;
+
+		$n_guest_active = 0;
+		$n_guest_inactive = 0;
+		$n_wlan_active = 0;
+		$n_wlan_inactive = 0;
+
+		$instIDs = IPS_GetInstanceListByModuleID("{23D74FD6-2468-4239-9D37-83D39CC3FEC1}");
+		foreach ($instIDs as $instID) {
+			$r = IPS_GetObject ($instID);
+			$childIDs = $r['ChildrenIDs'];
+			foreach ($childIDs as $childID) {
+				$r = IPS_GetObject ($childID);
+				if ($r['ObjectIdent'] == 'wlan_active') {
+					if (GetValueBoolean($r['ObjectID'])) {
+						$n_wlan_active++;
+					} else {
+						$n_wlan_inactive++;
+					}
+				}
+				if ($r['ObjectIdent'] == 'guest_active') {
+					if (GetValueBoolean($r['ObjectID'])) {
+						$n_guest_active++;
+					} else {
+						$n_guest_inactive++;
+					}
+				}
+			}
+		}
+
+		if ($n_wlan_active && $n_wlan_inactive) {
+			$total_wlan_active = -1;
+		} else if ($n_wlan_active) {
+			$total_wlan_active = 1;
+		} else if ($n_wlan_inactive) {
+			$total_wlan_active = 0;
+		}
+		$this->MaintainVariable('total_wlan_active', $this->Translate('WLAN'), IPS_INTEGER, 'DevoloWifi.WLAN', $vpos++, true);
+        $this->SetValue('total_wlan_active', $total_wlan_active);
+		$this->EnableAction('total_wlan_active');
+
+		if ($n_guest_active && $n_guest_inactive) {
+			$total_guest_active = -1;
+		} else if ($n_guest_active) {
+			$total_guest_active = 1;
+		} else if ($n_guest_inactive) {
+			$total_guest_active = 0;
+		}
+		$this->MaintainVariable('total_guest_active', $this->Translate('Guest-WLAN'), IPS_INTEGER, 'DevoloWifi.WLAN', $vpos++, $with_guest_info);
+		if ($with_guest_info) {
+			$this->SetValue('total_guest_active', $total_guest_active);
+			$this->EnableAction('total_guest_active');
+		}
     }
+
+    public function RequestAction($Ident, $Value)
+    {
+        $setopt_url = '/cgi-bin/htmlmgr';
+
+        switch ($Ident) {
+            case 'total_wlan_active':
+				if ($Value != 0 && $Value != 1) {
+					$this->SendDebug(__FUNCTION__, "unusable value $Value for Ident $Ident", 0);
+					break;
+				}
+				$this->SwitchWLAN($Value);
+                break;
+            case 'total_guest_active':
+				if ($Value != 0 && $Value != 1) {
+					$this->SendDebug(__FUNCTION__, "unusable value $Value for Ident $Ident", 0);
+					break;
+				}
+				$this->SwitchGuestWLAN($Value);
+                break;
+            default:
+                $this->SendDebug(__FUNCTION__, "invalid ident $Ident", 0);
+                break;
+        }
+    }
+
+	public function SwitchWLAN(boolean $value)
+	{
+		$instIDs = IPS_GetInstanceListByModuleID("{23D74FD6-2468-4239-9D37-83D39CC3FEC1}");
+		foreach ($instIDs as $instID) {
+			DevoloAP_SwitchWLAN($instID, $value);
+		}
+	}
+
+	public function SwitchGuestWLAN(boolean $value, integer $timeout = null)
+	{
+		$instIDs = IPS_GetInstanceListByModuleID("{23D74FD6-2468-4239-9D37-83D39CC3FEC1}");
+		foreach ($instIDs as $instID) {
+			DevoloAP_SwitchGuestWLAN($instID, $value, $timeout);
+		}
+	}
 
     // Inspired from module SymconTest/HookServe
     private function RegisterHook($WebHook)
@@ -280,10 +402,9 @@ class DevoloOverview extends IPSModule
         $html .= "<tr class=\"row_title\">\n";
         $html .= "<th>Accesspoint</th>\n";
         $html .= "<th>IP</th>\n";
-        $html .= "<th>MAC</th>\n";
         $html .= "<th>dLAN-Name</th>\n";
-        $html .= "<th>Datenempfang</th>\n";
-        $html .= "<th>Dateübertragung</th>\n";
+        $html .= "<th>Empfangen</th>\n";
+        $html .= "<th>Senden</th>\n";
         $html .= "<th>max. Download</th>\n";
         $html .= "<th>max. Upload</th>\n";
         $html .= "</tr>\n";
@@ -307,7 +428,6 @@ class DevoloOverview extends IPSModule
                 $html .= "<tr class=\"row_$row_no\">\n";
                 $html .= "<td><a href=\"$url\">$name</a></td>\n";
                 $html .= "<td>$ip</td>\n";
-                $html .= "<td class=\"monospace\">$mac</td>\n";
                 $html .= "<td>$dlan_name</td>\n";
                 $html .= "<td class=\"right-align\">$receive Mbit/s</td>\n";
                 $html .= "<td class=\"right-align\">$transmit Mbit/s</td>\n";

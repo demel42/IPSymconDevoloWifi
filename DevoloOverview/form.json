@@ -3,11 +3,11 @@
 			[
 				{ "type": "Label", "label": "rate of LAN/WAN (in MBit/s)" },
 				{ "type": "NumberSpinner", "name": "wan_download", "caption": "download" },
-				{ "type": "NumberSpinner", "name": "wan_upload", "caption": "upload" }
+				{ "type": "NumberSpinner", "name": "wan_upload", "caption": "upload" },
+
+				{ "type": "Label", "label": "optional data of Guest-WLAN" },
+				{ "type": "CheckBox", "name": "with_guest_info", "caption": "Informations" }
 			],
-	"actions":
-			[
-			],		
 	"status":
 			[
 				{ "code": 101, "icon": "inactive", "caption": "Instance getting created" },
