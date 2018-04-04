@@ -45,8 +45,8 @@ class DevoloAccesspoint extends IPSModule
 
         $this->CreateVarProfile('Devolo.TransferRate', IPS_INTEGER, ' Mbit/s', 0, 300, 0, 0, '');
 
-		$associations = [];
-		$associations[] = ['Wert' =>  0, 'Name' => '-'];
+        $associations = [];
+        $associations[] = ['Wert' =>  0, 'Name' => '-'];
         $this->CreateVarProfile('Devolo.Timeout', IPS_INTEGER, ' min', 0, 0, 0, 0, 'Clock', $associations);
     }
 
