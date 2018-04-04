@@ -300,6 +300,18 @@ class DevoloOverview extends IPSModule
     {
         $accesspoints = json_decode($data, true);
 
+		$total_guest_active = false;
+        if ($accesspoints != '') {
+            foreach ($accesspoints as $accesspoint) {
+				if (isset($accesspoint['wlan_guest'])) {
+					if ($accesspoint['wlan_guest']['active']) {
+                        $total_guest_active = true;
+						break;
+					}
+				}
+			}
+		}
+
         $html = '';
 
         $html .= "<style>\n";
@@ -319,13 +331,14 @@ class DevoloOverview extends IPSModule
         $html .= "<th>Frequenz</th>\n";
         $html .= "<th>Übertragungsrate</th>\n";
         $html .= "<th>verbunden seit</th>\n";
-        $html .= "<th>Gast</th>\n";
+		if ($total_guest_active) {
+        	$html .= "<th>Gast</th>\n";
+		}
         $html .= "</tr>\n";
         $html .= "</thead>\n";
         $html .= "<tdata>\n";
 
         if ($accesspoints != '') {
-            usort($accesspoints, ['DevoloOverview', 'cmp_accesspoint']);
             foreach ($accesspoints as $accesspoint) {
                 $ap_name = $accesspoint['name'];
 
@@ -333,31 +346,33 @@ class DevoloOverview extends IPSModule
                 $html .= "<td colspan=\"6\">$ap_name</td>\n";
                 $html .= "</tr>\n";
 
-                if (isset($accesspoint['clients'])) {
-                    $clients = $accesspoint['clients'];
-                    if ($clients != '') {
-                        usort($clients, ['DevoloOverview', 'cmp_client']);
-                        $row_no = 0;
-                        foreach ($clients as $client) {
-                            $ip = $client['ip'];
-                            $name = $client['name'];
-                            $band = $client['band'];
-                            $rate = $client['rate'];
-                            $time = date('d.m. H:i', $client['connected_ts']);
-                            $guest = $client['guest'] ? 'Ja' : 'Nein';
+				if (isset($accesspoint['clients'])) {
+					$clients = $accesspoint['clients'];
+					if ($clients != '') {
+						usort($clients, ['DevoloOverview', 'cmp_client']);
+						$row_no = 0;
+						foreach ($clients as $client) {
+							$ip = $client['ip'];
+							$name = $client['name'];
+							$band = $client['band'];
+							$rate = $client['rate'];
+							$time = date('d.m. H:i', $client['connected_ts']);
+							$guest = $client['guest'] ? 'Ja' : 'Nein';
 
-                            $html .= "<tr class=\"row_$row_no\">\n";
-                            $html .= "<td>&emsp;$name</td>\n";
-                            $html .= "<td>$ip</td>\n";
-                            $html .= "<td class=\"right-align\">$band GHz</td>\n";
-                            $html .= "<td class=\"right-align\">$rate Mbit/s</td>\n";
-                            $html .= "<td>$time</td>\n";
-                            $html .= "<td>$guest</td>\n";
-                            $html .= "</tr>\n";
-                            $row_no = $row_no ? 0 : 1;
-                        }
-                    }
-                }
+							$html .= "<tr class=\"row_$row_no\">\n";
+							$html .= "<td>&emsp;$name</td>\n";
+							$html .= "<td>$ip</td>\n";
+							$html .= "<td class=\"right-align\">$band GHz</td>\n";
+							$html .= "<td class=\"right-align\">$rate Mbit/s</td>\n";
+							$html .= "<td>$time</td>\n";
+							if ($total_guest_active) {
+								$html .= "<td>$guest</td>\n";
+							}
+							$html .= "</tr>\n";
+							$row_no = $row_no ? 0 : 1;
+						}
+					}
+				}
             }
         }
 
@@ -386,6 +401,18 @@ class DevoloOverview extends IPSModule
         $accesspoints = json_decode($s, true);
 
         $this->SendDebug(__FUNCTION__, 'accesspoints=' . print_r($accesspoints, true), 0);
+
+		$total_guest_active = false;
+        if ($accesspoints != '') {
+            foreach ($accesspoints as $accesspoint) {
+				if (isset($accesspoint['wlan_guest'])) {
+					if ($accesspoint['wlan_guest']['active']) {
+                        $total_guest_active = true;
+						break;
+					}
+				}
+			}
+		}
 
         $html = '';
 
@@ -422,9 +449,8 @@ class DevoloOverview extends IPSModule
 
         $html .= "<table>\n";
         $html .= "<colgroup>\n";
-        $html .= "<col width=30%>\n";
+        $html .= "<col width=25%>\n";
         $html .= "<col>\n";
-        $html .= "<col id=\"spalte_mac\">\n";
         $html .= "<col>\n";
         $html .= "<col>\n";
         $html .= "<col>\n";
@@ -438,7 +464,9 @@ class DevoloOverview extends IPSModule
         $html .= "<th>Frequenz</th>\n";
         $html .= "<th>Übertragungsrate</th>\n";
         $html .= "<th>verbunden seit</th>\n";
-        $html .= "<th>Gast</th>\n";
+		if ($total_guest_active) {
+			$html .= "<th>Gast</th>\n";
+		}
         $html .= "</tr>\n";
         $html .= "</thead>\n";
         $html .= "<tdata>\n";
@@ -452,31 +480,35 @@ class DevoloOverview extends IPSModule
                 $html .= "<td colspan=\"7\">$ap_name</td>\n";
                 $html .= "</tr>\n";
 
-                $clients = $accesspoint['clients'];
-                if ($clients != '') {
-                    usort($clients, ['DevoloOverview', 'cmp_client']);
-                    $row_no = 0;
-                    foreach ($clients as $client) {
-                        $mac = $client['mac'];
-                        $ip = $client['ip'];
-                        $name = $client['name'];
-                        $band = $client['band'];
-                        $rate = $client['rate'];
-                        $time = date('d.m. H:i', $client['connected_ts']);
-                        $guest = $client['guest'] ? 'Ja' : 'Nein';
+				if (isset($accesspoint['clients'])) {
+					$clients = $accesspoint['clients'];
+					if ($clients != '') {
+						usort($clients, ['DevoloOverview', 'cmp_client']);
+						$row_no = 0;
+						foreach ($clients as $client) {
+							$mac = $client['mac'];
+							$ip = $client['ip'];
+							$name = $client['name'];
+							$band = $client['band'];
+							$rate = $client['rate'];
+							$time = date('d.m. H:i', $client['connected_ts']);
+							$guest = $client['guest'] ? 'Ja' : 'Nein';
 
-                        $html .= "<tr class=\"row_$row_no\">\n";
-                        $html .= "<td>&emsp;$name</td>\n";
-                        $html .= "<td>$ip</td>\n";
-                        $html .= "<td class=\"monospace\">$mac</td>\n";
-                        $html .= "<td class=\"right-align\">$band GHz</td>\n";
-                        $html .= "<td class=\"right-align\">$rate Mbit/s</td>\n";
-                        $html .= "<td>$time</td>\n";
-                        $html .= "<td>$guest</td>\n";
-                        $html .= "</tr>\n";
-                        $row_no = $row_no ? 0 : 1;
-                    }
-                }
+							$html .= "<tr class=\"row_$row_no\">\n";
+							$html .= "<td>&emsp;$name</td>\n";
+							$html .= "<td>$ip</td>\n";
+							$html .= "<td class=\"monospace\">$mac</td>\n";
+							$html .= "<td class=\"right-align\">$band GHz</td>\n";
+							$html .= "<td class=\"right-align\">$rate Mbit/s</td>\n";
+							$html .= "<td>$time</td>\n";
+							if ($total_guest_active) {
+								$html .= "<td>$guest</td>\n";
+							}
+							$html .= "</tr>\n";
+							$row_no = $row_no ? 0 : 1;
+						}
+					}
+				}
             }
         }
 
@@ -490,7 +522,6 @@ class DevoloOverview extends IPSModule
         $html .= "<colgroup>\n";
         $html .= "<col>\n";
         $html .= "<col>\n";
-        $html .= "<col id=\"spalte_mac\">\n";
         $html .= "<col>\n";
         $html .= "<col>\n";
         $html .= "<col>\n";
@@ -515,11 +546,21 @@ class DevoloOverview extends IPSModule
                 $name = $accesspoint['name'];
                 $ip = $accesspoint['ip'];
                 $mac = $accesspoint['mac'];
-                $dlan_name = $accesspoint['dlan_name'];
-                $receive = $accesspoint['receive'];
-                $transmit = $accesspoint['transmit'];
-                $download = $receive > $wan_download ? $wan_download : $receive;
-                $upload = $transmit > $wan_upload ? $wan_upload : $transmit;
+				$dlan_name = isset($accesspoint['dlan_name']) ? $accesspoint['dlan_name'] : '';
+				if (isset($accesspoint['receive'])) {
+					$receive = $accesspoint['receive'];
+					$download = $receive > $wan_download ? $wan_download : $receive;
+				} else {
+					$receive = '';
+					$download = '';
+				}
+				if (isset($accesspoint['transmit'])) {
+					$transmit = $accesspoint['transmit'];
+					$upload = $transmit > $wan_upload ? $wan_upload : $transmit;
+				} else {
+					$transmit = '';
+					$upload = '';
+				}
 
                 $url = 'http://' . $name . '/cgi-bin/htmlmgr?_file=/wgl/main.wgl&_page=home&_dir=status';
 
