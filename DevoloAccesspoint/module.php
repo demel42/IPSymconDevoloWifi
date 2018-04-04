@@ -33,9 +33,9 @@ class DevoloAccesspoint extends IPSModule
 
         $this->RegisterPropertyBoolean('with_ap_detail', true);
         $this->RegisterPropertyBoolean('with_wlan_info', true);
-        $this->RegisterPropertyBoolean('with_wlan_detail', true);
-        $this->RegisterPropertyBoolean('with_guest_info', true);
-        $this->RegisterPropertyBoolean('with_guest_detail', true);
+        $this->RegisterPropertyBoolean('with_wlan_detail', false);
+        $this->RegisterPropertyBoolean('with_guest_info', false);
+        $this->RegisterPropertyBoolean('with_guest_detail', false);
 
         $this->RegisterPropertyInteger('UpdateDataInterval', 5);
 
@@ -45,8 +45,8 @@ class DevoloAccesspoint extends IPSModule
 
         $this->CreateVarProfile('Devolo.TransferRate', IPS_INTEGER, ' Mbit/s', 0, 300, 0, 0, '');
 
-        $associations = [];
-        $associations[] = ['Wert' =>  0, 'Name' => '-'];
+		$associations = [];
+		$associations[] = ['Wert' =>  0, 'Name' => '-'];
         $this->CreateVarProfile('Devolo.Timeout', IPS_INTEGER, ' min', 0, 0, 0, 0, 'Clock', $associations);
     }
 
