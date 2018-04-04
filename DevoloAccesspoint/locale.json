@@ -29,7 +29,7 @@
 			"count of clients": "Anzahl der WLAN-Clients",
 			"Guest-WLAN": "Gast-WLAN",
 			"Guest-SID": "SID des Gast-WLAN",
-			"Guest-Timeout": "Begrenzungszeit des Gast-WLAN",
+			"Guest-Timeout": "Abschaltung des Gast-WLAN",
 			"Hostname": "Hostname",
 			"IP-Address": "IP-Adresse",
 			"last status": "letzter Status",

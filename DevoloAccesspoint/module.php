@@ -44,6 +44,10 @@ class DevoloAccesspoint extends IPSModule
         $this->ConnectParent('{C3550FAA-C939-4E85-BA63-7C4DE72ED487}');
 
         $this->CreateVarProfile('Devolo.TransferRate', IPS_INTEGER, ' Mbit/s', 0, 300, 0, 0, '');
+
+		$associations = [];
+		$associations[] = ['Wert' =>  0, 'Name' => '-'];
+        $this->CreateVarProfile('Devolo.Timeout', IPS_INTEGER, ' min', 0, 0, 0, 0, 'Clock', $associations);
     }
 
     public function ApplyChanges()
@@ -282,7 +286,7 @@ class DevoloAccesspoint extends IPSModule
                         if ($tm) {
                             $time = date_format($tm, 'U');
                         }
-                        $guest = ($station['AP'] == '1') ? '(Gast)' : '';
+                        $guest = $station['AP'] == '1';
 
                         $client = [
                                 'ip'           => $ip,
@@ -424,7 +428,7 @@ class DevoloAccesspoint extends IPSModule
             }
 
             $use_guest_timeout = $with_guest_detail && $guest_active && $wlan_guest['timeout'] > 0;
-            $this->MaintainVariable('guest_timeout', $this->Translate('Guest-Timeout'), IPS_INTEGER, '', $vpos++, $use_guest_timeout);
+            $this->MaintainVariable('guest_timeout', $this->Translate('Guest-Timeout'), IPS_INTEGER, 'Devolo.Timeout', $vpos++, $use_guest_timeout);
             if ($use_guest_timeout) {
                 $this->SetValue('guest_timeout', $wlan_guest['timeout']);
             }
