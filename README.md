@@ -222,9 +222,9 @@ mit diesen Scripten kann man eine alternative Darstellung realisieren.
 Ein passendes Code-Fragment für ein Script:
 
 ```
-$data = NetatmoWeatherDevice_GetRawData($_IPS['InstanceID']);
+$data = DevoloOverview_GetRawData($_IPS['InstanceID']);
 if ($data) {
-	$station = json_decode($r,true);
+	$accesspoints = json_decode($r,true);
 	...
 	echo $result;
 }
