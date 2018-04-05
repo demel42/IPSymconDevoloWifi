@@ -216,6 +216,22 @@ Daten siehe _DevoloAP_GetRawData_, nur wird ein array von _accesspoint_ übergeb
 
 - _wan_download_, _wan_upload_: nur zur Darstellung der maximalen Transferaten mit dem Internet.
 
+- _statusbox_script_, _webhook_script_:
+mit diesen Scripten kann man eine alternative Darstellung realisieren.
+
+Ein passendes Code-Fragment für ein Script:
+
+```
+$data = NetatmoWeatherDevice_GetRawData($_IPS['InstanceID']);
+if ($data) {
+	$station = json_decode($r,true);
+	...
+	echo $result;
+}
+```
+Die Beschreibung der Struktur siehe _NetatmoWeatherDevice_GetRawData()_.
+
+Beispiel in module.php sind _Build_StatusBox()_ und _ProcessHook_Status()_.
 ### Variablenprofile
 
 * Integer<br>
