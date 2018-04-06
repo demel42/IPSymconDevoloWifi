@@ -6,12 +6,12 @@ Modul für IP-Symcon ab Version 4.
 
 **Inhaltsverzeichnis**
 
-1. [Funktionsumfang](#1-funktionsumfang)  
-2. [Voraussetzungen](#2-voraussetzungen)  
-3. [Installation](#3-installation)  
+1. [Funktionsumfang](#1-funktionsumfang)
+2. [Voraussetzungen](#2-voraussetzungen)
+3. [Installation](#3-installation)
 4. [Funktionsreferenz](#4-funktionsreferenz)
-5. [Konfiguration](#5-konfiguration)  
-6. [Anhang](#6-anhang)  
+5. [Konfiguration](#5-konfiguration)
+6. [Anhang](#6-anhang)
 
 ## 1. Funktionsumfang
 
@@ -49,14 +49,14 @@ Zusätzlich kann man eine Instanz _DevoloOverview_ anlegen, hier bekommt man ein
 Die IP-Symcon (min Ver. 4.x) Konsole öffnen. Im Objektbaum unter Kerninstanzen die Instanz __*Modules*__ durch einen doppelten Mausklick öffnen.
 
 In der _Modules_ Instanz rechts oben auf den Button __*Hinzufügen*__ drücken.
- 
+
 In dem sich öffnenden Fenster folgende URL hinzufügen:
 
 `https://github.com/demel42/IPSymconDevoloWifi.git`
-    
-und mit _OK_ bestätigen.    
-        
-Anschließend erscheint ein Eintrag für das Modul in der Liste der Instanz _Modules_    
+
+und mit _OK_ bestätigen.
+
+Anschließend erscheint ein Eintrag für das Modul in der Liste der Instanz _Modules_
 
 ### b. Einrichtung in IPS
 
@@ -71,7 +71,7 @@ Die Variablen zu der Instanz werden bei der Abfrage von Daten angelegt und auch 
 
 Hier stehen die Möglichkeiten zur Verfügung; das WLAN und das Gast-WLAN des Accesspoints aus- und einzuschalten.
 
-Die Instanz von _DevoloOverview_ legt einen WebHook an, der eine Übersicht als Webseite anbietet (_/hook/DevoloOverview/status_) sowie optional als HTMÖ-Box; beide Ausgaben können alternativ über ein Script gefüllt werden.
+Die Instanz von _DevoloOverview_ legt einen WebHook an, der eine Übersicht als Webseite anbietet (_/hook/DevoloOverview/status_) sowie optional als HTML-Box; beide Ausgaben können alternativ über ein Script gefüllt werden.
 
 Hier stehen die Möglichkeiten zur Verfügung; das gesamte WLAN und das Gast-WLAN aus- und einzuschalten.
 
@@ -239,4 +239,8 @@ Devolo.TransferRate, Devolo.Timeout
 
 ## 6. Anhang
 
-GUID: `{17E46487-5653-4131-83E9-76E2A73D7DBA}` 
+GUIDs
+- Modul: `{17E46487-5653-4131-83E9-76E2A73D7DBA}`
+
+- DevoloAccesspoint: `{23D74FD6-2468-4239-9D37-83D39CC3FEC1}`
+- DevoloOverview: `{C3550FAA-C939-4E85-BA63-7C4DE72ED487}`
