@@ -339,6 +339,7 @@ class DevoloOverview extends IPSModule
         $html .= "<tdata>\n";
 
         if ($accesspoints != '') {
+            usort($accesspoints, ['DevoloOverview', 'cmp_accesspoint']);
             foreach ($accesspoints as $accesspoint) {
                 $ap_name = $accesspoint['name'];
 
