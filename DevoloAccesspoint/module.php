@@ -514,8 +514,6 @@ class DevoloAccesspoint extends IPSModule
 
     public function RequestAction($Ident, $Value)
     {
-        $setopt_url = '/cgi-bin/htmlmgr';
-
         switch ($Ident) {
             case 'wlan_active':
                 $this->SwitchWLAN($Value);
