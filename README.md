@@ -241,6 +241,7 @@ Devolo.TransferRate, Devolo.Timeout
 
 GUIDs
 - Modul: `{17E46487-5653-4131-83E9-76E2A73D7DBA}`
-
 - DevoloAccesspoint: `{23D74FD6-2468-4239-9D37-83D39CC3FEC1}`
 - DevoloOverview: `{C3550FAA-C939-4E85-BA63-7C4DE72ED487}`
+- Nachrichten:
+  - `{232A0372-880F-4535-AF1E-8ECF0C7EEF00}`: an DevoloOverview
