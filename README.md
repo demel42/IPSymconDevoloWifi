@@ -246,3 +246,4 @@ GUIDs
   - DevoloOverview: `{C3550FAA-C939-4E85-BA63-7C4DE72ED487}`
 - Nachrichten:
   - `{232A0372-880F-4535-AF1E-8ECF0C7EEF00}`: an DevoloOverview
+  - `{68DFE4E1-13BA-4CB0-97C7-3624436869F2}`: an DevoloAccesspoint
