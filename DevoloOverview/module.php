@@ -67,20 +67,20 @@ class DevoloOverview extends IPSModule
 
     protected function SetValue($Ident, $Value)
     {
-		@$varID = $this->GetIDForIdent($Ident);
-		if ($varID == false) {
-			$this->SendDebug(__FUNCTION__, 'missing variable ' . $Ident, 0);
-			return;
-		}
+        @$varID = $this->GetIDForIdent($Ident);
+        if ($varID == false) {
+            $this->SendDebug(__FUNCTION__, 'missing variable ' . $Ident, 0);
+            return;
+        }
 
         if (IPS_GetKernelVersion() >= 5) {
             $ret = parent::SetValue($Ident, $Value);
         } else {
-			$ret = SetValue($varID, $Value);
+            $ret = SetValue($varID, $Value);
         }
-		if ($ret == false) {
-			echo "fehlerhafter Datentyp: $Ident=\"$Value\"";
-		}
+        if ($ret == false) {
+            echo "fehlerhafter Datentyp: $Ident=\"$Value\"";
+        }
     }
 
     // Variablenprofile erstellen
@@ -267,16 +267,16 @@ class DevoloOverview extends IPSModule
 
     public function SwitchWLAN(bool $value)
     {
-		$data = ['DataID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}', 'Function' => 'SwitchWLAN', 'Value' => $value];
-		$this->SendDebug(__FUNCTION__, 'data=' . print_r($data, true), 0);
-		$this->SendDataToChildren(json_encode($data));
+        $data = ['DataID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}', 'Function' => 'SwitchWLAN', 'Value' => $value];
+        $this->SendDebug(__FUNCTION__, 'data=' . print_r($data, true), 0);
+        $this->SendDataToChildren(json_encode($data));
     }
 
     public function SwitchGuestWLAN(bool $value, int $timeout = null)
     {
-		$data = ['DataID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}', 'Function' => 'SwitchGuestWLAN', 'Value' => $value, 'Timeout' => $timeout];
-		$this->SendDebug(__FUNCTION__, 'data=' . print_r($data, true), 0);
-		$this->SendDataToChildren(json_encode($data));
+        $data = ['DataID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}', 'Function' => 'SwitchGuestWLAN', 'Value' => $value, 'Timeout' => $timeout];
+        $this->SendDebug(__FUNCTION__, 'data=' . print_r($data, true), 0);
+        $this->SendDataToChildren(json_encode($data));
     }
 
     // Inspired from module SymconTest/HookServe

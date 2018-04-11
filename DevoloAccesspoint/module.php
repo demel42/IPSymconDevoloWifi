@@ -67,20 +67,20 @@ class DevoloAccesspoint extends IPSModule
 
     protected function SetValue($Ident, $Value)
     {
-		@$varID = $this->GetIDForIdent($Ident);
-		if ($varID == false) {
-			$this->SendDebug(__FUNCTION__, 'missing variable ' . $Ident, 0);
-			return;
-		}
+        @$varID = $this->GetIDForIdent($Ident);
+        if ($varID == false) {
+            $this->SendDebug(__FUNCTION__, 'missing variable ' . $Ident, 0);
+            return;
+        }
 
         if (IPS_GetKernelVersion() >= 5) {
             $ret = parent::SetValue($Ident, $Value);
         } else {
-			$ret = SetValue($varID, $Value);
+            $ret = SetValue($varID, $Value);
         }
-		if ($ret == false) {
-			echo "fehlerhafter Datentyp: $Ident=\"$Value\"";
-		}
+        if ($ret == false) {
+            echo "fehlerhafter Datentyp: $Ident=\"$Value\"";
+        }
     }
 
     // Variablenprofile erstellen
@@ -538,36 +538,36 @@ class DevoloAccesspoint extends IPSModule
         }
     }
 
-	public function ReceiveData($data)
-	{
-		$jdata = json_decode($data);
-		$this->SendDebug(__FUNCTION__, 'data=' . print_r($jdata, true), 0);
-		if (isset($jdata->Function)) {
-			switch ($jdata->Function) {
-				case 'SwitchWLAN':
-					$this->SwitchWLAN($jdata->Value);
-					break;
-				case 'SwitchGuestWLAN':
-					$this->SwitchGuestWLAN($jdata->Value, $jdata->Timeout);
-					break;
-				default:
-					$this->SendDebug(__FUNCTION__, 'unknown function "' . $jdata->Function . '"', 0);
-					break;
-			}
-		} else {
-			$this->SendDebug(__FUNCTION__, 'unknown message-structure', 0);
-		}
-	}
+    public function ReceiveData($data)
+    {
+        $jdata = json_decode($data);
+        $this->SendDebug(__FUNCTION__, 'data=' . print_r($jdata, true), 0);
+        if (isset($jdata->Function)) {
+            switch ($jdata->Function) {
+                case 'SwitchWLAN':
+                    $this->SwitchWLAN($jdata->Value);
+                    break;
+                case 'SwitchGuestWLAN':
+                    $this->SwitchGuestWLAN($jdata->Value, $jdata->Timeout);
+                    break;
+                default:
+                    $this->SendDebug(__FUNCTION__, 'unknown function "' . $jdata->Function . '"', 0);
+                    break;
+            }
+        } else {
+            $this->SendDebug(__FUNCTION__, 'unknown message-structure', 0);
+        }
+    }
 
     public function SwitchWLAN(bool $value)
     {
         $onoff = $value ? 'on' : 'off';
 
         $accesspoint = json_decode($this->GetBuffer('Accesspoint'), true);
-		if ($accesspoint == '') {
-			$this->SendDebug(__FUNCTION__, 'query must be done before', 0);
-			return false;
-		}
+        if ($accesspoint == '') {
+            $this->SendDebug(__FUNCTION__, 'query must be done before', 0);
+            return false;
+        }
         $dlan_type = $accesspoint['dlan_type'];
         switch ($dlan_type) {
             case 'dLAN 550 WiFi':
@@ -597,10 +597,10 @@ class DevoloAccesspoint extends IPSModule
         $tmout = $timeout != null && is_numeric($timeout) ? $timeout : 0;
 
         $accesspoint = json_decode($this->GetBuffer('Accesspoint'), true);
-		if ($accesspoint == '') {
-			$this->SendDebug(__FUNCTION__, 'query must be done before', 0);
-			return false;
-		}
+        if ($accesspoint == '') {
+            $this->SendDebug(__FUNCTION__, 'query must be done before', 0);
+            return false;
+        }
         $dlan_type = $accesspoint['dlan_type'];
         switch ($dlan_type) {
             case 'dLAN 550 WiFi':
@@ -650,7 +650,7 @@ class DevoloAccesspoint extends IPSModule
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-		$this->SendDebug(__FUNCTION__, 'url=' . $url . ', httpcode=' . $httpcode, 0);
+        $this->SendDebug(__FUNCTION__, 'url=' . $url . ', httpcode=' . $httpcode, 0);
 
         $statuscode = 0;
         $err = '';
@@ -710,7 +710,7 @@ class DevoloAccesspoint extends IPSModule
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-		$this->SendDebug(__FUNCTION__, 'url=' . $url . ', httpcode=' . $httpcode, 0);
+        $this->SendDebug(__FUNCTION__, 'url=' . $url . ', httpcode=' . $httpcode, 0);
 
         $statuscode = 0;
         $err = '';
