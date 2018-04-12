@@ -188,12 +188,14 @@ Daten siehe _DevoloAP_GetRawData_, nur wird ein array von _accesspoint_ übergeb
 | with_wlan_detail          | boolean  | true         | SID(s) |
 | with_guest_info           | boolean  | false        | Gast-WLAN aktiv? |
 | with_guest_detail         | boolean  | false        | SID, Timeout |
+| visibility_script         | integer  |              | Script um die SIchtbarkeit von Variablen zu steuern |
 | wan_port                  | integer  | 0            | Ethernetport, an den das WNA/LAN angeschlossen ist |
 | wan_bridge                | integer  |              | dLAN-Adpter, der die Verbinung zum WAN/LAN darstellt |
 | UpdateDataInterval        | integer  | 5            | Angabe in Minuten |
 
 - _wan_port_: hier ist der Ethernet-Port des dLAN-Accesspoints der z.B. mit dem Router verbunden ist
 - _wan_bridge_: wenn die Verbindung des zum WAN nicht über einen Ethernetport des Accesspoints hergestellt wird, versucht er unter den Adaptern den zu finden, der verbunden ist. Das geht aber ja nur bei den dLAN-Accesspoints - ist es ein reiner dLAN-Adapter, kann dessen MAC-Adresse hier eingtragen werden.
+- _visibility_script_: diese optionale Script ermöglicht es dem Anwender, Variablen in Abhängigkeit von Variable auszublenden (z.B. keine Details zum Gast-WLAN, wenn das aus ist). Ein Muster eines solchen Scriptes ist _libs/DevoloVisibility.php_.
 
 #### Schaltflächen
 
