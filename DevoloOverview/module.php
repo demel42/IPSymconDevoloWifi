@@ -62,6 +62,18 @@ class DevoloOverview extends IPSModule
     {
         parent::ApplyChanges();
 
+        $with_guest_info = $this->ReadPropertyBoolean('with_guest_info');
+        $with_status_box = $this->ReadPropertyBoolean('with_status_box');
+
+        $vpos = 0;
+        $this->MaintainVariable('accesspoints', $this->Translate('count of accesspoints'), IPS_INTEGER, '', $vpos++, true);
+        $this->MaintainVariable('clients', $this->Translate('count of clients'), IPS_INTEGER, '', $vpos++, true);
+        $this->MaintainVariable('StatusBox', $this->Translate('State of accesspoints / clients'), IPS_STRING, '~HTMLBox', $vpos++, $with_status_box);
+        $this->MaintainVariable('total_wlan_active', $this->Translate('WLAN'), IPS_INTEGER, 'DevoloWifi.WLAN', $vpos++, true);
+        $this->MaintainAction('total_wlan_active', true);
+        $this->MaintainVariable('total_guest_active', $this->Translate('Guest-WLAN'), IPS_INTEGER, 'DevoloWifi.WLAN', $vpos++, $with_guest_info);
+		$this->MaintainAction('total_guest_active', $with_guest_info);
+
         $this->SetStatus(102);
     }
 
@@ -79,7 +91,7 @@ class DevoloOverview extends IPSModule
             $ret = SetValue($varID, $Value);
         }
         if ($ret == false) {
-            echo "fehlerhafter Datentyp: $Ident=\"$Value\"";
+            $this->SendDebug(__FUNCTION__, 'mismatch of value "' . $Value . '" to variable ' . $Ident, 0);
         }
     }
 
@@ -168,15 +180,8 @@ class DevoloOverview extends IPSModule
             }
         }
 
-        $vpos = 0;
-
-        $this->MaintainVariable('accesspoints', $this->Translate('count of accesspoints'), IPS_INTEGER, '', $vpos++, true);
         $this->SetValue('accesspoints', $accesspoint_n);
-
-        $this->MaintainVariable('clients', $this->Translate('count of clients'), IPS_INTEGER, '', $vpos++, true);
         $this->SetValue('clients', $client_n);
-
-        $this->MaintainVariable('StatusBox', $this->Translate('State of accesspoints / clients'), IPS_STRING, '~HTMLBox', $vpos++, $with_status_box);
         if ($with_status_box) {
             $statusbox_script = $this->ReadPropertyInteger('statusbox_script');
             if ($statusbox_script > 0) {
@@ -222,9 +227,7 @@ class DevoloOverview extends IPSModule
         } elseif ($n_wlan_inactive) {
             $total_wlan_active = 0;
         }
-        $this->MaintainVariable('total_wlan_active', $this->Translate('WLAN'), IPS_INTEGER, 'DevoloWifi.WLAN', $vpos++, true);
         $this->SetValue('total_wlan_active', $total_wlan_active);
-        $this->EnableAction('total_wlan_active');
 
         if ($n_guest_active && $n_guest_inactive) {
             $total_guest_active = -1;
@@ -233,10 +236,8 @@ class DevoloOverview extends IPSModule
         } elseif ($n_guest_inactive) {
             $total_guest_active = 0;
         }
-        $this->MaintainVariable('total_guest_active', $this->Translate('Guest-WLAN'), IPS_INTEGER, 'DevoloWifi.WLAN', $vpos++, $with_guest_info);
         if ($with_guest_info) {
             $this->SetValue('total_guest_active', $total_guest_active);
-            $this->EnableAction('total_guest_active');
         }
     }
 

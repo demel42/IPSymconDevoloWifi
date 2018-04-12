@@ -19,6 +19,9 @@
 				{ "type": "CheckBox", "name": "with_guest_info", "caption": "Informations" },
 				{ "type": "CheckBox", "name": "with_guest_detail", "caption": "Details" },
 
+				{ "type": "Label", "label": "optional script to hide/show variables" },
+				{ "type": "SelectScript", "name": "visibility_script", "caption": "visibility" },
+
 				{ "type": "Label", "label": "Number of ethernet-port connected to LAN/WAN" },
 				{ "type": "NumberSpinner", "name": "wan_port", "caption": "WAN-Port" },
 				{ "type": "Label", "label": "MAC of the dLAN-Adapter next to ethernet" },

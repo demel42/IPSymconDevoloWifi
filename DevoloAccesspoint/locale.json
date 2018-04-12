@@ -17,6 +17,9 @@
 
 			"optional data of Guest-WLAN": "Zusatzdaten zum Gast-WLAN",
 
+			"optional script to hide/show variables": "optionales Script um die Sichtbarkeit von Variablen zu steuern",
+			"visibility": "Sichtbarkeit",
+
 			"Number of ethernet-port connected to LAN/WAN": "Nummer des Ethernet-Ports der mit dem LAN/WAN verbunden ist",
 			"Portnumber": "Port-Nummer",
 			"MAC of the dLAN-Adapter next to ethernet": "MAC-Adresse des dLAN-Adapters, der die Verbindung zum Ethernet herstellt",
