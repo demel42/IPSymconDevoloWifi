@@ -37,7 +37,7 @@ class DevoloAccesspoint extends IPSModule
         $this->RegisterPropertyBoolean('with_guest_info', false);
         $this->RegisterPropertyBoolean('with_guest_detail', false);
 
-		$this->RegisterPropertyInteger('visibility_script', 0);
+        $this->RegisterPropertyInteger('visibility_script', 0);
 
         $this->RegisterPropertyInteger('UpdateDataInterval', 5);
 
@@ -65,27 +65,27 @@ class DevoloAccesspoint extends IPSModule
         $with_guest_info = $this->ReadPropertyBoolean('with_guest_info');
         $with_guest_detail = $this->ReadPropertyBoolean('with_guest_detail');
 
-		$vpos = 0;
-		$this->MaintainVariable('Hostname', $this->Translate('Hostname'), IPS_STRING, '', $vpos++, true);
-		$this->MaintainVariable('IP', $this->Translate('IP-Address'), IPS_STRING, '', $vpos++, $with_ap_detail);
-		$this->MaintainVariable('MAC', $this->Translate('MAC-Address'), IPS_STRING, '', $vpos++, $with_ap_detail);
-		$this->MaintainVariable('wlan_active', $this->Translate('WLAN'), IPS_BOOLEAN, '~Switch', $vpos++, $with_wlan_info);
-		$this->MaintainVariable('wlan_band', $this->Translate('Band'), IPS_STRING, '', $vpos++, $with_wlan_info);
-		$this->MaintainVariable('wlan_sid', $this->Translate('SID'), IPS_STRING, '', $vpos++, $with_wlan_detail);
-		$this->MaintainVariable('guest_active', $this->Translate('Guest-WLAN'), IPS_BOOLEAN, '~Switch', $vpos++, $with_guest_info);
-		$this->MaintainVariable('guest_timeout', $this->Translate('Guest-Timeout'), IPS_INTEGER, 'Devolo.Timeout', $vpos++, $with_guest_detail);
-		$this->MaintainVariable('guest_sid', $this->Translate('Guest-SID'), IPS_STRING, '', $vpos++, $with_guest_detail);
-		$this->MaintainVariable('receive', $this->Translate('receive data'), IPS_INTEGER, 'Devolo.TransferRate', $vpos++, $with_ap_detail);
-		$this->MaintainVariable('transmit', $this->Translate('transmit data'), IPS_INTEGER, 'Devolo.TransferRate', $vpos++, $with_ap_detail);
-		$this->MaintainVariable('clients', $this->Translate('count of clients'), IPS_INTEGER, '', $vpos++, true);
-		$this->MaintainVariable('last_status', $this->Translate('last status'), IPS_INTEGER, '~UnixTimestamp', $vpos++, true);
+        $vpos = 0;
+        $this->MaintainVariable('Hostname', $this->Translate('Hostname'), IPS_STRING, '', $vpos++, true);
+        $this->MaintainVariable('IP', $this->Translate('IP-Address'), IPS_STRING, '', $vpos++, $with_ap_detail);
+        $this->MaintainVariable('MAC', $this->Translate('MAC-Address'), IPS_STRING, '', $vpos++, $with_ap_detail);
+        $this->MaintainVariable('wlan_active', $this->Translate('WLAN'), IPS_BOOLEAN, '~Switch', $vpos++, $with_wlan_info);
+        $this->MaintainVariable('wlan_band', $this->Translate('Band'), IPS_STRING, '', $vpos++, $with_wlan_info);
+        $this->MaintainVariable('wlan_sid', $this->Translate('SID'), IPS_STRING, '', $vpos++, $with_wlan_detail);
+        $this->MaintainVariable('guest_active', $this->Translate('Guest-WLAN'), IPS_BOOLEAN, '~Switch', $vpos++, $with_guest_info);
+        $this->MaintainVariable('guest_timeout', $this->Translate('Guest-Timeout'), IPS_INTEGER, 'Devolo.Timeout', $vpos++, $with_guest_detail);
+        $this->MaintainVariable('guest_sid', $this->Translate('Guest-SID'), IPS_STRING, '', $vpos++, $with_guest_detail);
+        $this->MaintainVariable('receive', $this->Translate('receive data'), IPS_INTEGER, 'Devolo.TransferRate', $vpos++, $with_ap_detail);
+        $this->MaintainVariable('transmit', $this->Translate('transmit data'), IPS_INTEGER, 'Devolo.TransferRate', $vpos++, $with_ap_detail);
+        $this->MaintainVariable('clients', $this->Translate('count of clients'), IPS_INTEGER, '', $vpos++, true);
+        $this->MaintainVariable('last_status', $this->Translate('last status'), IPS_INTEGER, '~UnixTimestamp', $vpos++, true);
 
-		if ($with_wlan_info) {
-			$this->EnableAction('wlan_active');
-		}
-		if ($with_guest_detail) {
-			$this->EnableAction('guest_active');
-		}
+        if ($with_wlan_info) {
+            $this->EnableAction('wlan_active');
+        }
+        if ($with_guest_detail) {
+            $this->EnableAction('guest_active');
+        }
 
         if ($ap_name != '') {
             $this->SetUpdateInterval();
@@ -297,9 +297,9 @@ class DevoloAccesspoint extends IPSModule
                 }
             }
 
-			if ($with_ap_detail) {
-				$this->SetValue('MAC', $ap_mac);
-			}
+            if ($with_ap_detail) {
+                $this->SetValue('MAC', $ap_mac);
+            }
 
             if (!$do_abort) {
                 $knownStations = $jdata['KnownStations'];
@@ -420,7 +420,7 @@ class DevoloAccesspoint extends IPSModule
             $wlan_guest['timeout'] = is_numeric($wlanGuTimeOut) ? $wlanGuTimeOut : 0;
 
             if ($with_wlan_info) {
-				$wlan_active = $wlan_24['active'] || $wlan_5['active'];
+                $wlan_active = $wlan_24['active'] || $wlan_5['active'];
                 $this->SetValue('wlan_active', $wlan_active);
 
                 if ($wlan_24['active'] && $wlan_5['active']) {
@@ -441,7 +441,7 @@ class DevoloAccesspoint extends IPSModule
             }
 
             if ($with_guest_info) {
-				$guest_active = $wlan_guest['active'];
+                $guest_active = $wlan_guest['active'];
                 $this->SetValue('guest_active', $guest_active);
             }
 
@@ -497,10 +497,10 @@ class DevoloAccesspoint extends IPSModule
                 ];
             $this->SendDataToParent(json_encode($data));
 
-			if ($visibility_script > 0) {
-				$ret = IPS_RunScriptWaitEx($visibility_script, ['InstanceID' => $this->InstanceID]);
-				$this->SendDebug(__FUNCTION__, 'visibility_script=' . $visibility_script . ', InstanceID=' . $this->InstanceID . ' => ' . $ret, 0);
-			}
+            if ($visibility_script > 0) {
+                $ret = IPS_RunScriptWaitEx($visibility_script, ['InstanceID' => $this->InstanceID]);
+                $this->SendDebug(__FUNCTION__, 'visibility_script=' . $visibility_script . ', InstanceID=' . $this->InstanceID . ' => ' . $ret, 0);
+            }
         }
 
         if ($do_abort) {

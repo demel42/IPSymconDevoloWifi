@@ -72,7 +72,7 @@ class DevoloOverview extends IPSModule
         $this->MaintainVariable('total_wlan_active', $this->Translate('WLAN'), IPS_INTEGER, 'DevoloWifi.WLAN', $vpos++, true);
         $this->MaintainAction('total_wlan_active', true);
         $this->MaintainVariable('total_guest_active', $this->Translate('Guest-WLAN'), IPS_INTEGER, 'DevoloWifi.WLAN', $vpos++, $with_guest_info);
-		$this->MaintainAction('total_guest_active', $with_guest_info);
+        $this->MaintainAction('total_guest_active', $with_guest_info);
 
         $this->SetStatus(102);
     }
