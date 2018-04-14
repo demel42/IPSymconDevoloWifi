@@ -632,7 +632,7 @@ class DevoloAccesspoint extends IPSModule
         $username = $this->ReadPropertyString('username');
         $password = $this->ReadPropertyString('password');
 
-		$url = 'http://' . $ap_name . $url;
+        $url = 'http://' . $ap_name . $url;
 
         $this->SendDebug(__FUNCTION__, 'http-get: url=' . $url, 0);
         $time_start = microtime(true);
@@ -695,7 +695,7 @@ class DevoloAccesspoint extends IPSModule
         $username = $this->ReadPropertyString('username');
         $password = $this->ReadPropertyString('password');
 
-		$url = 'http://' . $ap_name . $url;
+        $url = 'http://' . $ap_name . $url;
 
         $this->SendDebug(__FUNCTION__, 'http-post: url=' . $url, 0);
         $time_start = microtime(true);
