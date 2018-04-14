@@ -205,7 +205,7 @@ class DevoloAccesspoint extends IPSModule
             $this->SetValue('Hostname', $ap_hostname);
             $this->SetValue('IP', $ap_ip);
 
-            $devices = $this->SendQuery2Accesspoint($getjson_url . $cmd_powerline, '', true);
+            $devices = $this->SendQuery2Accesspoint($getjson_url . $cmd_powerline, true);
             if ($devices == '') {
                 $do_abort = true;
             }
@@ -216,7 +216,7 @@ class DevoloAccesspoint extends IPSModule
 
                 $link_speed = 0;
                 if ($wan_port > 0) {
-                    $sdata = $this->SendQuery2Accesspoint($getjson_url . $cmd_ethernet, '', true);
+                    $sdata = $this->SendQuery2Accesspoint($getjson_url . $cmd_ethernet, true);
                     if ($sdata != '') {
                         $info = $sdata['Info'];
                         $ports = $info['Port'];
@@ -291,7 +291,7 @@ class DevoloAccesspoint extends IPSModule
                         $adapters[] = $adapter;
                     }
                 }
-                $jdata = $this->SendQuery2Accesspoint($getjson_url . $cmd_stations, '', true);
+                $jdata = $this->SendQuery2Accesspoint($getjson_url . $cmd_stations, true);
                 if ($jdata == '') {
                     $do_abort = true;
                 }
@@ -345,7 +345,7 @@ class DevoloAccesspoint extends IPSModule
 
         if (!$do_abort) {
             // hier muss mangels API leider die Webseite direkt geparsed werden
-            $cdata = $this->SendQuery2Accesspoint($status_url, '', false);
+            $cdata = $this->SendQuery2Accesspoint($status_url, false);
             if ($cdata == '') {
                 $do_abort = true;
             }
@@ -626,21 +626,22 @@ class DevoloAccesspoint extends IPSModule
         return $r;
     }
 
-    private function SendQuery2Accesspoint($url, $postdata = '', $do_json = false)
+    private function SendQuery2Accesspoint($url, $do_json = false)
     {
         $ap_name = $this->ReadPropertyString('ap_name');
         $username = $this->ReadPropertyString('username');
         $password = $this->ReadPropertyString('password');
 
+		$url = 'http://' . $ap_name . $url;
+
+        $this->SendDebug(__FUNCTION__, 'http-get: url=' . $url, 0);
+        $time_start = microtime(true);
+
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://' . $ap_name . $url);
+        curl_setopt($ch, CURLOPT_URL, $url);
         if ($username != '' && $password != '') {
             curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-        }
-        if ($postdata != '') {
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, $postdata);
         }
         curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($ch, CURLOPT_HEADER, false);
@@ -650,7 +651,8 @@ class DevoloAccesspoint extends IPSModule
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        $this->SendDebug(__FUNCTION__, 'url=' . $url . ', httpcode=' . $httpcode, 0);
+        $duration = floor((microtime(true) - $time_start) * 100) / 100;
+        $this->SendDebug(__FUNCTION__, ' => httpcode=' . $httpcode . ', duration=' . $duration . 's', 0);
 
         $statuscode = 0;
         $err = '';
@@ -678,7 +680,7 @@ class DevoloAccesspoint extends IPSModule
         }
 
         if ($statuscode) {
-            echo "statuscode=$statuscode, err=$err";
+            echo " => statuscode=$statuscode, err=$err";
             $this->SendDebug(__FUNCTION__, $err, 0);
             $this->SetStatus($statuscode);
             $data = '';
@@ -693,8 +695,13 @@ class DevoloAccesspoint extends IPSModule
         $username = $this->ReadPropertyString('username');
         $password = $this->ReadPropertyString('password');
 
+		$url = 'http://' . $ap_name . $url;
+
+        $this->SendDebug(__FUNCTION__, 'http-post: url=' . $url, 0);
+        $time_start = microtime(true);
+
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'http://' . $ap_name . $url);
+        curl_setopt($ch, CURLOPT_URL, $url);
         if ($username != '' && $password != '') {
             curl_setopt($ch, CURLOPT_USERPWD, "$username:$password");
             curl_setopt($ch, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
@@ -710,7 +717,8 @@ class DevoloAccesspoint extends IPSModule
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
-        $this->SendDebug(__FUNCTION__, 'url=' . $url . ', httpcode=' . $httpcode, 0);
+        $duration = floor((microtime(true) - $time_start) * 100) / 100;
+        $this->SendDebug(__FUNCTION__, ' => httpcode=' . $httpcode . ', duration=' . $duration . 's', 0);
 
         $statuscode = 0;
         $err = '';
@@ -729,7 +737,7 @@ class DevoloAccesspoint extends IPSModule
         }
 
         if ($statuscode) {
-            echo "statuscode=$statuscode, err=$err";
+            echo " => statuscode=$statuscode, err=$err";
             $this->SendDebug(__FUNCTION__, $err, 0);
             $this->SetStatus($statuscode);
             return false;
