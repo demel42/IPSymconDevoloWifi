@@ -188,7 +188,7 @@ Daten siehe _DevoloAP_GetRawData_, nur wird ein array von _accesspoint_ übergeb
 | with_wlan_detail          | boolean  | true         | SID(s) |
 | with_guest_info           | boolean  | false        | Gast-WLAN aktiv? |
 | with_guest_detail         | boolean  | false        | SID, Timeout |
-| visibility_script         | integer  |              | Script um die SIchtbarkeit von Variablen zu steuern |
+| visibility_script         | integer  |              | Script um die Sichtbarkeit von Variablen zu steuern |
 | wan_port                  | integer  | 0            | Ethernetport, an den das WNA/LAN angeschlossen ist |
 | wan_bridge                | integer  |              | dLAN-Adpter, der die Verbinung zum WAN/LAN darstellt |
 | UpdateDataInterval        | integer  | 5            | Angabe in Minuten |
