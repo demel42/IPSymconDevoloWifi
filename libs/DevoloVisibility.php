@@ -47,11 +47,11 @@ if ($msg_e != []) {
 }
 if ($msg_v != []) {
     $msg .= $msg != '' ? '; ' : '';
-    $msg .= 'set visible: ' . implode(', ', $msg_v);
+    $msg .= 'visible=' . implode(', ', $msg_v);
 }
 if ($msg_h != []) {
     $msg .= $msg != '' ? '; ' : '';
-    $msg .= 'set hidden: ' . implode(', ', $msg_h);
+    $msg .= 'hidden=' . implode(', ', $msg_h);
 }
 
 echo $msg . "\n";

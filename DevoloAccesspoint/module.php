@@ -499,7 +499,7 @@ class DevoloAccesspoint extends IPSModule
 
             if ($visibility_script > 0) {
                 $ret = IPS_RunScriptWaitEx($visibility_script, ['InstanceID' => $this->InstanceID]);
-                $this->SendDebug(__FUNCTION__, 'visibility_script=' . $visibility_script . ', InstanceID=' . $this->InstanceID . ' => ' . $ret, 0);
+                $this->SendDebug(__FUNCTION__, 'visibility_script: ' . $ret, 0);
             }
         }
 
