@@ -17,13 +17,13 @@ Modul für IP-Symcon ab Version 4.
 
 Die Firma Devolo stellt Powerline-Adapter her (_dLAN_), sowohl reine dLAN-Adapter als auch dLAN-Accesspoints, die Verbindung zum WAN (Internet) oder lokalen LAN per Powerline-Technologie und herstellen von WLAN-Accesspoints.
 Besonders nützlich sind diese Wifi-dLAN-Adapter um eine WLAN auch unter räumlich schwierigen Umständen herstellen zu können.
-Die reinen dLAN-Adapter sind reine Layer 2-Geräte, verfügen also nicht über eine IP-Adresse und können keien IP-basierte Information geben; die dLAN-Wifi-Adapter haben eine Web-Oberfläche zur Administration.
+Die reinen dLAN-Adapter sind reine Layer 2-Geräte, verfügen also nicht über eine IP-Adresse und können keine IP-basierte Information zur Verfügung stellen; die dLAN-Wifi-Adapter haben eine Web-Oberfläche zur Administration.
 
 Es gibt von Devolo keine Möglichkeit, in einer Übersicht mehrere dLAN-Wifi-Adapter zu monitoren oder zu administriere
 
 Da es gibt von Devolo auch keine (dokumentierte) API gibt, ist dieses Modul auf Basis der Analyse der Weboberfläche der dLAN-Wifi-Adapter entstanden.
 
-Hinweis: das gilt für die dLAN-Adapter der Comsumer-Serie, die PRO-Serie soll über weitergehende Möglichkeiten verfügen.
+Hinweis: das gilt für die dLAN-Adapter der Consumer-Serie, die PRO-Serie soll über weitergehende Möglichkeiten verfügen.
 
 Das Modul bietet die Möglichkeit, jeden dieser Adapter als Instanz von _DevoloAccesspoint_ einzubinden und folgende Daten zu ermitteln:
 - Angaben zu dem / den WLAN-Bändern unklusive Gast-WLAN
@@ -32,7 +32,7 @@ Das Modul bietet die Möglichkeit, jeden dieser Adapter als Instanz von _DevoloA
 Die Geschwindigkeitsangaben sind immer mit Vorsicht zu verwenden
 - dLAN stellt immer Verbindungen direkt zwischen den Adaptern her und ĸann deutliche Unterschiede zwischen einzelnen Verbindungen ausweisen. Ich weise hier in Variablen die Verbindung zum WAN/LAN aus, die anderen Verbindungsinformationen stellt das Modul als Rohdaten zur Verfügung
 - die Geschwindingkeit ist stark schwankend und stellt die Momentaufnahme der laufenden Übertragungen dar - bedeutet, das diese u.U. niedirig ist, wenn wenig Daten fliessen
-- wie hoch der Anteil der Nutzdaten bzw. der Kommunikations-Overhead ist, ist mir nicht bekannt,
+- wie hoch der Anteil der Nutzdaten bzw. der Kommunikations-Overhead ist, ist mir nicht bekannt.
 
 Zusätzlich kann man eine Instanz _DevoloOverview_ anlegen, hier bekommt man eine Übersicht über alle Adapter.
 
