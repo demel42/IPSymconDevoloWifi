@@ -62,7 +62,7 @@ class DevoloAccesspoint extends IPSModule
         $ap_name = $this->ReadPropertyString('ap_name');
 
         $with_dns = $this->ReadPropertyBoolean('with_dns');
-		$with_ap_detail = $this->ReadPropertyBoolean('with_ap_detail');
+        $with_ap_detail = $this->ReadPropertyBoolean('with_ap_detail');
         $with_wlan_info = $this->ReadPropertyBoolean('with_wlan_info');
         $with_wlan_detail = $this->ReadPropertyBoolean('with_wlan_detail');
         $with_guest_info = $this->ReadPropertyBoolean('with_guest_info');
@@ -192,27 +192,27 @@ class DevoloAccesspoint extends IPSModule
 
             if (preg_match('/[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/', $ap_name)) {
                 $ap_ip = $ap_name;
-				if ($with_dns) {
-					$ap_hostname = gethostbyaddr($ap_ip);
-					if ($ap_ip == $ap_hostname) {
-						echo "can't resolve ip '$ap_ip'\n";
-						$ap_hostname = '';
-					}
-				}
+                if ($with_dns) {
+                    $ap_hostname = gethostbyaddr($ap_ip);
+                    if ($ap_ip == $ap_hostname) {
+                        echo "can't resolve ip '$ap_ip'\n";
+                        $ap_hostname = '';
+                    }
+                }
             } else {
                 $ap_hostname = $ap_name;
-				if ($with_dns) {
-					$ap_ip = gethostbyname($ap_hostname);
-					if ($ap_hostname == $ap_ip) {
-						echo "can't resolve host '$ap_hostname'\n";
-						$ap_ip = '';
-					}
-				}
+                if ($with_dns) {
+                    $ap_ip = gethostbyname($ap_hostname);
+                    if ($ap_hostname == $ap_ip) {
+                        echo "can't resolve host '$ap_hostname'\n";
+                        $ap_ip = '';
+                    }
+                }
             }
 
-			if ($with_dns) {
-				$this->SetValue('Hostname', $ap_hostname);
-				$this->SetValue('IP', $ap_ip);
+            if ($with_dns) {
+                $this->SetValue('Hostname', $ap_hostname);
+                $this->SetValue('IP', $ap_ip);
             }
 
             $devices = $this->SendQuery2Accesspoint($getjson_url . $cmd_powerline, true);
