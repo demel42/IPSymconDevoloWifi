@@ -31,6 +31,8 @@ class DevoloAccesspoint extends IPSModule
         $this->RegisterPropertyInteger('wan_port', 0);
         $this->RegisterPropertyString('wan_bridge', '');
 
+        $this->RegisterPropertyBoolean('with_dns', true);
+
         $this->RegisterPropertyBoolean('with_ap_detail', true);
         $this->RegisterPropertyBoolean('with_wlan_info', true);
         $this->RegisterPropertyBoolean('with_wlan_detail', false);
@@ -59,15 +61,16 @@ class DevoloAccesspoint extends IPSModule
 
         $ap_name = $this->ReadPropertyString('ap_name');
 
-        $with_ap_detail = $this->ReadPropertyBoolean('with_ap_detail');
+        $with_dns = $this->ReadPropertyBoolean('with_dns');
+		$with_ap_detail = $this->ReadPropertyBoolean('with_ap_detail');
         $with_wlan_info = $this->ReadPropertyBoolean('with_wlan_info');
         $with_wlan_detail = $this->ReadPropertyBoolean('with_wlan_detail');
         $with_guest_info = $this->ReadPropertyBoolean('with_guest_info');
         $with_guest_detail = $this->ReadPropertyBoolean('with_guest_detail');
 
         $vpos = 0;
-        $this->MaintainVariable('Hostname', $this->Translate('Hostname'), IPS_STRING, '', $vpos++, true);
-        $this->MaintainVariable('IP', $this->Translate('IP-Address'), IPS_STRING, '', $vpos++, $with_ap_detail);
+        $this->MaintainVariable('Hostname', $this->Translate('Hostname'), IPS_STRING, '', $vpos++, $with_dns);
+        $this->MaintainVariable('IP', $this->Translate('IP-Address'), IPS_STRING, '', $vpos++, $with_dns && $with_ap_detail);
         $this->MaintainVariable('MAC', $this->Translate('MAC-Address'), IPS_STRING, '', $vpos++, $with_ap_detail);
         $this->MaintainVariable('wlan_active', $this->Translate('WLAN'), IPS_BOOLEAN, '~Switch', $vpos++, $with_wlan_info);
         $this->MaintainVariable('wlan_band', $this->Translate('Band'), IPS_STRING, '', $vpos++, $with_wlan_info);
@@ -153,6 +156,7 @@ class DevoloAccesspoint extends IPSModule
         $wan_bridge = $this->ReadPropertyString('wan_bridge');
         $wan_port = $this->ReadPropertyInteger('wan_port');
 
+        $with_dns = $this->ReadPropertyBoolean('with_dns');
         $with_ap_detail = $this->ReadPropertyBoolean('with_ap_detail');
         $with_wlan_info = $this->ReadPropertyBoolean('with_wlan_info');
         $with_wlan_detail = $this->ReadPropertyBoolean('with_wlan_detail');
@@ -183,27 +187,33 @@ class DevoloAccesspoint extends IPSModule
             $adapters = [];
             $clients = [];
 
-            if (preg_match('/[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/', $ap_name)) {
-                $ap_ip = $ap_name;
-                $ap_hostname = gethostbyaddr($ap_ip);
-                if ($ap_ip == $ap_hostname) {
-                    echo "can't resolve ip '$ap_ip'\n";
-                    $ap_hostname = '';
-                }
-            } else {
-                $ap_hostname = $ap_name;
-                $ap_ip = gethostbyname($ap_hostname);
-                if ($ap_hostname == $ap_ip) {
-                    echo "can't resolve host '$ap_hostname'\n";
-                    $ap_ip = '';
-                }
-            }
-
             $r = IPS_GetObject($this->InstanceID);
             $ap_pos = $r['ObjectPosition'];
 
-            $this->SetValue('Hostname', $ap_hostname);
-            $this->SetValue('IP', $ap_ip);
+            if (preg_match('/[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}/', $ap_name)) {
+                $ap_ip = $ap_name;
+				if ($with_dns) {
+					$ap_hostname = gethostbyaddr($ap_ip);
+					if ($ap_ip == $ap_hostname) {
+						echo "can't resolve ip '$ap_ip'\n";
+						$ap_hostname = '';
+					}
+				}
+            } else {
+                $ap_hostname = $ap_name;
+				if ($with_dns) {
+					$ap_ip = gethostbyname($ap_hostname);
+					if ($ap_hostname == $ap_ip) {
+						echo "can't resolve host '$ap_hostname'\n";
+						$ap_ip = '';
+					}
+				}
+            }
+
+			if ($with_dns) {
+				$this->SetValue('Hostname', $ap_hostname);
+				$this->SetValue('IP', $ap_ip);
+            }
 
             $devices = $this->SendQuery2Accesspoint($getjson_url . $cmd_powerline, true);
             if ($devices == '') {

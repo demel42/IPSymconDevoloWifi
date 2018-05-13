@@ -183,7 +183,8 @@ Daten siehe _DevoloAP_GetRawData_, nur wird ein array von _accesspoint_ übergeb
 | ap_name                   | string   |              | Bezeichnung des Hostname oder (statische) IP-Adresse |
 | username                  | string   | admin        | Benutzerkennung |
 | password                  | string   |              | Passwort (sofern im Accesspoint gesetzt) |
-| with_ap_detail            | boolean  | true         | Übertragungsraten  |
+| with_dns                  | boolean  | true         | Ermitteln von IP-Adresse/Hostname des AP per DNS |
+| with_ap_detail            | boolean  | true         | Übertragungsraten |
 | with_wlan_info            | boolean  | false        | WLAN aktiv?, Frequenzband |
 | with_wlan_detail          | boolean  | true         | SID(s) |
 | with_guest_info           | boolean  | false        | Gast-WLAN aktiv? |

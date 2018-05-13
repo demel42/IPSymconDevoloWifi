@@ -9,6 +9,7 @@
 			"Password": "Passwort",
 
 			"optional data of accesspoint": "Zusatzdaten zum Accesspoint",
+			"resolve ip/hostname by DNS": "IP/Hostnamen mittels DNS ermitteln",
 			"Details": "Detail",
 
 			"optional data of WLAN": "Zusatzdaten zum WLAN",

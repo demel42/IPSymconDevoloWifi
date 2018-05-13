@@ -9,6 +9,7 @@
 				{ "type": "ValidationTextBox", "name": "password", "caption": "Password" },
 
 				{ "type": "Label", "label": "optional data of accesspoint" },
+				{ "type": "CheckBox", "name": "with_dns", "caption": "resolve ip/hostname by DNS" },
 				{ "type": "CheckBox", "name": "with_ap_detail", "caption": "Details" },
 
 				{ "type": "Label", "label": "optional data of WLAN" },
