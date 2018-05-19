@@ -81,6 +81,10 @@ Die Instanzen können dann in gewohnter Weise im Objektbaum frei positioniert we
 
 ### zentrale Funktion
 
+`DevoloAP_UpdateData(int $InstanzID)`
+
+ruft die Daten von dem jeweiligen Adapter  ab. Wird automatisch zyklisch durch die Instanz durchgeführt im Abstand wie in der Konfiguration angegeben.
+
 `bool DevoloAP_SwitchWLAN(int $InstanzID, bool $OnOff)`
 
 schaltet das WLAN des Accesspoints.
