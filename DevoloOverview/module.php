@@ -224,7 +224,7 @@ class DevoloOverview extends IPSModule
             $total_wlan_active = -1;
         } elseif ($n_wlan_active) {
             $total_wlan_active = 1;
-        } elseif ($n_wlan_inactive) {
+        } else {
             $total_wlan_active = 0;
         }
         $this->SetValue('total_wlan_active', $total_wlan_active);
@@ -233,7 +233,7 @@ class DevoloOverview extends IPSModule
             $total_guest_active = -1;
         } elseif ($n_guest_active) {
             $total_guest_active = 1;
-        } elseif ($n_guest_inactive) {
+        } else {
             $total_guest_active = 0;
         }
         if ($with_guest_info) {
