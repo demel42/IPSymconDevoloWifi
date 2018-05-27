@@ -30,7 +30,7 @@ class DevoloOverview extends IPSModule
         $this->RegisterPropertyInteger('wan_download', 0);
         $this->RegisterPropertyInteger('wan_upload', 0);
 
-        $this->RegisterPropertyBoolean('with_guest_info', true);
+        $this->RegisterPropertyBoolean('with_guest_info', false);
 
         $this->RegisterPropertyBoolean('with_status_box', false);
 
