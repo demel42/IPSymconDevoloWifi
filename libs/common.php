@@ -92,7 +92,7 @@ trait DevoloCommon
         return 'text/plain';
     }
 
-    private function LogMessage($Message, $Severity)
+    protected function LogMessage($Message, $Severity)
     {
         if (IPS_GetKernelVersion() >= 5) {
             switch ($Severity) {
