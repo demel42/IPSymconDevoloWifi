@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../libs/common.php';  // globale Funktionen
+
 // Constants will be defined with IP-Symcon 5.0 and newer
 if (!defined('IPS_KERNELMESSAGE')) {
     define('IPS_KERNELMESSAGE', 10100);
@@ -23,6 +25,8 @@ if (!defined('IPS_STRING')) {
 
 class DevoloOverview extends IPSModule
 {
+	use DevoloCommon;
+
     public function Create()
     {
         parent::Create();
@@ -75,45 +79,6 @@ class DevoloOverview extends IPSModule
         $this->MaintainAction('total_guest_active', $with_guest_info);
 
         $this->SetStatus(102);
-    }
-
-    protected function SetValue($Ident, $Value)
-    {
-        @$varID = $this->GetIDForIdent($Ident);
-        if ($varID == false) {
-            $this->SendDebug(__FUNCTION__, 'missing variable ' . $Ident, 0);
-            return;
-        }
-
-        if (IPS_GetKernelVersion() >= 5) {
-            $ret = parent::SetValue($Ident, $Value);
-        } else {
-            $ret = SetValue($varID, $Value);
-        }
-        if ($ret == false) {
-            $this->SendDebug(__FUNCTION__, 'mismatch of value "' . $Value . '" for variable ' . $Ident, 0);
-        }
-    }
-
-    // Variablenprofile erstellen
-    private function CreateVarProfile($Name, $ProfileType, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits, $Icon, $Asscociations = '')
-    {
-        if (!IPS_VariableProfileExists($Name)) {
-            IPS_CreateVariableProfile($Name, $ProfileType);
-            IPS_SetVariableProfileText($Name, '', $Suffix);
-            IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
-            IPS_SetVariableProfileDigits($Name, $Digits);
-            IPS_SetVariableProfileIcon($Name, $Icon);
-            if ($Asscociations != '') {
-                foreach ($Asscociations as $a) {
-                    $w = isset($a['Wert']) ? $a['Wert'] : '';
-                    $n = isset($a['Name']) ? $a['Name'] : '';
-                    $i = isset($a['Icon']) ? $a['Icon'] : '';
-                    $f = isset($a['Farbe']) ? $a['Farbe'] : 0;
-                    IPS_SetVariableProfileAssociation($Name, $w, $n, $i, $f);
-                }
-            }
-        }
     }
 
     public function ForwardData($data)
@@ -278,30 +243,6 @@ class DevoloOverview extends IPSModule
         $data = ['DataID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}', 'Function' => 'SwitchGuestWLAN', 'Value' => $value, 'Timeout' => $timeout];
         $this->SendDebug(__FUNCTION__, 'data=' . print_r($data, true), 0);
         $this->SendDataToChildren(json_encode($data));
-    }
-
-    // Inspired from module SymconTest/HookServe
-    private function RegisterHook($WebHook)
-    {
-        $ids = IPS_GetInstanceListByModuleID('{015A6EB8-D6E5-4B93-B496-0D3F77AE9FE1}');
-        if (count($ids) > 0) {
-            $hooks = json_decode(IPS_GetProperty($ids[0], 'Hooks'), true);
-            $found = false;
-            foreach ($hooks as $index => $hook) {
-                if ($hook['Hook'] == $WebHook) {
-                    if ($hook['TargetID'] == $this->InstanceID) {
-                        return;
-                    }
-                    $hooks[$index]['TargetID'] = $this->InstanceID;
-                    $found = true;
-                }
-            }
-            if (!$found) {
-                $hooks[] = ['Hook' => $WebHook, 'TargetID' => $this->InstanceID];
-            }
-            IPS_SetProperty($ids[0], 'Hooks', json_encode($hooks));
-            IPS_ApplyChanges($ids[0]);
-        }
     }
 
     private function Build_StatusBox($data)
@@ -629,24 +570,6 @@ class DevoloOverview extends IPSModule
         }
         header('Content-Type: ' . $this->GetMimeType(pathinfo($path, PATHINFO_EXTENSION)));
         readfile($path);
-    }
-
-    // Inspired from module SymconTest/HookServe
-    private function GetMimeType($extension)
-    {
-        $lines = file(IPS_GetKernelDirEx() . 'mime.types');
-        foreach ($lines as $line) {
-            $type = explode("\t", $line, 2);
-            if (count($type) == 2) {
-                $types = explode(' ', trim($type[1]));
-                foreach ($types as $ext) {
-                    if ($ext == $extension) {
-                        return $type[0];
-                    }
-                }
-            }
-        }
-        return 'text/plain';
     }
 
     private function cmp_accesspoint($a, $b)

@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../libs/common.php';  // globale Funktionen
+
 // Constants will be defined with IP-Symcon 5.0 and newer
 if (!defined('KR_READY')) {
     define('KR_READY', 10103);
@@ -19,6 +21,8 @@ if (!defined('IPS_STRING')) {
 
 class DevoloAccesspoint extends IPSModule
 {
+	use DevoloCommon;
+
     public function Create()
     {
         parent::Create();
@@ -95,45 +99,6 @@ class DevoloAccesspoint extends IPSModule
             $this->SetStatus(102);
         } else {
             $this->SetStatus(104);
-        }
-    }
-
-    protected function SetValue($Ident, $Value)
-    {
-        @$varID = $this->GetIDForIdent($Ident);
-        if ($varID == false) {
-            $this->SendDebug(__FUNCTION__, 'missing variable ' . $Ident, 0);
-            return;
-        }
-
-        if (IPS_GetKernelVersion() >= 5) {
-            $ret = parent::SetValue($Ident, $Value);
-        } else {
-            $ret = SetValue($varID, $Value);
-        }
-        if ($ret == false) {
-            $this->SendDebug(__FUNCTION__, 'mismatch of value "' . $Value . '" for variable ' . $Ident, 0);
-        }
-    }
-
-    // Variablenprofile erstellen
-    private function CreateVarProfile($Name, $ProfileType, $Suffix, $MinValue, $MaxValue, $StepSize, $Digits, $Icon, $Asscociations = '')
-    {
-        if (!IPS_VariableProfileExists($Name)) {
-            IPS_CreateVariableProfile($Name, $ProfileType);
-            IPS_SetVariableProfileText($Name, '', $Suffix);
-            IPS_SetVariableProfileValues($Name, $MinValue, $MaxValue, $StepSize);
-            IPS_SetVariableProfileDigits($Name, $Digits);
-            IPS_SetVariableProfileIcon($Name, $Icon);
-            if ($Asscociations != '') {
-                foreach ($Asscociations as $a) {
-                    $w = isset($a['Wert']) ? $a['Wert'] : '';
-                    $n = isset($a['Name']) ? $a['Name'] : '';
-                    $i = isset($a['Icon']) ? $a['Icon'] : '';
-                    $f = isset($a['Farbe']) ? $a['Farbe'] : 0;
-                    IPS_SetVariableProfileAssociation($Name, $w, $n, $i, $f);
-                }
-            }
         }
     }
 
@@ -670,22 +635,22 @@ class DevoloAccesspoint extends IPSModule
         if ($httpcode != 200) {
             if ($httpcode == 400 || $httpcode == 401) {
                 $statuscode = 201;
-                $err = "got http-code $httpcode (unauthorized) from $ap_name";
+                $err = "got http-code $httpcode (unauthorized)";
             } elseif ($httpcode >= 500 && $httpcode <= 599) {
                 $statuscode = 202;
-                $err = "got http-code $httpcode (server error) from $ap_name";
+                $err = "got http-code $httpcode (server error)";
             } else {
                 $statuscode = 203;
-                $err = "got http-code $httpcode from $ap_name";
+                $err = "got http-code $httpcode";
             }
         } elseif ($cdata == '') {
             $statuscode = 204;
-            $err = "no data from $ap_name";
+            $err = "no data";
         } elseif ($do_json) {
             $data = json_decode($cdata, true);
             if ($data == '') {
                 $statuscode = 204;
-                $err = "malformed response from $ap_name";
+                $err = "malformed response";
             }
         }
 
@@ -736,13 +701,13 @@ class DevoloAccesspoint extends IPSModule
         if ($httpcode != 200) {
             if ($httpcode == 400 || $httpcode == 401) {
                 $statuscode = 201;
-                $err = "got http-code $httpcode (unauthorized) from $ap_name";
+                $err = "got http-code $httpcode (unauthorized)";
             } elseif ($httpcode >= 500 && $httpcode <= 599) {
                 $statuscode = 202;
-                $err = "got http-code $httpcode (server error) from $ap_name";
+                $err = "got http-code $httpcode (server error)";
             } else {
                 $statuscode = 203;
-                $err = "got http-code $httpcode from $ap_name";
+                $err = "got http-code $httpcode";
             }
         }
 
