@@ -21,7 +21,7 @@ if (!defined('IPS_STRING')) {
 
 class DevoloAccesspoint extends IPSModule
 {
-	use DevoloCommon;
+    use DevoloCommon;
 
     public function Create()
     {
@@ -645,12 +645,12 @@ class DevoloAccesspoint extends IPSModule
             }
         } elseif ($cdata == '') {
             $statuscode = 204;
-            $err = "no data";
+            $err = 'no data';
         } elseif ($do_json) {
             $data = json_decode($cdata, true);
             if ($data == '') {
                 $statuscode = 204;
-                $err = "malformed response";
+                $err = 'malformed response';
             }
         }
 

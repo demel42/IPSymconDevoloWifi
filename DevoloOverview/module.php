@@ -25,7 +25,7 @@ if (!defined('IPS_STRING')) {
 
 class DevoloOverview extends IPSModule
 {
-	use DevoloCommon;
+    use DevoloCommon;
 
     public function Create()
     {
