@@ -38,7 +38,7 @@ Zusätzlich kann man eine Instanz _DevoloOverview_ anlegen, hier bekommt man ein
 
 ## 2. Voraussetzungen
 
- - ab IPS 4.4
+ - IP-Symcon ab Version 4.4
  - dLAN Wifi-Adapter, getestet mit _dLAN 1200+ WiFi ac_ und _dLAN 550 WiFi_.<br>
  Meiner Beobachtung nach hat sich an der Weboberfläche nicht viel getan, ѕodaß auch ältere Typen genauso funktionieren sollten.
 
