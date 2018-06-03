@@ -38,7 +38,7 @@ Zusätzlich kann man eine Instanz _DevoloOverview_ anlegen, hier bekommt man ein
 
 ## 2. Voraussetzungen
 
- - IPS 4.x
+ - ab IPS 4.4
  - dLAN Wifi-Adapter, getestet mit _dLAN 1200+ WiFi ac_ und _dLAN 550 WiFi_.<br>
  Meiner Beobachtung nach hat sich an der Weboberfläche nicht viel getan, ѕodaß auch ältere Typen genauso funktionieren sollten.
 
@@ -46,7 +46,7 @@ Zusätzlich kann man eine Instanz _DevoloOverview_ anlegen, hier bekommt man ein
 
 ### a. Laden des Moduls
 
-Die IP-Symcon (min Ver. 4.x) Konsole öffnen. Im Objektbaum unter Kerninstanzen die Instanz __*Modules*__ durch einen doppelten Mausklick öffnen.
+Die IP-Symcon - Konsole öffnen. Im Objektbaum unter Kerninstanzen die Instanz __*Modules*__ durch einen doppelten Mausklick öffnen.
 
 In der _Modules_ Instanz rechts oben auf den Button __*Hinzufügen*__ drücken.
 
