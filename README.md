@@ -46,7 +46,7 @@ Zusätzlich kann man eine Instanz _DevoloOverview_ anlegen, hier bekommt man ein
 
 ### a. Laden des Moduls
 
-Die IP-Symcon - Konsole öffnen. Im Objektbaum unter Kerninstanzen die Instanz __*Modules*__ durch einen doppelten Mausklick öffnen.
+Die Konsole von IP-Symcon öffnen. Im Objektbaum unter Kerninstanzen die Instanz __*Modules*__ durch einen doppelten Mausklick öffnen.
 
 In der _Modules_ Instanz rechts oben auf den Button __*Hinzufügen*__ drücken.
 
