@@ -13,6 +13,11 @@
 				{ "type": "SelectScript", "name": "statusbox_script", "caption": " ... \"StatusBox\"" },
 				{ "type": "SelectScript", "name": "webhook_script", "caption": " ... Webhook" }
 			],
+	"actions":
+			[
+				{ "type": "Label", "label": "____________________________________________________________________________________________________" },
+				{ "type": "Button", "label": "Module description", "onClick": "echo 'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md';" }
+			],
 	"status":
 			[
 				{ "code": 101, "icon": "inactive", "caption": "Instance getting created" },

@@ -34,7 +34,9 @@
 	"actions":
 			[
 				{ "type": "Label", "label": "one query makes take several seconds to complete" },
-				{ "type": "Button", "label": "Perform query", "onClick": "DevoloAP_UpdateData($id);" }
+				{ "type": "Button", "label": "Perform query", "onClick": "DevoloAP_UpdateData($id);" },
+				{ "type": "Label", "label": "____________________________________________________________________________________________________" },
+				{ "type": "Button", "label": "Module description", "onClick": "echo 'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md';" }
 			],		
 	"status":
 			[

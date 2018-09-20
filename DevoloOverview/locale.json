@@ -20,6 +20,8 @@
 			"count of accesspoints": "Anzahl der Accesspoints",
 			"count of clients": "Anzahl der WLAN-Clients",
 
+			"Module description": "Modulbeschreibung",
+
 			"Instance getting created": "Instanz wird erstellt",
 			"Instance is active": "Instanz ist aktiv",
 			"Instance is inactive": "Instanz ist inaktiv"

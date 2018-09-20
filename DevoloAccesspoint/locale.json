@@ -48,6 +48,7 @@
 
 			"one query makes take several seconds to complete": "eine Abfrage kann einige Sekunden bis zur Fertigstellung dauern",
 			"Perform query": "Abfrage durchführen",
+			"Module description": "Modulbeschreibung",
 
 			"Instance getting created": "Instanz wird erstellt",
 			"Instance is active": "Instanz ist aktiv",
