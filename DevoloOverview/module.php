@@ -46,6 +46,8 @@ class DevoloOverview extends IPSModule
         // Inspired by module SymconTest/HookServe
         // We need to call the RegisterHook function on Kernel READY
         $this->RegisterMessage(0, IPS_KERNELMESSAGE);
+
+        $this->SetMultiBuffer('Accesspoints', '');
     }
 
     // Inspired by module SymconTest/HookServe
@@ -91,7 +93,7 @@ class DevoloOverview extends IPSModule
 
         $this->SendDebug(__FUNCTION__, 'update accesspoint ' . $ap_name, 0);
 
-        $dbuf = $this->GetBuffer('Accesspoints');
+        $dbuf = $this->GetMultiBuffer('Accesspoints');
         $accesspoints = json_decode($dbuf);
 
         $new_accesspoints = [];
@@ -122,7 +124,7 @@ class DevoloOverview extends IPSModule
             }
         }
 
-        $this->SetBuffer('Accesspoints', json_encode($new_accesspoints));
+        $this->SetMultiBuffer('Accesspoints', json_encode($new_accesspoints));
 
         $this->DecodeData($new_accesspoints);
     }
@@ -334,7 +336,7 @@ class DevoloOverview extends IPSModule
 
     public function GetRawData()
     {
-        $s = $this->GetBuffer('Accesspoints');
+        $s = $this->GetMultiBuffer('Accesspoints');
         return $s;
     }
 
@@ -343,7 +345,7 @@ class DevoloOverview extends IPSModule
         $wan_download = $this->ReadPropertyInteger('wan_download');
         $wan_upload = $this->ReadPropertyInteger('wan_upload');
 
-        $s = $this->GetBuffer('Accesspoints');
+        $s = $this->GetMultiBuffer('Accesspoints');
         $accesspoints = json_decode($s, true);
 
         $this->SendDebug(__FUNCTION__, 'accesspoints=' . print_r($accesspoints, true), 0);

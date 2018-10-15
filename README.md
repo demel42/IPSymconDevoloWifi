@@ -1,7 +1,7 @@
 # IPSymconDevoloWifi
 
 [![IPS-Version](https://img.shields.io/badge/Symcon_Version-4.4+-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-![Module-Version](https://img.shields.io/badge/Modul_Version-1.1-blue.svg)
+![Module-Version](https://img.shields.io/badge/Modul_Version-1.2-blue.svg)
 ![Code](https://img.shields.io/badge/Code-PHP-blue.svg)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![StyleCI](https://github.styleci.io/repos/127769152/shield?branch=master)](https://github.styleci.io/repos/127769152)
@@ -261,6 +261,9 @@ GUIDs
   - `{68DFE4E1-13BA-4CB0-97C7-3624436869F2}`: an DevoloAccesspoint
 
 ## 7. Versions-Historie
+
+- 1.2 @ 13.10.2018 18:02<br>
+  - Umstellung der internen Speicherung zur Vermeidung der Warnung _Puffer > 8kb_.
 
 - 1.1 @ 20.09.2018 17:18<br>
   - Versionshistorie dazu,
