@@ -304,7 +304,8 @@ class DevoloOverview extends IPSModule
                             $name = $client['name'];
                             $band = $client['band'];
                             $rate = $client['rate'];
-                            $time = date('d.m. H:i', $client['connected_ts']);
+							$ts = $client['connected_ts'];
+							$time = $ts != '' ? date('d.m. H:i', $ts) : '';
                             $guest = $client['guest'] ? 'Ja' : 'Nein';
 
                             $html .= "<tr class=\"row_$row_no\">\n";
@@ -439,7 +440,8 @@ class DevoloOverview extends IPSModule
                             $name = $client['name'];
                             $band = $client['band'];
                             $rate = $client['rate'];
-                            $time = date('d.m. H:i', $client['connected_ts']);
+							$ts = $client['connected_ts'];
+							$time = $ts != '' ? date('d.m. H:i', $ts) : '';
                             $guest = $client['guest'] ? 'Ja' : 'Nein';
 
                             $html .= "<tr class=\"row_$row_no\">\n";
