@@ -83,6 +83,7 @@ class DevoloAccesspoint extends IPSModule
         $this->MaintainVariable('transmit', $this->Translate('transmit data'), vtInteger, 'Devolo.TransferRate', $vpos++, $with_ap_detail);
         $this->MaintainVariable('clients', $this->Translate('count of clients'), vtInteger, '', $vpos++, true);
         $this->MaintainVariable('last_status', $this->Translate('last status'), vtInteger, '~UnixTimestamp', $vpos++, true);
+        $this->MaintainVariable('alert', $this->Translate('Status'), vtBoolean, '~Alert', $vpos++, true);
 
         if ($with_wlan_info) {
             $this->EnableAction('wlan_active');
@@ -435,6 +436,7 @@ class DevoloAccesspoint extends IPSModule
 
                 $accesspoint = [
                         'timestamp'    => $now,
+						'alert'        => false,
                         'pos'          => $ap_pos,
                         'name'         => $ap_name,
                         'hostname'     => $ap_hostname,
@@ -461,6 +463,7 @@ class DevoloAccesspoint extends IPSModule
 
             $this->SendDebug(__FUNCTION__, 'accesspoint=' . print_r($accesspoint, true), 0);
             $this->SetBuffer('Accesspoint', json_encode($accesspoint));
+			$this->SetValue('alert', false);
 
             $this->SetStatus(102);
             $data = [
@@ -478,6 +481,7 @@ class DevoloAccesspoint extends IPSModule
         if ($do_abort) {
             $accesspoint = [
                     'timestamp'    => $now,
+					'alert'        => true,
                     'pos'          => $ap_pos,
                     'name'         => $ap_name,
                     'hostname'     => $ap_hostname,
@@ -490,6 +494,7 @@ class DevoloAccesspoint extends IPSModule
                 ];
             $this->SendDataToParent(json_encode($data));
             $this->SetBuffer('Accesspoint', '');
+			$this->SetValue('alert', true);
         }
     }
 

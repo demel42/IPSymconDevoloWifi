@@ -37,6 +37,7 @@
 			"Hostname": "Hostname",
 			"IP-Address": "IP-Adresse",
 			"last status": "letzter Status",
+			"status": "Status",
 			"MAC-Address": "MAC-Adresse",
 			"receive data": "Datenempfang",
 			"transmit data": "Datenübertragung",
