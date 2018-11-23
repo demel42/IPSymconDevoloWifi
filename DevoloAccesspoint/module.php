@@ -436,7 +436,7 @@ class DevoloAccesspoint extends IPSModule
 
                 $accesspoint = [
                         'timestamp'    => $now,
-						'alert'        => false,
+                        'alert'        => false,
                         'pos'          => $ap_pos,
                         'name'         => $ap_name,
                         'hostname'     => $ap_hostname,
@@ -463,7 +463,7 @@ class DevoloAccesspoint extends IPSModule
 
             $this->SendDebug(__FUNCTION__, 'accesspoint=' . print_r($accesspoint, true), 0);
             $this->SetBuffer('Accesspoint', json_encode($accesspoint));
-			$this->SetValue('alert', false);
+            $this->SetValue('alert', false);
 
             $this->SetStatus(102);
             $data = [
@@ -481,7 +481,7 @@ class DevoloAccesspoint extends IPSModule
         if ($do_abort) {
             $accesspoint = [
                     'timestamp'    => $now,
-					'alert'        => true,
+                    'alert'        => true,
                     'pos'          => $ap_pos,
                     'name'         => $ap_name,
                     'hostname'     => $ap_hostname,
@@ -494,7 +494,7 @@ class DevoloAccesspoint extends IPSModule
                 ];
             $this->SendDataToParent(json_encode($data));
             $this->SetBuffer('Accesspoint', '');
-			$this->SetValue('alert', true);
+            $this->SetValue('alert', true);
         }
     }
 
