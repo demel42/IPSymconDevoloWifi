@@ -10,13 +10,11 @@ if (!defined('KR_READY')) {
     define('KR_READY', 10103);
 }
 
-if (!defined('vtBoolean')) {
-    define('vtBoolean', 0);
-    define('vtInteger', 1);
-    define('vtFloat', 2);
-    define('vtString', 3);
-    define('vtArray', 8);
-    define('vtObject', 9);
+if (!defined('VARIABLETYPE_BOOLEAN')) {
+    define('VARIABLETYPE_BOOLEAN', 0);
+    define('VARIABLETYPE_INTEGER', 1);
+    define('VARIABLETYPE_FLOAT', 2);
+    define('VARIABLETYPE_STRING', 3);
 }
 
 class DevoloOverview extends IPSModule
@@ -41,7 +39,7 @@ class DevoloOverview extends IPSModule
         $associations[] = ['Wert' => 1, 'Name' => 'An'];
         $associations[] = ['Wert' => 0, 'Name' => 'Aus'];
         $associations[] = ['Wert' => -1, 'Name' => 'teilweise an'];
-        $this->CreateVarProfile('DevoloWifi.WLAN', vtInteger, '', 0, 0, 0, 1, 'Power', $associations);
+        $this->CreateVarProfile('DevoloWifi.WLAN', VARIABLETYPE_INTEGER, '', 0, 0, 0, 1, 'Power', $associations);
 
         // Inspired by module SymconTest/HookServe
         // We need to call the RegisterHook function on Kernel READY
@@ -68,12 +66,12 @@ class DevoloOverview extends IPSModule
         $with_status_box = $this->ReadPropertyBoolean('with_status_box');
 
         $vpos = 0;
-        $this->MaintainVariable('accesspoints', $this->Translate('count of accesspoints'), vtInteger, '', $vpos++, true);
-        $this->MaintainVariable('clients', $this->Translate('count of clients'), vtInteger, '', $vpos++, true);
-        $this->MaintainVariable('StatusBox', $this->Translate('State of accesspoints / clients'), vtString, '~HTMLBox', $vpos++, $with_status_box);
-        $this->MaintainVariable('total_wlan_active', $this->Translate('WLAN'), vtInteger, 'DevoloWifi.WLAN', $vpos++, true);
+        $this->MaintainVariable('accesspoints', $this->Translate('count of accesspoints'), VARIABLETYPE_INTEGER, '', $vpos++, true);
+        $this->MaintainVariable('clients', $this->Translate('count of clients'), VARIABLETYPE_INTEGER, '', $vpos++, true);
+        $this->MaintainVariable('StatusBox', $this->Translate('State of accesspoints / clients'), VARIABLETYPE_STRING, '~HTMLBox', $vpos++, $with_status_box);
+        $this->MaintainVariable('total_wlan_active', $this->Translate('WLAN'), VARIABLETYPE_INTEGER, 'DevoloWifi.WLAN', $vpos++, true);
         $this->MaintainAction('total_wlan_active', true);
-        $this->MaintainVariable('total_guest_active', $this->Translate('Guest-WLAN'), vtInteger, 'DevoloWifi.WLAN', $vpos++, $with_guest_info);
+        $this->MaintainVariable('total_guest_active', $this->Translate('Guest-WLAN'), VARIABLETYPE_INTEGER, 'DevoloWifi.WLAN', $vpos++, $with_guest_info);
         $this->MaintainAction('total_guest_active', $with_guest_info);
 
         $this->SetStatus(102);
