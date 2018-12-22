@@ -2,18 +2,6 @@
 
 require_once __DIR__ . '/../libs/common.php';  // globale Funktionen
 
-// Constants will be defined with IP-Symcon 5.0 and newer
-if (!defined('KR_READY')) {
-    define('KR_READY', 10103);
-}
-
-if (!defined('VARIABLETYPE_BOOLEAN')) {
-    define('VARIABLETYPE_BOOLEAN', 0);
-    define('VARIABLETYPE_INTEGER', 1);
-    define('VARIABLETYPE_FLOAT', 2);
-    define('VARIABLETYPE_STRING', 3);
-}
-
 class DevoloAccesspoint extends IPSModule
 {
     use DevoloCommon;
@@ -145,6 +133,7 @@ class DevoloAccesspoint extends IPSModule
             $ap_ip = '';
             $ap_mac = '';
             $ap_dlan_name = '';
+			$ap_dlan_type = '';
             $adapters = [];
             $clients = [];
 
@@ -156,7 +145,7 @@ class DevoloAccesspoint extends IPSModule
                 if ($with_dns) {
                     $ap_hostname = gethostbyaddr($ap_ip);
                     if ($ap_ip == $ap_hostname) {
-                        echo "can't resolve ip '$ap_ip'\n";
+						$this->LogMessage('can\'t resolve ip "' . $ap_ip . '"', KL_WARNING);
                         $ap_hostname = '';
                     }
                 }
@@ -165,7 +154,7 @@ class DevoloAccesspoint extends IPSModule
                 if ($with_dns) {
                     $ap_ip = gethostbyname($ap_hostname);
                     if ($ap_hostname == $ap_ip) {
-                        echo "can't resolve host '$ap_hostname'\n";
+						$this->LogMessage('can\'t resolve host "' . $ap_hostname . '"', KL_WARNING);
                         $ap_ip = '';
                     }
                 }
@@ -655,7 +644,7 @@ class DevoloAccesspoint extends IPSModule
         }
 
         if ($statuscode) {
-            echo "url=$url => statuscode=$statuscode, err=$err";
+            $this->LogMessage('url=' . $url . ' => statuscode=' . $statuscode . ', err=' . $err, KL_WARNING);
             $this->SendDebug(__FUNCTION__, ' => statuscode=' . $statuscode . ', err=' . $err, 0);
             $this->SetStatus($statuscode);
             $data = '';
@@ -712,7 +701,7 @@ class DevoloAccesspoint extends IPSModule
         }
 
         if ($statuscode) {
-            echo "url=$url => statuscode=$statuscode, err=$err";
+            $this->LogMessage('url=' . $url . ' => statuscode=' . $statuscode . ', err=' . $err, KL_WARNING);
             $this->SendDebug(__FUNCTION__, ' => statuscode=' . $statuscode . ', err=' . $err, 0);
             $this->SetStatus($statuscode);
             return false;

@@ -1,5 +1,7 @@
 <?php
 
+// Constants will be defined with IP-Symcon 5.0 and newer
+
 if (@constant('IPS_BASE') == null) {
     // --- BASE MESSAGE
     define('IPS_BASE', 10000);							// Base Message
@@ -21,6 +23,13 @@ if (@constant('IPS_BASE') == null) {
     define('KL_ERROR', IPS_LOGMESSAGE + 5);				// Error Message
     define('KL_DEBUG', IPS_LOGMESSAGE + 6);				// Debug Informations + Script Results
     define('KL_CUSTOM', IPS_LOGMESSAGE + 7);			// User Message
+}
+
+if (!defined('VARIABLETYPE_BOOLEAN')) {
+    define('VARIABLETYPE_BOOLEAN', 0);
+    define('VARIABLETYPE_INTEGER', 1);
+    define('VARIABLETYPE_FLOAT', 2);
+    define('VARIABLETYPE_STRING', 3);
 }
 
 trait DevoloCommon
