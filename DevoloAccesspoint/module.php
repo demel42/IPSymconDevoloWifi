@@ -133,7 +133,7 @@ class DevoloAccesspoint extends IPSModule
             $ap_ip = '';
             $ap_mac = '';
             $ap_dlan_name = '';
-			$ap_dlan_type = '';
+            $ap_dlan_type = '';
             $adapters = [];
             $clients = [];
 
@@ -145,7 +145,7 @@ class DevoloAccesspoint extends IPSModule
                 if ($with_dns) {
                     $ap_hostname = gethostbyaddr($ap_ip);
                     if ($ap_ip == $ap_hostname) {
-						$this->LogMessage('can\'t resolve ip "' . $ap_ip . '"', KL_WARNING);
+                        $this->LogMessage('can\'t resolve ip "' . $ap_ip . '"', KL_WARNING);
                         $ap_hostname = '';
                     }
                 }
@@ -154,7 +154,7 @@ class DevoloAccesspoint extends IPSModule
                 if ($with_dns) {
                     $ap_ip = gethostbyname($ap_hostname);
                     if ($ap_hostname == $ap_ip) {
-						$this->LogMessage('can\'t resolve host "' . $ap_hostname . '"', KL_WARNING);
+                        $this->LogMessage('can\'t resolve host "' . $ap_hostname . '"', KL_WARNING);
                         $ap_ip = '';
                     }
                 }
