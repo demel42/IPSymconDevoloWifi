@@ -612,8 +612,8 @@ class DevoloAccesspoint extends IPSModule
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         $cdata = curl_exec($ch);
-		$cerrno = curl_errno ($ch);
-		$cerror = $cerrno ? curl_error($ch) : '';
+        $cerrno = curl_errno($ch);
+        $cerror = $cerrno ? curl_error($ch) : '';
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
@@ -683,8 +683,8 @@ class DevoloAccesspoint extends IPSModule
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);
         $cdata = curl_exec($ch);
-		$cerrno = curl_errno ($ch);
-		$cerror = $cerrno ? curl_error($ch) : '';
+        $cerrno = curl_errno($ch);
+        $cerror = $cerrno ? curl_error($ch) : '';
         $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
