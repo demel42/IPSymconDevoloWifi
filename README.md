@@ -1,7 +1,7 @@
 # IPSymconDevoloWifi
 
 [![IPS-Version](https://img.shields.io/badge/Symcon_Version-4.4+-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-![Module-Version](https://img.shields.io/badge/Modul_Version-1.6-blue.svg)
+![Module-Version](https://img.shields.io/badge/Modul_Version-1.7-blue.svg)
 ![Code](https://img.shields.io/badge/Code-PHP-blue.svg)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![StyleCI](https://github.styleci.io/repos/127769152/shield?branch=master)](https://github.styleci.io/repos/127769152)
@@ -261,6 +261,9 @@ GUIDs
   - `{68DFE4E1-13BA-4CB0-97C7-3624436869F2}`: an DevoloAccesspoint
 
 ## 7. Versions-Historie
+
+- 1.7 @ 23.01.2019 18:18<br>
+  - curl_errno() abfragen
 
 - 1.6 @ 22.12.2018 09:21<br>
   - Fehler in der http-Kommunikation nun nicht mehr mit _echo_ (also **ERROR**) sondern mit _LogMessage_ als **NOTIFY**

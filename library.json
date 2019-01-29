@@ -2,11 +2,11 @@
 	"id": "{17E46487-5653-4131-83E9-76E2A73D7DBA}",
 	"author": "Ch. Damsky",
 	"name": "DevoloWifi",
-	"url": "",
+	"url": "https://github.com/demel42/IPSymconDevoloWifi",
 	"compatibility": {
 		"version": "4.4"
 	},
-	"version": "1.6",
+	"version": "1.7",
 	"build": 0,
-	"date": 1545466861
+	"date": 1548263914
 }
