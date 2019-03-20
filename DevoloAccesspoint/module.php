@@ -157,6 +157,12 @@ class DevoloAccesspoint extends IPSModule
 
     private function reallyUpdateData($status_only)
     {
+		$inst = IPS_GetInstance($this->InstanceID);
+		if ($inst['InstanceStatus'] == IS_INACTIVE) {
+			$this->SendDebug(__FUNCTION__, 'instance is inactive, skip', 0);
+			return;
+		}
+
         $ap_name = $this->ReadPropertyString('ap_name');
 
         $wan_bridge = $this->ReadPropertyString('wan_bridge');
@@ -544,8 +550,6 @@ class DevoloAccesspoint extends IPSModule
 
     public function RequestAction($Ident, $Value)
     {
-        $setopt_url = '/cgi-bin/htmlmgr';
-
         switch ($Ident) {
             case 'wlan_active':
                 $this->SwitchWLAN($Value);
@@ -561,6 +565,12 @@ class DevoloAccesspoint extends IPSModule
 
     public function ReceiveData($data)
     {
+		$inst = IPS_GetInstance($this->InstanceID);
+		if ($inst['InstanceStatus'] == IS_INACTIVE) {
+			$this->SendDebug(__FUNCTION__, 'instance is inactive, skip', 0);
+			return;
+		}
+
         $jdata = json_decode($data);
         $this->SendDebug(__FUNCTION__, 'data=' . print_r($jdata, true), 0);
         if (isset($jdata->Function)) {
@@ -582,6 +592,12 @@ class DevoloAccesspoint extends IPSModule
 
     public function SwitchWLAN(bool $value)
     {
+		$inst = IPS_GetInstance($this->InstanceID);
+		if ($inst['InstanceStatus'] == IS_INACTIVE) {
+			$this->SendDebug(__FUNCTION__, 'instance is inactive, skip', 0);
+			return false;
+		}
+
         $onoff = $value ? 'on' : 'off';
 
         $accesspoint = json_decode($this->GetBuffer('Accesspoint'), true);
@@ -614,6 +630,12 @@ class DevoloAccesspoint extends IPSModule
 
     public function SwitchGuestWLAN(bool $value, int $timeout = null)
     {
+		$inst = IPS_GetInstance($this->InstanceID);
+		if ($inst['InstanceStatus'] == IS_INACTIVE) {
+			$this->SendDebug(__FUNCTION__, 'instance is inactive, skip', 0);
+			return false;
+		}
+
         $onoff = $value ? 'on' : 'off';
         $tmout = $timeout != null && is_numeric($timeout) ? $timeout : 0;
 
