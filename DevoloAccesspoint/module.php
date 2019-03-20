@@ -10,6 +10,8 @@ class DevoloAccesspoint extends IPSModule
     {
         parent::Create();
 
+		$this->RegisterPropertyBoolean('module_disable', false);
+
         $this->RegisterPropertyString('ap_name', '');
 
         $this->RegisterPropertyString('username', 'admin');
@@ -78,12 +80,66 @@ class DevoloAccesspoint extends IPSModule
             $this->EnableAction('guest_active');
         }
 
+		$module_disable = $this->ReadPropertyBoolean('module_disable');
+		if ($module_disable) {
+			$this->SetStatus(IS_INACTIVE);
+			return;
+		}
+
         if ($ap_name != '') {
             $this->SetUpdateInterval();
-            $this->SetStatus(102);
+            $this->SetStatus(IS_ACTIVE);
         } else {
-            $this->SetStatus(104);
+            $this->SetStatus(IS_INACTIVE);
         }
+    }
+
+    public function GetConfigurationForm()
+    {
+        $formElements = [];
+		$formElements[] = ['type' => 'CheckBox', 'name' => 'module_disable', 'caption' => 'Module is disabled'];
+        $formElements[] = ['type' => 'Label', 'label' => 'name can be a hostname or ip-address'];
+        $formElements[] = ['type' => 'ValidationTextBox', 'name' => 'ap_name', 'caption' => 'Name'];
+        $formElements[] = ['type' => 'Label', 'label' => 'must only be filled, if restricted access is configured'];
+        $formElements[] = ['type' => 'ValidationTextBox', 'name' => 'username', 'caption' => 'Username'];
+        $formElements[] = ['type' => 'ValidationTextBox', 'name' => 'password', 'caption' => 'Password'];
+        $formElements[] = ['type' => 'Label', 'label' => 'optional data of accesspoint'];
+        $formElements[] = ['type' => 'CheckBox', 'name' => 'with_dns', 'caption' => 'resolve ip/hostname by DNS'];
+        $formElements[] = ['type' => 'CheckBox', 'name' => 'with_ap_detail', 'caption' => 'Details'];
+        $formElements[] = ['type' => 'Label', 'label' => 'optional data of WLAN'];
+        $formElements[] = ['type' => 'CheckBox', 'name' => 'with_wlan_info', 'caption' => 'Informations'];
+        $formElements[] = ['type' => 'CheckBox', 'name' => 'with_wlan_detail', 'caption' => 'Details'];
+        $formElements[] = ['type' => 'Label', 'label' => 'optional data of Guest-WLAN'];
+        $formElements[] = ['type' => 'CheckBox', 'name' => 'with_guest_info', 'caption' => 'Informations'];
+        $formElements[] = ['type' => 'CheckBox', 'name' => 'with_guest_detail', 'caption' => 'Details'];
+        $formElements[] = ['type' => 'Label', 'label' => 'optional script to hide/show variables'];
+        $formElements[] = ['type' => 'SelectScript', 'name' => 'visibility_script', 'caption' => 'visibility'];
+        $formElements[] = ['type' => 'Label', 'label' => 'Number of ethernet-port connected to LAN/WAN'];
+        $formElements[] = ['type' => 'NumberSpinner', 'name' => 'wan_port', 'caption' => 'WAN-Port'];
+        $formElements[] = ['type' => 'Label', 'label' => 'MAC of the dLAN-Adapter next to ethernet'];
+        $formElements[] = ['type' => 'ValidationTextBox', 'name' => 'wan_bridge', 'caption' => 'WAN-Bridge'];
+        $formElements[] = ['type' => 'Label', 'label' => 'query accesspoint every X minutes'];
+        $formElements[] = ['type' => 'NumberSpinner', 'name' => 'UpdateDataInterval', 'caption' => 'Minutes'];
+
+        $formActions = [];
+        $formActions[] = ['type' => 'Label', 'label' => 'one query makes take several seconds to complete'];
+        $formActions[] = ['type' => 'Button', 'label' => 'Perform query', 'onClick' => 'DevoloAP_UpdateData($id);'];
+        $formActions[] = ['type' => 'Label', 'label' => '____________________________________________________________________________________________________'];
+        $formActions[] = ['type' => 'Button', 'label' => 'Module description', 'onClick' => 'echo \'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md\';'];
+
+        $formStatus = [];
+		$formStatus[] = ['code' => IS_CREATING, 'icon' => 'inactive', 'caption' => 'Instance getting created'];
+		$formStatus[] = ['code' => IS_ACTIVE, 'icon' => 'active', 'caption' => 'Instance is active'];
+		$formStatus[] = ['code' => IS_DELETING, 'icon' => 'inactive', 'caption' => 'Instance is deleted'];
+		$formStatus[] = ['code' => IS_INACTIVE, 'icon' => 'inactive', 'caption' => 'Instance is inactive'];
+		$formStatus[] = ['code' => IS_NOTCREATED, 'icon' => 'inactive', 'caption' => 'Instance is not created'];
+
+		$formStatus[] = ['code' => IS_UNAUTHORIZED, 'icon' => 'error', 'caption' => 'Instance is inactive (unauthorized)'];
+		$formStatus[] = ['code' => IS_SERVERERROR, 'icon' => 'error', 'caption' => 'Instance is inactive (server error)'];
+		$formStatus[] = ['code' => IS_HTTPERROR, 'icon' => 'error', 'caption' => 'Instance is inactive (http error)'];
+		$formStatus[] = ['code' => IS_INVALIDDATA, 'icon' => 'error', 'caption' => 'Instance is inactive (invalid data)'];
+
+        return json_encode(['elements' => $formElements, 'actions' => $formActions, 'status' => $formStatus]);
     }
 
     protected function SetUpdateInterval()
@@ -452,7 +508,7 @@ class DevoloAccesspoint extends IPSModule
             $this->SetBuffer('Accesspoint', json_encode($accesspoint));
             $this->SetValue('alert', false);
 
-            $this->SetStatus(102);
+            $this->SetStatus(IS_ACTIVE);
             $data = [
                     'DataID'      => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
                     'accesspoint' => $accesspoint
@@ -624,26 +680,26 @@ class DevoloAccesspoint extends IPSModule
         $err = '';
         $data = $cdata;
         if ($cerrno) {
-            $statuscode = 204;
+            $statuscode = IS_HTTPERROR;
             $err = 'got curl-errno ' . $cerrno . ' (' . $cerror . ')';
         } elseif ($httpcode != 200) {
             if ($httpcode == 400 || $httpcode == 401) {
-                $statuscode = 201;
+                $statuscode = IS_UNAUTHORIZED;
                 $err = 'got http-code ' . $httpcode . ' (unauthorized)';
             } elseif ($httpcode >= 500 && $httpcode <= 599) {
-                $statuscode = 202;
+                $statuscode = İS_SERVERERROR;
                 $err = 'got http-code ' . $httpcode . ' (server error)';
             } else {
-                $statuscode = 203;
+                $statuscode = IS_HTTPERROR;
                 $err = 'got http-code ' . $httpcode;
             }
         } elseif ($cdata == '') {
-            $statuscode = 204;
+            $statuscode = IS_INVALIDDATA;
             $err = 'no data';
         } elseif ($do_json) {
             $data = json_decode($cdata, true);
             if ($data == '') {
-                $statuscode = 204;
+                $statuscode = IS_INVALIDDATA;
                 $err = 'malformed response';
             }
         }
@@ -695,17 +751,17 @@ class DevoloAccesspoint extends IPSModule
         $err = '';
         $data = $cdata;
         if ($cerrno) {
-            $statuscode = 204;
+            $statuscode = IS_HTTPERROR;
             $err = 'got curl-errno ' . $cerrno . ' (' . $cerror . ')';
         } elseif ($httpcode != 200) {
             if ($httpcode == 400 || $httpcode == 401) {
-                $statuscode = 201;
+                $statuscode = IS_UNAUTHORIZED;
                 $err = "got http-code $httpcode (unauthorized)";
             } elseif ($httpcode >= 500 && $httpcode <= 599) {
-                $statuscode = 202;
+                $statuscode = İS_SERVERERROR;
                 $err = "got http-code $httpcode (server error)";
             } else {
-                $statuscode = 203;
+                $statuscode = IS_HTTPERROR;
                 $err = "got http-code $httpcode";
             }
         }

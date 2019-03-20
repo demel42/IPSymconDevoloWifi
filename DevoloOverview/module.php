@@ -10,6 +10,8 @@ class DevoloOverview extends IPSModule
     {
         parent::Create();
 
+        $this->RegisterPropertyBoolean('module_disable', false);
+
         $this->RegisterPropertyInteger('wan_download', 0);
         $this->RegisterPropertyInteger('wan_upload', 0);
 
@@ -59,7 +61,41 @@ class DevoloOverview extends IPSModule
         $this->MaintainVariable('total_guest_active', $this->Translate('Guest-WLAN'), VARIABLETYPE_INTEGER, 'DevoloWifi.WLAN', $vpos++, $with_guest_info);
         $this->MaintainAction('total_guest_active', $with_guest_info);
 
-        $this->SetStatus(102);
+        $module_disable = $this->ReadPropertyBoolean('module_disable');
+		if ($module_disable) {
+			$this->SetStatus(IS_INACTIVE);
+			return;
+		}
+
+        $this->SetStatus(IS_ACTIVE);
+    }
+
+    public function GetConfigurationForm()
+    {
+        $formElements = [];
+        $formElements[] = ['type' => 'CheckBox', 'name' => 'module_disable', 'caption' => 'Module is disabled'];
+        $formElements[] = ['type' => 'Label', 'label' => 'rate of LAN/WAN (in MBit/s)'];
+        $formElements[] = ['type' => 'NumberSpinner', 'name' => 'wan_download', 'caption' => 'download'];
+        $formElements[] = ['type' => 'NumberSpinner', 'name' => 'wan_upload', 'caption' => 'upload'];
+        $formElements[] = ['type' => 'Label', 'label' => 'optional data'];
+        $formElements[] = ['type' => 'CheckBox', 'name' => 'with_status_box', 'caption' => ' ... html-box with list of clients'];
+        $formElements[] = ['type' => 'CheckBox', 'name' => 'with_guest_info', 'caption' => ' ... information of Guest-WLAN'];
+        $formElements[] = ['type' => 'Label', 'label' => 'alternate script to use for ...'];
+        $formElements[] = ['type' => 'SelectScript', 'name' => 'statusbox_script', 'caption' => ' ... "StatusBox"'];
+        $formElements[] = ['type' => 'SelectScript', 'name' => 'webhook_script', 'caption' => ' ... Webhook'];
+
+        $formActions = [];
+        $formActions[] = ['type' => 'Label', 'label' => '____________________________________________________________________________________________________'];
+        $formActions[] = ['type' => 'Button', 'label' => 'Module description', 'onClick' => 'echo \'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md\';'];
+
+        $formStatus = [];
+		$formStatus[] = ['code' => IS_CREATING, 'icon' => 'inactive', 'caption' => 'Instance getting created'];
+		$formStatus[] = ['code' => IS_ACTIVE, 'icon' => 'active', 'caption' => 'Instance is active'];
+		$formStatus[] = ['code' => IS_DELETING, 'icon' => 'inactive', 'caption' => 'Instance is deleted'];
+		$formStatus[] = ['code' => IS_INACTIVE, 'icon' => 'inactive', 'caption' => 'Instance is inactive'];
+		$formStatus[] = ['code' => IS_NOTCREATED, 'icon' => 'inactive', 'caption' => 'Instance is not created'];
+
+        return json_encode(['elements' => $formElements, 'actions' => $formActions, 'status' => $formStatus]);
     }
 
     public function ForwardData($data)
@@ -523,7 +559,7 @@ class DevoloOverview extends IPSModule
     // Inspired from module SymconTest/HookServe
     protected function ProcessHookData()
     {
-        $this->SendDebug('WebHook SERVER', print_r($_SERVER, true), 0);
+        $this->SendDebug(__FUNCTION__, '_SERVER=' . print_r($_SERVER, true), 0);
 
         $root = realpath(__DIR__);
         $uri = $_SERVER['REQUEST_URI'];

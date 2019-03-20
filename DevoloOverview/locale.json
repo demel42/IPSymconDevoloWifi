@@ -1,6 +1,8 @@
 {
 	"translations": {
 		"de": {
+			"Module is disabled": "Modul ist deaktiviert",
+
 			"rate of LAN/WAN (in MBit/s)": "Geschwindigkeit der LAN/WAN-Verbindung (in MBit/s)",
 			"download": "Download",
 			"upload": "Upload",
@@ -24,7 +26,9 @@
 
 			"Instance getting created": "Instanz wird erstellt",
 			"Instance is active": "Instanz ist aktiv",
-			"Instance is inactive": "Instanz ist inaktiv"
+			"Instance is deleted": "Instanz wird gelöscht",
+			"Instance is inactive": "Instanz ist inaktiv",
+			"Instance is not created": "Instanz wurde nicht erzeugt"
 		}
 	}
 }
