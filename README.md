@@ -190,6 +190,8 @@ Daten siehe _DevoloAP_GetRawData_, nur wird ein array von _accesspoint_ übergeb
 
 | Eigenschaft               | Typ      | Standardwert | Beschreibung |
 | :-----------------------: | :-----:  | :----------: | :----------------------------------------------------------------------------------------------------------: |
+| Modul ist deaktiviert     | boolean  | false        | Modul temporär deaktivieren |
+|                           |          |              | |
 | ap_name                   | string   |              | Bezeichnung des Hostname oder (statische) IP-Adresse |
 | username                  | string   | admin        | Benutzerkennung |
 | password                  | string   |              | Passwort (sofern im Accesspoint gesetzt) |
@@ -220,6 +222,8 @@ Daten siehe _DevoloAP_GetRawData_, nur wird ein array von _accesspoint_ übergeb
 
 | Eigenschaft               | Typ      | Standardwert | Beschreibung |
 | :-----------------------: | :-----:  | :----------: | :----------------------------------------------------------------------------------------------------------: |
+| Modul ist deaktiviert     | boolean  | false        | Modul temporär deaktivieren |
+|                           |          |              | |
 | wan_download              | integer  | 0            | WAN/LAN Download (in Mbit/s) |
 | wan_upload                | integer  | 0            | WAN/LAN Upload (in Mbit/s) |
 | with_guest_info           | boolean  | false        | Informationen zu Gast-WLAN |
