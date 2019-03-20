@@ -10,7 +10,7 @@ class DevoloAccesspoint extends IPSModule
     {
         parent::Create();
 
-		$this->RegisterPropertyBoolean('module_disable', false);
+        $this->RegisterPropertyBoolean('module_disable', false);
 
         $this->RegisterPropertyString('ap_name', '');
 
@@ -80,11 +80,11 @@ class DevoloAccesspoint extends IPSModule
             $this->EnableAction('guest_active');
         }
 
-		$module_disable = $this->ReadPropertyBoolean('module_disable');
-		if ($module_disable) {
-			$this->SetStatus(IS_INACTIVE);
-			return;
-		}
+        $module_disable = $this->ReadPropertyBoolean('module_disable');
+        if ($module_disable) {
+            $this->SetStatus(IS_INACTIVE);
+            return;
+        }
 
         if ($ap_name != '') {
             $this->SetUpdateInterval();
@@ -97,7 +97,7 @@ class DevoloAccesspoint extends IPSModule
     public function GetConfigurationForm()
     {
         $formElements = [];
-		$formElements[] = ['type' => 'CheckBox', 'name' => 'module_disable', 'caption' => 'Module is disabled'];
+        $formElements[] = ['type' => 'CheckBox', 'name' => 'module_disable', 'caption' => 'Module is disabled'];
         $formElements[] = ['type' => 'Label', 'label' => 'name can be a hostname or ip-address'];
         $formElements[] = ['type' => 'ValidationTextBox', 'name' => 'ap_name', 'caption' => 'Name'];
         $formElements[] = ['type' => 'Label', 'label' => 'must only be filled, if restricted access is configured'];
@@ -128,16 +128,16 @@ class DevoloAccesspoint extends IPSModule
         $formActions[] = ['type' => 'Button', 'label' => 'Module description', 'onClick' => 'echo \'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md\';'];
 
         $formStatus = [];
-		$formStatus[] = ['code' => IS_CREATING, 'icon' => 'inactive', 'caption' => 'Instance getting created'];
-		$formStatus[] = ['code' => IS_ACTIVE, 'icon' => 'active', 'caption' => 'Instance is active'];
-		$formStatus[] = ['code' => IS_DELETING, 'icon' => 'inactive', 'caption' => 'Instance is deleted'];
-		$formStatus[] = ['code' => IS_INACTIVE, 'icon' => 'inactive', 'caption' => 'Instance is inactive'];
-		$formStatus[] = ['code' => IS_NOTCREATED, 'icon' => 'inactive', 'caption' => 'Instance is not created'];
+        $formStatus[] = ['code' => IS_CREATING, 'icon' => 'inactive', 'caption' => 'Instance getting created'];
+        $formStatus[] = ['code' => IS_ACTIVE, 'icon' => 'active', 'caption' => 'Instance is active'];
+        $formStatus[] = ['code' => IS_DELETING, 'icon' => 'inactive', 'caption' => 'Instance is deleted'];
+        $formStatus[] = ['code' => IS_INACTIVE, 'icon' => 'inactive', 'caption' => 'Instance is inactive'];
+        $formStatus[] = ['code' => IS_NOTCREATED, 'icon' => 'inactive', 'caption' => 'Instance is not created'];
 
-		$formStatus[] = ['code' => IS_UNAUTHORIZED, 'icon' => 'error', 'caption' => 'Instance is inactive (unauthorized)'];
-		$formStatus[] = ['code' => IS_SERVERERROR, 'icon' => 'error', 'caption' => 'Instance is inactive (server error)'];
-		$formStatus[] = ['code' => IS_HTTPERROR, 'icon' => 'error', 'caption' => 'Instance is inactive (http error)'];
-		$formStatus[] = ['code' => IS_INVALIDDATA, 'icon' => 'error', 'caption' => 'Instance is inactive (invalid data)'];
+        $formStatus[] = ['code' => IS_UNAUTHORIZED, 'icon' => 'error', 'caption' => 'Instance is inactive (unauthorized)'];
+        $formStatus[] = ['code' => IS_SERVERERROR, 'icon' => 'error', 'caption' => 'Instance is inactive (server error)'];
+        $formStatus[] = ['code' => IS_HTTPERROR, 'icon' => 'error', 'caption' => 'Instance is inactive (http error)'];
+        $formStatus[] = ['code' => IS_INVALIDDATA, 'icon' => 'error', 'caption' => 'Instance is inactive (invalid data)'];
 
         return json_encode(['elements' => $formElements, 'actions' => $formActions, 'status' => $formStatus]);
     }

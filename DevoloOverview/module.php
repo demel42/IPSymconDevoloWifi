@@ -62,10 +62,10 @@ class DevoloOverview extends IPSModule
         $this->MaintainAction('total_guest_active', $with_guest_info);
 
         $module_disable = $this->ReadPropertyBoolean('module_disable');
-		if ($module_disable) {
-			$this->SetStatus(IS_INACTIVE);
-			return;
-		}
+        if ($module_disable) {
+            $this->SetStatus(IS_INACTIVE);
+            return;
+        }
 
         $this->SetStatus(IS_ACTIVE);
     }
@@ -89,11 +89,11 @@ class DevoloOverview extends IPSModule
         $formActions[] = ['type' => 'Button', 'label' => 'Module description', 'onClick' => 'echo \'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md\';'];
 
         $formStatus = [];
-		$formStatus[] = ['code' => IS_CREATING, 'icon' => 'inactive', 'caption' => 'Instance getting created'];
-		$formStatus[] = ['code' => IS_ACTIVE, 'icon' => 'active', 'caption' => 'Instance is active'];
-		$formStatus[] = ['code' => IS_DELETING, 'icon' => 'inactive', 'caption' => 'Instance is deleted'];
-		$formStatus[] = ['code' => IS_INACTIVE, 'icon' => 'inactive', 'caption' => 'Instance is inactive'];
-		$formStatus[] = ['code' => IS_NOTCREATED, 'icon' => 'inactive', 'caption' => 'Instance is not created'];
+        $formStatus[] = ['code' => IS_CREATING, 'icon' => 'inactive', 'caption' => 'Instance getting created'];
+        $formStatus[] = ['code' => IS_ACTIVE, 'icon' => 'active', 'caption' => 'Instance is active'];
+        $formStatus[] = ['code' => IS_DELETING, 'icon' => 'inactive', 'caption' => 'Instance is deleted'];
+        $formStatus[] = ['code' => IS_INACTIVE, 'icon' => 'inactive', 'caption' => 'Instance is inactive'];
+        $formStatus[] = ['code' => IS_NOTCREATED, 'icon' => 'inactive', 'caption' => 'Instance is not created'];
 
         return json_encode(['elements' => $formElements, 'actions' => $formActions, 'status' => $formStatus]);
     }
