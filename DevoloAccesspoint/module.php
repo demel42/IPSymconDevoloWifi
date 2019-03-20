@@ -82,7 +82,7 @@ class DevoloAccesspoint extends IPSModule
 
         $module_disable = $this->ReadPropertyBoolean('module_disable');
         if ($module_disable) {
-			$this->SetTimerInterval('UpdateData', 0);
+            $this->SetTimerInterval('UpdateData', 0);
             $this->SetStatus(IS_INACTIVE);
             return;
         }
