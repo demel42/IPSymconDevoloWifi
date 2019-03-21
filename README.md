@@ -270,7 +270,7 @@ GUIDs
 - 1.8 @ 20.03.2019 09:05<br>
   - Anpassungen IPS 5, Abspaltung Branch _ips_4.4_
   - form.json in GetConfigurationForm() abgebildet
-  - Schalter, um ein Modul (temporär) zu deaktivieren
+  - Schalter, um eine Instanz (temporär) zu deaktivieren
 
 - 1.7 @ 23.01.2019 18:18<br>
   - curl_errno() abfragen
