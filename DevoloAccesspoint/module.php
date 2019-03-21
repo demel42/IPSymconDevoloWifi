@@ -98,7 +98,7 @@ class DevoloAccesspoint extends IPSModule
     public function GetConfigurationForm()
     {
         $formElements = [];
-        $formElements[] = ['type' => 'CheckBox', 'name' => 'module_disable', 'caption' => 'Module is disabled'];
+        $formElements[] = ['type' => 'CheckBox', 'name' => 'module_disable', 'caption' => 'Instance is disabled'];
         $formElements[] = ['type' => 'Label', 'label' => 'name can be a hostname or ip-address'];
         $formElements[] = ['type' => 'ValidationTextBox', 'name' => 'ap_name', 'caption' => 'Name'];
         $formElements[] = ['type' => 'Label', 'label' => 'must only be filled, if restricted access is configured'];

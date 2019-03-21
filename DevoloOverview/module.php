@@ -73,7 +73,7 @@ class DevoloOverview extends IPSModule
     public function GetConfigurationForm()
     {
         $formElements = [];
-        $formElements[] = ['type' => 'CheckBox', 'name' => 'module_disable', 'caption' => 'Module is disabled'];
+        $formElements[] = ['type' => 'CheckBox', 'name' => 'module_disable', 'caption' => 'Instance is disabled'];
         $formElements[] = ['type' => 'Label', 'label' => 'rate of LAN/WAN (in MBit/s)'];
         $formElements[] = ['type' => 'NumberSpinner', 'name' => 'wan_download', 'caption' => 'download'];
         $formElements[] = ['type' => 'NumberSpinner', 'name' => 'wan_upload', 'caption' => 'upload'];
