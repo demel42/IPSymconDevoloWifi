@@ -703,7 +703,7 @@ class DevoloAccesspoint extends IPSModule
         $err = '';
         $data = $cdata;
         if ($cerrno) {
-            $statuscode = IS_HTTPERROR;
+            $statuscode = IS_SERVERERROR;
             $err = 'got curl-errno ' . $cerrno . ' (' . $cerror . ')';
         } elseif ($httpcode != 200) {
             if ($httpcode == 400 || $httpcode == 401) {
