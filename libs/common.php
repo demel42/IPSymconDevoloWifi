@@ -154,12 +154,12 @@ trait DevoloCommon
 
     private function SetMultiBuffer($name, $value)
     {
-		$this->{'Multi_' . $name} = $value;
+        $this->{'Multi_' . $name} = $value;
     }
 
     private function GetMultiBuffer($name)
     {
-		$value = $this->{'Multi_' . $name};
+        $value = $this->{'Multi_' . $name};
         return $value;
     }
 }
