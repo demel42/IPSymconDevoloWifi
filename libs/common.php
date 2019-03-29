@@ -154,20 +154,12 @@ trait DevoloCommon
 
     private function SetMultiBuffer($name, $value)
     {
-        if (IPS_GetKernelVersion() >= 5) {
-            $this->{'Multi_' . $name} = $value;
-        } else {
-            $this->SetBuffer($name, $value);
-        }
+		$this->{'Multi_' . $name} = $value;
     }
 
     private function GetMultiBuffer($name)
     {
-        if (IPS_GetKernelVersion() >= 5) {
-            $value = $this->{'Multi_' . $name};
-        } else {
-            $value = $this->GetBuffer($name);
-        }
+		$value = $this->{'Multi_' . $name};
         return $value;
     }
 }
