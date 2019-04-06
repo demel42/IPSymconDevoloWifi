@@ -710,7 +710,7 @@ class DevoloAccesspoint extends IPSModule
                 $statuscode = IS_UNAUTHORIZED;
                 $err = 'got http-code ' . $httpcode . ' (unauthorized)';
             } elseif ($httpcode >= 500 && $httpcode <= 599) {
-                $statuscode = İS_SERVERERROR;
+                $statuscode = IS_SERVERERROR;
                 $err = 'got http-code ' . $httpcode . ' (server error)';
             } else {
                 $statuscode = IS_HTTPERROR;
@@ -781,7 +781,7 @@ class DevoloAccesspoint extends IPSModule
                 $statuscode = IS_UNAUTHORIZED;
                 $err = "got http-code $httpcode (unauthorized)";
             } elseif ($httpcode >= 500 && $httpcode <= 599) {
-                $statuscode = İS_SERVERERROR;
+                $statuscode = IS_SERVERERROR;
                 $err = "got http-code $httpcode (server error)";
             } else {
                 $statuscode = IS_HTTPERROR;
