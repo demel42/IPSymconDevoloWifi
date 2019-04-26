@@ -107,66 +107,66 @@ Datenstruktur (muss mit json_decode() aufbereitet werden):
 
 - _adapter_: Information zu einem dLAN-Adaptern
 
-| Attribut        | Datentyp                | Bedeutung                               |
-| :-------------: | :---------------------: | :-------------------------------------: |
-| mac             | string                  | MAC-Addresse                            |
-| dlan_name       | string                  | Bezeichnung im dLAN                     |
-| dlan_type       | string                  | dLAN-Type  (zB _dLAN 1200+ WiFi ac_, _dLAN 550 WiFi_) |
-| receive         | integer                 | Empfangsrate vom Adapter zum AP (in Mbit/s) |
-| transmit        | integer                 | Senderate vom AP zum Adapter (in Mbit/s) |
+| Attribut  | Datentyp | Bedeutung |
+| :-------- | :------- | :-------- |
+| mac       | string   | MAC-Addresse |
+| dlan_name | string   | Bezeichnung im dLAN |
+| dlan_type | string   | dLAN-Type  (zB _dLAN 1200+ WiFi ac_, _dLAN 550 WiFi_) |
+| receive   | integer  | Empfangsrate vom Adapter zum AP (in Mbit/s) |
+| transmit  | integer  | Senderate vom AP zum Adapter (in Mbit/s) |
 
 
 - _client_: Information zu einem WLAN-Client
 
-| Attribut        | Datentyp                | Bedeutung                               |
-| :-------------: | :---------------------: | :-------------------------------------: |
-| ip              | string                  | IP-Adresse                              |
-| name            | string                  | Hostname                                |
-| mac             | string                  | MAC-Addresse                            |
-| band            | string                  | Frequenzband (_2.4_ oder _5_)           |
-| rate            | integer                 | Übertragungsrate (in Mbit/s)            |
-| connected_ts    | UNIX-Timestamp          | Verbinsungszeitpunkt                    |
-| guest           | boolean                 | ist im Gast-WLAN                        |
+| Attribut     | Datentyp       | Bedeutung |
+| :----------- | :------------- | :-------- |
+| ip           | string         | IP-Adresse |
+| name         | string         | Hostname |
+| mac          | string         | MAC-Addresse |
+| band         | string         | Frequenzband (_2.4_ oder _5_) |
+| rate         | integer        | Übertragungsrate (in Mbit/s) |
+| connected_ts | UNIX-Timestamp | Verbinsungszeitpunkt |
+| guest        | boolean        | ist im Gast-WLAN |
 
 - _wlan_24_, _wlan_5_: Einstellungen zum den WLAN-Frequenzbändern
 
-| Attribut        | Datentyp                | Bedeutung                               |
-| :-------------: | :---------------------: | :-------------------------------------: |
-| active          | boolean                 | Frequenzband ist aktiv                  |
-| security        | string                  | Verschlüsslung (_WPA_, _WPA2_, _none_)  |
-| sid             | string                  | SID                                     |
-| key             | string                  | Schlüssel                               |
+| Attribut | Datentyp | Bedeutung |
+| :------- | :------- | :-------- |
+| active   | boolean  | Frequenzband ist aktiv |
+| security | string   | Verschlüsslung (_WPA_, _WPA2_, _none_) |
+| sid      | string   | SID |
+| key      | string   | Schlüssel |
 
 - _wlan_guest_: Einstellungen zum Gast-WLAN
 
-| Attribut        | Datentyp                | Bedeutung                               |
-| :-------------: | :---------------------: | :-------------------------------------: |
-| active          | boolean                 | Frequenzband ist aktiv                  |
-| security        | string                  | Verschlüsslung (_WPA_, _WPA2_, _none_)  |
-| sid             | string                  | SID                                     |
-| key             | string                  | Schlüssel                               |
-| timeout         | integer                 | auto. Ascbhaltung des Gast-WLAN         |
+| Attribut | Datentyp | Bedeutung |
+| :------- | :------- | :-------- |
+| active   | boolean  | Frequenzband ist aktiv |
+| security | string   | Verschlüsslung (_WPA_, _WPA2_, _none_) |
+| sid      | string   | SID |
+| key      | string   | Schlüssel |
+| timeout  | integer  | auto. Ascbhaltung des Gast-WLAN |
 
 - accesspoint_: Information zu einem Accesspoint
 
-| Attribut        | Datentyp                | Bedeutung                               |
-| :-------------: | :---------------------: | :-------------------------------------: |
-| timestamp       | UNIX-Timestamp          | Zeitpunkt der Abfrage                   |
-| pos             | integer                 | Position im IPS-Baum (zur Sortierung bei einer Ausgabe) |
-| name            | string                  | Bezeichnung                             |
-| hostname        | string                  | Hostname (i.d.R. der _name_)            |
-| ip              | string                  | IP-Adresse                              |
-| mac             | string                  | MAC-Addresse                            |
-| dlan_name       | string                  | Bezeichnung im dLAN                     |
-| dlan_type       | string                  | dLAN-Type  (zB _dLAN 1200+ WiFi ac_, _dLAN 550 WiFi_) |
-| receive         | integer                 | Empfangsrate vom AP (in Mbit/s)         |
-| transmit        | integer                 | Senderate vom AP (in Mbit/s)            |
-| clients         | array von _clients_     | die mit dem AP verbundenen WLAN-Clients |
-| adapters        | array von _adapter_     | die mit dem AP kommunizierenden dLAN-Adapter |
-| wlan_unified    | boolean                 | WLAN-Einstellungen für beide Frequenzbänder gleich |
-| wlan_24         | boolean                 | Einstellung für 2.4 GHz                 |
-| wlan_5          | boolean                 | Einstellung für 5 GHz (nur für Typen mit beiden Frequenzen sowie wenn nicht _wlan_unified_) |
-| wlan_guest      | boolean                 | Einstellung für Gast-WLAN               |
+| Attribut     | Datentyp            | Bedeutung |
+| :----------- | :------------------ | :-------- |
+| timestamp    | UNIX-Timestamp      | Zeitpunkt der Abfrage |
+| pos          | integer             | Position im IPS-Baum (zur Sortierung bei einer Ausgabe) |
+| name         | string              | Bezeichnung |
+| hostname     | string              | Hostname (i.d.R. der _name_) |
+| ip           | string              | IP-Adresse |
+| mac          | string              | MAC-Addresse |
+| dlan_name    | string              | Bezeichnung im dLAN |
+| dlan_type    | string              | dLAN-Type  (zB _dLAN 1200+ WiFi ac_, _dLAN 550 WiFi_) |
+| receive      | integer             | Empfangsrate vom AP (in Mbit/s) |
+| transmit     | integer             | Senderate vom AP (in Mbit/s) |
+| clients      | array von _clients_ | die mit dem AP verbundenen WLAN-Clients |
+| adapters     | array von _adapter_ | die mit dem AP kommunizierenden dLAN-Adapter |
+| wlan_unified | boolean             | WLAN-Einstellungen für beide Frequenzbänder gleich |
+| wlan_24      | boolean             | Einstellung für 2.4 GHz |
+| wlan_5       | boolean             | Einstellung für 5 GHz (nur für Typen mit beiden Frequenzen sowie wenn nicht _wlan_unified_) |
+| wlan_guest   | boolean             | Einstellung für Gast-WLAN |
 
 Die gelieferte Struktur ist _accesspoint_; kein Array, weil es immer nur um einen Accesspoint geht.
 
@@ -188,23 +188,23 @@ Daten siehe _DevoloAP_GetRawData_, nur wird ein array von _accesspoint_ übergeb
 
 #### Variablen
 
-| Eigenschaft               | Typ      | Standardwert | Beschreibung |
-| :-----------------------: | :-----:  | :----------: | :----------------------------------------------------------------------------------------------------------: |
-| module_disable            | boolean  | false        | Modul temporär deaktivieren |
-|                           |          |              | |
-| ap_name                   | string   |              | Bezeichnung des Hostname oder (statische) IP-Adresse |
-| username                  | string   | admin        | Benutzerkennung |
-| password                  | string   |              | Passwort (sofern im Accesspoint gesetzt) |
-| with_dns                  | boolean  | true         | Ermitteln von IP-Adresse/Hostname des AP per DNS |
-| with_ap_detail            | boolean  | true         | Übertragungsraten |
-| with_wlan_info            | boolean  | false        | WLAN aktiv?, Frequenzband |
-| with_wlan_detail          | boolean  | true         | SID(s) |
-| with_guest_info           | boolean  | false        | Gast-WLAN aktiv? |
-| with_guest_detail         | boolean  | false        | SID, Timeout |
-| visibility_script         | integer  |              | Script um die Sichtbarkeit von Variablen zu steuern |
-| wan_port                  | integer  | 0            | Ethernetport, an den das WNA/LAN angeschlossen ist |
-| wan_bridge                | integer  |              | dLAN-Adpter, der die Verbinung zum WAN/LAN darstellt |
-| UpdateDataInterval        | integer  | 5            | Angabe in Minuten |
+| Eigenschaft        | Typ     | Standardwert | Beschreibung |
+| :----------------- | :------ | :----------- | :----------- |
+| module_disable     | boolean | false        | Modul temporär deaktivieren |
+|                    |         |              | |
+| ap_name            | string  |              | Bezeichnung des Hostname oder (statische) IP-Adresse |
+| username           | string  | admin        | Benutzerkennung |
+| password           | string  |              | Passwort (sofern im Accesspoint gesetzt) |
+| with_dns           | boolean | true         | Ermitteln von IP-Adresse/Hostname des AP per DNS |
+| with_ap_detail     | boolean | true         | Übertragungsraten |
+| with_wlan_info     | boolean | false        | WLAN aktiv?, Frequenzband |
+| with_wlan_detail   | boolean | true         | SID(s) |
+| with_guest_info    | boolean | false        | Gast-WLAN aktiv? |
+| with_guest_detail  | boolean | false        | SID, Timeout |
+| visibility_script  | integer |              | Script um die Sichtbarkeit von Variablen zu steuern |
+| wan_port           | integer | 0            | Ethernetport, an den das WNA/LAN angeschlossen ist |
+| wan_bridge         | integer |              | dLAN-Adpter, der die Verbinung zum WAN/LAN darstellt |
+| UpdateDataInterval | integer | 5            | Angabe in Minuten |
 
 - _wan_port_: hier ist der Ethernet-Port des dLAN-Accesspoints der z.B. mit dem Router verbunden ist
 - _wan_bridge_: wenn die Verbindung des zum WAN nicht über einen Ethernetport des Accesspoints hergestellt wird, versucht er unter den Adaptern den zu finden, der verbunden ist. Das geht aber ja nur bei den dLAN-Accesspoints - ist es ein reiner dLAN-Adapter, kann dessen MAC-Adresse hier eingtragen werden.
@@ -212,24 +212,24 @@ Daten siehe _DevoloAP_GetRawData_, nur wird ein array von _accesspoint_ übergeb
 
 #### Schaltflächen
 
-| Bezeichnung                  | Beschreibung |
-| :--------------------------: | :-------------------------------------------------: |
-| Abfrage durchführen          | führt eine sofortige Abfrage des Accesspoints durch |
+| Bezeichnung         | Beschreibung |
+| :------------------ | :----------- |
+| Abfrage durchführen | führt eine sofortige Abfrage des Accesspoints durch |
 
 ### DevoloOverview
 
 #### Variablen
 
-| Eigenschaft               | Typ      | Standardwert | Beschreibung |
-| :-----------------------: | :-----:  | :----------: | :----------------------------------------------------------------------------------------------------------: |
-| module_disable            | boolean  | false        | Modul temporär deaktivieren |
-|                           |          |              | |
-| wan_download              | integer  | 0            | WAN/LAN Download (in Mbit/s) |
-| wan_upload                | integer  | 0            | WAN/LAN Upload (in Mbit/s) |
-| with_guest_info           | boolean  | false        | Informationen zu Gast-WLAN |
-| with_status_box           | boolean  | false        | Ausgabe aller verbundenen WLAN-Clients aller Accesspoints |
-| statusbox_script          | integer  |              | Script zum Füllen der Variable _StatusBox_ |
-| webhook_script            | integer  |              | Script zur Verwendung im WebHook |
+| Eigenschaft      | Typ     | Standardwert | Beschreibung |
+| :--------------- | :------ | :----------- | :----------- |
+| module_disable   | boolean | false        | Modul temporär deaktivieren |
+|                  |         |              | |
+| wan_download     | integer | 0            | WAN/LAN Download (in Mbit/s) |
+| wan_upload       | integer | 0            | WAN/LAN Upload (in Mbit/s) |
+| with_guest_info  | boolean | false        | Informationen zu Gast-WLAN |
+| with_status_box  | boolean | false        | Ausgabe aller verbundenen WLAN-Clients aller Accesspoints |
+| statusbox_script | integer |              | Script zum Füllen der Variable _StatusBox_ |
+| webhook_script   | integer |              | Script zur Verwendung im WebHook |
 
 - _wan_download_, _wan_upload_: nur zur Darstellung der maximalen Transferaten mit dem Internet.
 
