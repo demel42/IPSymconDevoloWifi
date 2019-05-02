@@ -59,7 +59,9 @@ class DevoloOverview extends IPSModule
         $this->MaintainVariable('total_wlan_active', $this->Translate('WLAN'), VARIABLETYPE_INTEGER, 'DevoloWifi.WLAN', $vpos++, true);
         $this->MaintainAction('total_wlan_active', true);
         $this->MaintainVariable('total_guest_active', $this->Translate('Guest-WLAN'), VARIABLETYPE_INTEGER, 'DevoloWifi.WLAN', $vpos++, $with_guest_info);
-        $this->MaintainAction('total_guest_active', $with_guest_info);
+		if ($with_guest_info) {
+			$this->MaintainAction('total_guest_active', true);
+		}
 
         $module_disable = $this->ReadPropertyBoolean('module_disable');
         if ($module_disable) {
