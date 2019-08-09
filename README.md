@@ -1,7 +1,7 @@
 # IPSymconDevoloWifi
 
 [![IPS-Version](https://img.shields.io/badge/Symcon_Version-5.0+-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-![Module-Version](https://img.shields.io/badge/Modul_Version-1.11-blue.svg)
+![Module-Version](https://img.shields.io/badge/Modul_Version-1.12-blue.svg)
 ![Code](https://img.shields.io/badge/Code-PHP-blue.svg)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![StyleCI](https://github.styleci.io/repos/127769152/shield?branch=master)](https://github.styleci.io/repos/127769152)
@@ -266,6 +266,9 @@ GUIDs
   - `{68DFE4E1-13BA-4CB0-97C7-3624436869F2}`: an DevoloAccesspoint
 
 ## 7. Versions-Historie
+
+- 1.12 @ 09.08.2019 14:32<br>
+  - Schreibfehler korrigiert
 
 - 1.11 @ 02.05.2019 18:27<br>
   - Bugfix: Anlage von DevoloOverview war nicht mehr möglich
