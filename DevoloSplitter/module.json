@@ -1,0 +1,11 @@
+{
+	"id": "{122688B6-1306-4B99-A943-CBF39A6EFFD2}",
+	"name": "DevoloSplitter",
+	"type": 2,
+	"vendor": "Devolo",
+	"aliases": [],
+	"parentRequirements": [],
+	"childRequirements": ["{232A0372-880F-4535-AF1E-8ECF0C7EEF00}", "{68DFE4E1-13BA-4CB0-97C7-3624436869F2}"],
+	"implemented": ["{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}"],
+	"prefix": "Devolo"
+}

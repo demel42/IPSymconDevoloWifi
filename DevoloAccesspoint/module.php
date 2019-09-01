@@ -34,7 +34,7 @@ class DevoloAccesspoint extends IPSModule
 
         $this->RegisterTimer('UpdateData', 0, 'DevoloAP_UpdateData(' . $this->InstanceID . ');');
 
-        $this->ConnectParent('{C3550FAA-C939-4E85-BA63-7C4DE72ED487}');
+		$this->ConnectParent('{122688B6-1306-4B99-A943-CBF39A6EFFD2}');
 
         $this->CreateVarProfile('Devolo.TransferRate', VARIABLETYPE_INTEGER, ' Mbit/s', 0, 300, 0, 0, '');
 
@@ -517,7 +517,8 @@ class DevoloAccesspoint extends IPSModule
 
             $this->SetStatus(IS_ACTIVE);
             $data = [
-                    'DataID'      => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
+                    'DataID'      => '{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}',
+                    'ForwardID'   => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
                     'accesspoint' => $accesspoint
                 ];
             $this->SendDataToParent(json_encode($data));
@@ -539,7 +540,8 @@ class DevoloAccesspoint extends IPSModule
                     'mac'          => $ap_mac,
                 ];
             $data = [
-                    'DataID'      => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
+                    'DataID'      => '{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}',
+                    'ForwardID'   => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
                     'accesspoint' => $accesspoint
                 ];
             $this->SendDataToParent(json_encode($data));

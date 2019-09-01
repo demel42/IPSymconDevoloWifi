@@ -1,7 +1,7 @@
 # IPSymconDevoloWifi
 
 [![IPS-Version](https://img.shields.io/badge/Symcon_Version-5.0+-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-![Module-Version](https://img.shields.io/badge/Modul_Version-1.12-blue.svg)
+![Module-Version](https://img.shields.io/badge/Modul_Version-1.13-blue.svg)
 ![Code](https://img.shields.io/badge/Code-PHP-blue.svg)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![StyleCI](https://github.styleci.io/repos/127769152/shield?branch=master)](https://github.styleci.io/repos/127769152)
@@ -261,11 +261,17 @@ GUIDs
 - Instanzen:
   - DevoloAccesspoint: `{23D74FD6-2468-4239-9D37-83D39CC3FEC1}`
   - DevoloOverview: `{C3550FAA-C939-4E85-BA63-7C4DE72ED487}`
+  - DevoloSplitter: `{122688B6-1306-4B99-A943-CBF39A6EFFD2}`
 - Nachrichten:
+  - `{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}`: an DevoloSplitter
   - `{232A0372-880F-4535-AF1E-8ECF0C7EEF00}`: an DevoloOverview
   - `{68DFE4E1-13BA-4CB0-97C7-3624436869F2}`: an DevoloAccesspoint
 
 ## 7. Versions-Historie
+
+- 1.13 @ 01.09.2019 18:22<br>
+  - Anpassung für IPS 5.2: bisherige Kommunikation zwischen DevoloOverview und DevoloAccesspoint wird nun über (den ansonten funktionslosen) DevoloSplitter kommuniziert
+  Achtung: nach dem Update muss ggfs. in den Modulen der Splitte als Gateway eingetragen wurden.
 
 - 1.12 @ 09.08.2019 14:32<br>
   - Schreibfehler korrigiert

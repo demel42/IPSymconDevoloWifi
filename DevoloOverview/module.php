@@ -33,6 +33,8 @@ class DevoloOverview extends IPSModule
         $this->RegisterMessage(0, IPS_KERNELMESSAGE);
 
         $this->SetMultiBuffer('Accesspoints', '');
+
+		$this->ConnectParent('{122688B6-1306-4B99-A943-CBF39A6EFFD2}');
     }
 
     // Inspired by module SymconTest/HookServe
@@ -100,7 +102,7 @@ class DevoloOverview extends IPSModule
         return json_encode(['elements' => $formElements, 'actions' => $formActions, 'status' => $formStatus]);
     }
 
-    public function ForwardData($data)
+    public function ReceiveData($data)
     {
         $jdata = json_decode($data);
         $this->SendDebug(__FUNCTION__, 'data=' . print_r($jdata, true), 0);
@@ -252,16 +254,27 @@ class DevoloOverview extends IPSModule
 
     public function SwitchWLAN(bool $value)
     {
-        $data = ['DataID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}', 'Function' => 'SwitchWLAN', 'Value' => $value];
+        $data = [
+				'DataID'    => '{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}',
+				'ForwardID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}',
+				'Function'  => 'SwitchWLAN',
+				'Value'     => $value
+			];
         $this->SendDebug(__FUNCTION__, 'data=' . print_r($data, true), 0);
-        $this->SendDataToChildren(json_encode($data));
+        $this->SendDataToParent(json_encode($data));
     }
 
     public function SwitchGuestWLAN(bool $value, int $timeout = null)
     {
-        $data = ['DataID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}', 'Function' => 'SwitchGuestWLAN', 'Value' => $value, 'Timeout' => $timeout];
+        $data = [
+				'DataID'    => '{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}',
+				'ForwardID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}',
+        		'Function'  => 'SwitchGuestWLAN',
+				'Value'	    => $value,
+				'Timeout'   => $timeout
+			];
         $this->SendDebug(__FUNCTION__, 'data=' . print_r($data, true), 0);
-        $this->SendDataToChildren(json_encode($data));
+        $this->SendDataToParent(json_encode($data));
     }
 
     private function Build_StatusBox($data)

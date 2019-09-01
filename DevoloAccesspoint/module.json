@@ -4,8 +4,8 @@
 	"type": 3,
 	"vendor": "Devolo",
 	"aliases": [],
-	"parentRequirements": ["{232A0372-880F-4535-AF1E-8ECF0C7EEF00}"],
+	"parentRequirements": ["{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}"],
 	"childRequirements": [],
-	"implemented": [],
+	"implemented": ["{68DFE4E1-13BA-4CB0-97C7-3624436869F2}"],
 	"prefix": "DevoloAP"
 }
