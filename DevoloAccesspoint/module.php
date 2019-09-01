@@ -34,7 +34,7 @@ class DevoloAccesspoint extends IPSModule
 
         $this->RegisterTimer('UpdateData', 0, 'DevoloAP_UpdateData(' . $this->InstanceID . ');');
 
-		$this->ConnectParent('{122688B6-1306-4B99-A943-CBF39A6EFFD2}');
+        $this->ConnectParent('{122688B6-1306-4B99-A943-CBF39A6EFFD2}');
 
         $this->CreateVarProfile('Devolo.TransferRate', VARIABLETYPE_INTEGER, ' Mbit/s', 0, 300, 0, 0, '');
 

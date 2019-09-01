@@ -15,7 +15,7 @@ class DevoloSplitter extends IPSModule
     {
         parent::ApplyChanges();
 
-		$this->SetStatus(IS_ACTIVE);
+        $this->SetStatus(IS_ACTIVE);
     }
 
     public function GetConfigurationForm()
@@ -45,13 +45,17 @@ class DevoloSplitter extends IPSModule
         $jdata = json_decode($data);
         $this->SendDebug(__FUNCTION__, 'receive data=' . print_r($jdata, true), 0);
 
-		$njdata = [];
-		foreach ($jdata as $key => $value) {
-			if ($key == "DataID") continue;
-			if ($key == "ForwardID") $key = "DataID";
-			$njdata[$key] = $value;
-		}
-		$this->SendDebug(__FUNCTION__, 'send data=' . print_r($njdata, true), 0);
-		$this->SendDataToChildren(json_encode($njdata));
+        $njdata = [];
+        foreach ($jdata as $key => $value) {
+            if ($key == 'DataID') {
+                continue;
+            }
+            if ($key == 'ForwardID') {
+                $key = 'DataID';
+            }
+            $njdata[$key] = $value;
+        }
+        $this->SendDebug(__FUNCTION__, 'send data=' . print_r($njdata, true), 0);
+        $this->SendDataToChildren(json_encode($njdata));
     }
 }
