@@ -1,12 +1,12 @@
 {
 	"id": "{17E46487-5653-4131-83E9-76E2A73D7DBA}",
 	"author": "Ch. Damsky",
-	"name": "DevoloWifi",
+	"name": "Devolo Wifi-Adapter",
 	"url": "https://github.com/demel42/IPSymconDevoloWifi",
 	"compatibility": {
 		"version": "5.0"
 	},
-	"version": "1.13",
+	"version": "1.14",
 	"build": 0,
-	"date": 1567354947
+	"date": 1569515041
 }
