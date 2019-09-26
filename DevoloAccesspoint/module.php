@@ -125,10 +125,10 @@ class DevoloAccesspoint extends IPSModule
         $formActions = [];
         $formActions[] = ['type' => 'Label', 'label' => 'one query makes take several seconds to complete'];
         $formActions[] = ['type' => 'Button', 'label' => 'Perform query', 'onClick' => 'DevoloAP_UpdateData($id);'];
-		if (IPS_GetKernelVersion() < 5.2) {
-			$formActions[] = ['type' => 'Label', 'label' => '____________________________________________________________________________________________________'];
-			$formActions[] = ['type' => 'Button', 'label' => 'Module description', 'onClick' => 'echo \'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md\';'];
-		}
+        if (IPS_GetKernelVersion() < 5.2) {
+            $formActions[] = ['type' => 'Label', 'label' => '____________________________________________________________________________________________________'];
+            $formActions[] = ['type' => 'Button', 'label' => 'Module description', 'onClick' => 'echo \'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md\';'];
+        }
 
         $formStatus = [];
         $formStatus[] = ['code' => IS_CREATING, 'icon' => 'inactive', 'caption' => 'Instance getting created'];
