@@ -269,11 +269,12 @@ GUIDs
 
 ## 7. Versions-Historie
 
-- 1.14 @ 26.09.2019 18:24<br>
+- 1.14 @ 10.10.2019 17:27<br>
   - Anpassungen an IPS 5.2
     - IPS_SetVariableProfileValues(), IPS_SetVariableProfileDigits() nur bei INTEGER, FLOAT
     - Dokumentation-URL in module.json
-
+  - Umstellung auf strict_types=1
+  - Umstellung von StyleCI auf php-cs-fixer
 - 1.13 @ 01.09.2019 18:22<br>
   - Anpassung für IPS 5.2: bisherige Kommunikation zwischen DevoloOverview und DevoloAccesspoint wird nun über (den ansonten funktionslosen) DevoloSplitter kommuniziert
   Achtung: nach dem Update muss ggfs. in den Modulen der Splitte als Gateway eingetragen wurden.

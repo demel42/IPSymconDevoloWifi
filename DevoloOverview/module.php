@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/../libs/common.php';  // globale Funktionen
 
 class DevoloOverview extends IPSModule
@@ -257,11 +259,11 @@ class DevoloOverview extends IPSModule
     public function SwitchWLAN(bool $value)
     {
         $data = [
-                'DataID'    => '{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}',
-                'ForwardID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}',
-                'Function'  => 'SwitchWLAN',
-                'Value'     => $value
-            ];
+            'DataID'    => '{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}',
+            'ForwardID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}',
+            'Function'  => 'SwitchWLAN',
+            'Value'     => $value
+        ];
         $this->SendDebug(__FUNCTION__, 'data=' . print_r($data, true), 0);
         $this->SendDataToParent(json_encode($data));
     }
@@ -269,12 +271,12 @@ class DevoloOverview extends IPSModule
     public function SwitchGuestWLAN(bool $value, int $timeout = null)
     {
         $data = [
-                'DataID'    => '{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}',
-                'ForwardID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}',
-                'Function'  => 'SwitchGuestWLAN',
-                'Value'	    => $value,
-                'Timeout'   => $timeout
-            ];
+            'DataID'    => '{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}',
+            'ForwardID' => '{68DFE4E1-13BA-4CB0-97C7-3624436869F2}',
+            'Function'  => 'SwitchGuestWLAN',
+            'Value'	    => $value,
+            'Timeout'   => $timeout
+        ];
         $this->SendDebug(__FUNCTION__, 'data=' . print_r($data, true), 0);
         $this->SendDataToParent(json_encode($data));
     }

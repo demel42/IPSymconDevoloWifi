@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 require_once __DIR__ . '/../libs/common.php';  // globale Funktionen
 
 class DevoloAccesspoint extends IPSModule
@@ -307,12 +309,12 @@ class DevoloAccesspoint extends IPSModule
                         $rx = is_numeric($device['rx']) ? $device['rx'] : 0;
                         $tx = is_numeric($device['tx']) ? $device['rx'] : 0;
                         $adapter = [
-                                'mac'         => $device['mac'],
-                                'dlan_name'   => $device['ustr'],
-                                'dlan_type'   => $device['name'],
-                                'receive'     => $rx,
-                                'transmit'    => $tx,
-                            ];
+                            'mac'         => $device['mac'],
+                            'dlan_name'   => $device['ustr'],
+                            'dlan_type'   => $device['name'],
+                            'receive'     => $rx,
+                            'transmit'    => $tx,
+                        ];
                         $adapters[] = $adapter;
                     }
                 }
@@ -354,14 +356,14 @@ class DevoloAccesspoint extends IPSModule
                         $guest = $station['AP'] == '1';
 
                         $client = [
-                                'ip'           => $ip,
-                                'name'         => $name,
-                                'mac'          => $mac,
-                                'band'         => $radio,
-                                'rate'         => $rate,
-                                'connected_ts' => $time,
-                                'guest'        => $guest,
-                            ];
+                            'ip'           => $ip,
+                            'name'         => $name,
+                            'mac'          => $mac,
+                            'band'         => $radio,
+                            'rate'         => $rate,
+                            'connected_ts' => $time,
+                            'guest'        => $guest,
+                        ];
                         $clients[] = $client;
                     }
                 }
@@ -487,24 +489,24 @@ class DevoloAccesspoint extends IPSModule
                 $this->SetValue('last_status', $now);
 
                 $accesspoint = [
-                        'timestamp'    => $now,
-                        'alert'        => false,
-                        'pos'          => $ap_pos,
-                        'name'         => $ap_name,
-                        'hostname'     => $ap_hostname,
-                        'ip'           => $ap_ip,
-                        'mac'          => $ap_mac,
-                        'dlan_name'    => $ap_dlan_name,
-                        'dlan_type'    => $ap_dlan_type,
-                        'receive'      => $ap_receive,
-                        'transmit'     => $ap_transmit,
-                        'clients'      => $clients,
-                        'adapters'     => $adapters,
-                        'wlan_unified' => $wlan_unified,
-                        'wlan_24'      => $wlan_24,
-                        'wlan_5'       => $wlan_5,
-                        'wlan_guest'   => $wlan_guest,
-                    ];
+                    'timestamp'    => $now,
+                    'alert'        => false,
+                    'pos'          => $ap_pos,
+                    'name'         => $ap_name,
+                    'hostname'     => $ap_hostname,
+                    'ip'           => $ap_ip,
+                    'mac'          => $ap_mac,
+                    'dlan_name'    => $ap_dlan_name,
+                    'dlan_type'    => $ap_dlan_type,
+                    'receive'      => $ap_receive,
+                    'transmit'     => $ap_transmit,
+                    'clients'      => $clients,
+                    'adapters'     => $adapters,
+                    'wlan_unified' => $wlan_unified,
+                    'wlan_24'      => $wlan_24,
+                    'wlan_5'       => $wlan_5,
+                    'wlan_guest'   => $wlan_guest,
+                ];
             } else {
                 $accesspoint = json_decode($this->GetBuffer('Accesspoint'), true);
                 $accesspoint['wlan_unified'] = $wlan_unified;
@@ -519,10 +521,10 @@ class DevoloAccesspoint extends IPSModule
 
             $this->SetStatus(IS_ACTIVE);
             $data = [
-                    'DataID'      => '{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}',
-                    'ForwardID'   => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
-                    'accesspoint' => $accesspoint
-                ];
+                'DataID'      => '{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}',
+                'ForwardID'   => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
+                'accesspoint' => $accesspoint
+            ];
             $this->SendDataToParent(json_encode($data));
 
             if ($visibility_script > 0) {
@@ -533,19 +535,19 @@ class DevoloAccesspoint extends IPSModule
 
         if ($do_abort) {
             $accesspoint = [
-                    'timestamp'    => $now,
-                    'alert'        => true,
-                    'pos'          => $ap_pos,
-                    'name'         => $ap_name,
-                    'hostname'     => $ap_hostname,
-                    'ip'           => $ap_ip,
-                    'mac'          => $ap_mac,
-                ];
+                'timestamp'    => $now,
+                'alert'        => true,
+                'pos'          => $ap_pos,
+                'name'         => $ap_name,
+                'hostname'     => $ap_hostname,
+                'ip'           => $ap_ip,
+                'mac'          => $ap_mac,
+            ];
             $data = [
-                    'DataID'      => '{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}',
-                    'ForwardID'   => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
-                    'accesspoint' => $accesspoint
-                ];
+                'DataID'      => '{28AFB779-2495-4462-BFEE-CC5E7CCFE4DB}',
+                'ForwardID'   => '{232A0372-880F-4535-AF1E-8ECF0C7EEF00}',
+                'accesspoint' => $accesspoint
+            ];
             $this->SendDataToParent(json_encode($data));
             $this->SetBuffer('Accesspoint', '');
             $this->SetValue('alert', true);
@@ -613,14 +615,14 @@ class DevoloAccesspoint extends IPSModule
         switch ($dlan_type) {
             case 'dLAN 550 WiFi':
                 $postdata = [
-                        ':sys:Wireless.Radio[0].WLANRadio'			=> $onoff,
-                    ];
+                    ':sys:Wireless.Radio[0].WLANRadio'			=> $onoff,
+                ];
                 break;
             case 'dLAN 1200+ WiFi ac':
                 $postdata = [
-                        ':sys:Wireless.Radio[0].WLANRadio'			=> $onoff,
-                        ':sys:Wireless.Radio[1].WLANRadio'			=> $onoff,
-                    ];
+                    ':sys:Wireless.Radio[0].WLANRadio'			=> $onoff,
+                    ':sys:Wireless.Radio[1].WLANRadio'			=> $onoff,
+                ];
                 break;
             default:
                 $this->SendDebug(__FUNCTION__, "unknown dlan_type $dlan_type", 0);
@@ -652,16 +654,16 @@ class DevoloAccesspoint extends IPSModule
         switch ($dlan_type) {
             case 'dLAN 550 WiFi':
                 $postdata = [
-                        ':sys:Wireless.GuestTimeout'                => $timeout,
-                        ':sys:Wireless.Radio[0].AP[1].Active'       => $onoff,
-                    ];
+                    ':sys:Wireless.GuestTimeout'                => $timeout,
+                    ':sys:Wireless.Radio[0].AP[1].Active'       => $onoff,
+                ];
                 break;
             case 'dLAN 1200+ WiFi ac':
                 $postdata = [
-                        ':sys:Wireless.GuestTimeout'                => $timeout,
-                        ':sys:Wireless.Radio[0].AP[1].Active'       => $onoff,
-                        ':sys:Wireless.Radio[1].AP[1].Active'       => $onoff,
-                    ];
+                    ':sys:Wireless.GuestTimeout'                => $timeout,
+                    ':sys:Wireless.Radio[0].AP[1].Active'       => $onoff,
+                    ':sys:Wireless.Radio[1].AP[1].Active'       => $onoff,
+                ];
                 break;
             default:
                 $this->SendDebug(__FUNCTION__, "unknown dlan_type $dlan_type", 0);
@@ -848,9 +850,9 @@ class DevoloAccesspoint extends IPSModule
                 if ($ok) {
                     $key = preg_replace('/<p class="caption-type-2">([^<]*).*/', '$1', $r[0]);
                     $ret = [
-                            'sid' => $sid,
-                            'key' => $key
-                        ];
+                        'sid' => $sid,
+                        'key' => $key
+                    ];
                 }
             }
         }
