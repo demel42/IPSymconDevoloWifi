@@ -1,7 +1,7 @@
 # IPSymconDevoloWifi
 
 [![IPS-Version](https://img.shields.io/badge/Symcon_Version-5.0+-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-![Module-Version](https://img.shields.io/badge/Modul_Version-1.14-blue.svg)
+![Module-Version](https://img.shields.io/badge/Modul_Version-1.15-blue.svg)
 ![Code](https://img.shields.io/badge/Code-PHP-blue.svg)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![StyleCI](https://github.styleci.io/repos/127769152/shield?branch=master)](https://github.styleci.io/repos/127769152)
@@ -269,56 +269,60 @@ GUIDs
 
 ## 7. Versions-Historie
 
-- 1.14 @ 10.10.2019 17:27<br>
+- 1.15 @ 19.12.2019 14:09
+  - Anpassungen an IPS 5.3
+    - Formular-Elemente: 'label' in 'caption' geändert
+
+- 1.14 @ 10.10.2019 17:27
   - Anpassungen an IPS 5.2
     - IPS_SetVariableProfileValues(), IPS_SetVariableProfileDigits() nur bei INTEGER, FLOAT
     - Dokumentation-URL in module.json
   - Umstellung auf strict_types=1
   - Umstellung von StyleCI auf php-cs-fixer
-- 1.13 @ 01.09.2019 18:22<br>
-  - Anpassung für IPS 5.2: bisherige Kommunikation zwischen DevoloOverview und DevoloAccesspoint wird nun über (den ansonten funktionslosen) DevoloSplitter kommuniziert
+- 1.13 @ 01.09.2019 18:22
+  - Anpassung für IPS 5.2: bisherige Kommunikation zwischen DevoloOverview und DevoloAccesspoint wird nun über (den ansonten funktionslosen) DevoloSplitter kommuniziert<br>
   Achtung: nach dem Update muss ggfs. in den Modulen der Splitte als Gateway eingetragen wurden.
 
-- 1.12 @ 09.08.2019 14:32<br>
+- 1.12 @ 09.08.2019 14:32
   - Schreibfehler korrigiert
 
-- 1.11 @ 02.05.2019 18:27<br>
+- 1.11 @ 02.05.2019 18:27
   - Bugfix: Anlage von DevoloOverview war nicht mehr möglich
 
-- 1.10 @ 06.04.2019 08:07<br>
+- 1.10 @ 06.04.2019 08:07
   - fix (IS_SERVERERROR)
 
-- 1.9 @ 29.03.2019 16:19<br>
+- 1.9 @ 29.03.2019 16:19
   - SetValue() abgesichert
 
-- 1.8 @ 20.03.2019 09:05<br>
+- 1.8 @ 20.03.2019 09:05
   - Anpassungen IPS 5, Abspaltung Branch _ips_4.4_
   - form.json in GetConfigurationForm() abgebildet
   - Schalter, um eine Instanz (temporär) zu deaktivieren
 
-- 1.7 @ 23.01.2019 18:18<br>
+- 1.7 @ 23.01.2019 18:18
   - curl_errno() abfragen
 
-- 1.6 @ 22.12.2018 09:21<br>
+- 1.6 @ 22.12.2018 09:21
   - Fehler in der http-Kommunikation nun nicht mehr mit _echo_ (also **ERROR**) sondern mit _LogMessage_ als **NOTIFY**
   - Fix: _undefined variable ap_dlan_type_
 
-- 1.5 @ 21.12.2018 13:10<br>
+- 1.5 @ 21.12.2018 13:10
   - Standard-Konstanten verwenden
 
-- 1.4 @ 23.11.2018 10:58<br>
+- 1.4 @ 23.11.2018 10:58
   - Zusätzliche Feld _Status_, das bei Nichterreichbarkeit des Accesspoint auf _true_ (Alarm) gesetzt wird.
 
-- 1.3 @ 29.10.2018 18:10<br>
+- 1.3 @ 29.10.2018 18:10
   - Abfangen von leeren Datenfeldern ('connected_ts')
 
-- 1.2 @ 13.10.2018 18:02<br>
+- 1.2 @ 13.10.2018 18:02
   - Umstellung der internen Speicherung zur Vermeidung der Warnung _Puffer > 8kb_.
 
-- 1.1 @ 20.09.2018 17:18<br>
+- 1.1 @ 20.09.2018 17:18
   - Versionshistorie dazu,
   - define's der Variablentypen,
   - Schaltfläche mit Link zu README.md im Konfigurationsdialog
 
-- 1.0 @ 03.04.2018 14:11<br>
-  Initiale Version
+- 1.0 @ 03.04.2018 14:11
+  - Initiale Version

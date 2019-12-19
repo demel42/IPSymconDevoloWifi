@@ -80,20 +80,20 @@ class DevoloOverview extends IPSModule
     {
         $formElements = [];
         $formElements[] = ['type' => 'CheckBox', 'name' => 'module_disable', 'caption' => 'Instance is disabled'];
-        $formElements[] = ['type' => 'Label', 'label' => 'rate of LAN/WAN (in MBit/s)'];
+        $formElements[] = ['type' => 'Label', 'caption' => 'rate of LAN/WAN (in MBit/s)'];
         $formElements[] = ['type' => 'NumberSpinner', 'name' => 'wan_download', 'caption' => 'download'];
         $formElements[] = ['type' => 'NumberSpinner', 'name' => 'wan_upload', 'caption' => 'upload'];
-        $formElements[] = ['type' => 'Label', 'label' => 'optional data'];
+        $formElements[] = ['type' => 'Label', 'caption' => 'optional data'];
         $formElements[] = ['type' => 'CheckBox', 'name' => 'with_status_box', 'caption' => ' ... html-box with list of clients'];
         $formElements[] = ['type' => 'CheckBox', 'name' => 'with_guest_info', 'caption' => ' ... information of Guest-WLAN'];
-        $formElements[] = ['type' => 'Label', 'label' => 'alternate script to use for ...'];
+        $formElements[] = ['type' => 'Label', 'caption' => 'alternate script to use for ...'];
         $formElements[] = ['type' => 'SelectScript', 'name' => 'statusbox_script', 'caption' => ' ... "StatusBox"'];
         $formElements[] = ['type' => 'SelectScript', 'name' => 'webhook_script', 'caption' => ' ... Webhook'];
 
         $formActions = [];
         if (IPS_GetKernelVersion() < 5.2) {
-            $formActions[] = ['type' => 'Label', 'label' => '____________________________________________________________________________________________________'];
-            $formActions[] = ['type' => 'Button', 'label' => 'Module description', 'onClick' => 'echo \'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md\';'];
+            $formActions[] = ['type' => 'Label', 'caption' => '____________________________________________________________________________________________________'];
+            $formActions[] = ['type' => 'Button', 'caption' => 'Module description', 'onClick' => 'echo \'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md\';'];
         }
 
         $formStatus = [];

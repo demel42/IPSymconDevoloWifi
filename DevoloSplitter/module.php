@@ -26,7 +26,7 @@ class DevoloSplitter extends IPSModule
 
         $formActions = [];
         if (IPS_GetKernelVersion() < 5.2) {
-            $formActions[] = ['type' => 'Button', 'label' => 'Module description', 'onClick' => 'echo \'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md\';'];
+            $formActions[] = ['type' => 'Button', 'caption' => 'Module description', 'onClick' => 'echo \'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md\';'];
         }
 
         $formStatus = [];

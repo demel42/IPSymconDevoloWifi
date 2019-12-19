@@ -101,35 +101,35 @@ class DevoloAccesspoint extends IPSModule
     {
         $formElements = [];
         $formElements[] = ['type' => 'CheckBox', 'name' => 'module_disable', 'caption' => 'Instance is disabled'];
-        $formElements[] = ['type' => 'Label', 'label' => 'name can be a hostname or ip-address'];
+        $formElements[] = ['type' => 'Label', 'caption' => 'name can be a hostname or ip-address'];
         $formElements[] = ['type' => 'ValidationTextBox', 'name' => 'ap_name', 'caption' => 'Name'];
-        $formElements[] = ['type' => 'Label', 'label' => 'must only be filled, if restricted access is configured'];
+        $formElements[] = ['type' => 'Label', 'caption' => 'must only be filled, if restricted access is configured'];
         $formElements[] = ['type' => 'ValidationTextBox', 'name' => 'username', 'caption' => 'Username'];
         $formElements[] = ['type' => 'ValidationTextBox', 'name' => 'password', 'caption' => 'Password'];
-        $formElements[] = ['type' => 'Label', 'label' => 'optional data of accesspoint'];
+        $formElements[] = ['type' => 'Label', 'caption' => 'optional data of accesspoint'];
         $formElements[] = ['type' => 'CheckBox', 'name' => 'with_dns', 'caption' => 'resolve ip/hostname by DNS'];
         $formElements[] = ['type' => 'CheckBox', 'name' => 'with_ap_detail', 'caption' => 'Details'];
-        $formElements[] = ['type' => 'Label', 'label' => 'optional data of WLAN'];
+        $formElements[] = ['type' => 'Label', 'caption' => 'optional data of WLAN'];
         $formElements[] = ['type' => 'CheckBox', 'name' => 'with_wlan_info', 'caption' => 'Informations'];
         $formElements[] = ['type' => 'CheckBox', 'name' => 'with_wlan_detail', 'caption' => 'Details'];
-        $formElements[] = ['type' => 'Label', 'label' => 'optional data of Guest-WLAN'];
+        $formElements[] = ['type' => 'Label', 'caption' => 'optional data of Guest-WLAN'];
         $formElements[] = ['type' => 'CheckBox', 'name' => 'with_guest_info', 'caption' => 'Informations'];
         $formElements[] = ['type' => 'CheckBox', 'name' => 'with_guest_detail', 'caption' => 'Details'];
-        $formElements[] = ['type' => 'Label', 'label' => 'optional script to hide/show variables'];
+        $formElements[] = ['type' => 'Label', 'caption' => 'optional script to hide/show variables'];
         $formElements[] = ['type' => 'SelectScript', 'name' => 'visibility_script', 'caption' => 'visibility'];
-        $formElements[] = ['type' => 'Label', 'label' => 'Number of ethernet-port connected to LAN/WAN'];
+        $formElements[] = ['type' => 'Label', 'caption' => 'Number of ethernet-port connected to LAN/WAN'];
         $formElements[] = ['type' => 'NumberSpinner', 'name' => 'wan_port', 'caption' => 'WAN-Port'];
-        $formElements[] = ['type' => 'Label', 'label' => 'MAC of the dLAN-Adapter next to ethernet'];
+        $formElements[] = ['type' => 'Label', 'caption' => 'MAC of the dLAN-Adapter next to ethernet'];
         $formElements[] = ['type' => 'ValidationTextBox', 'name' => 'wan_bridge', 'caption' => 'WAN-Bridge'];
-        $formElements[] = ['type' => 'Label', 'label' => 'query accesspoint every X minutes'];
+        $formElements[] = ['type' => 'Label', 'caption' => 'query accesspoint every X minutes'];
         $formElements[] = ['type' => 'NumberSpinner', 'name' => 'UpdateDataInterval', 'caption' => 'Minutes'];
 
         $formActions = [];
-        $formActions[] = ['type' => 'Label', 'label' => 'one query makes take several seconds to complete'];
-        $formActions[] = ['type' => 'Button', 'label' => 'Perform query', 'onClick' => 'DevoloAP_UpdateData($id);'];
+        $formActions[] = ['type' => 'Label', 'caption' => 'one query makes take several seconds to complete'];
+        $formActions[] = ['type' => 'Button', 'caption' => 'Perform query', 'onClick' => 'DevoloAP_UpdateData($id);'];
         if (IPS_GetKernelVersion() < 5.2) {
-            $formActions[] = ['type' => 'Label', 'label' => '____________________________________________________________________________________________________'];
-            $formActions[] = ['type' => 'Button', 'label' => 'Module description', 'onClick' => 'echo \'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md\';'];
+            $formActions[] = ['type' => 'Label', 'caption' => '____________________________________________________________________________________________________'];
+            $formActions[] = ['type' => 'Button', 'caption' => 'Module description', 'onClick' => 'echo \'https://github.com/demel42/IPSymconDevoloWifi/blob/master/README.md\';'];
         }
 
         $formStatus = [];
