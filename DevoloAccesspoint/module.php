@@ -34,16 +34,27 @@ class DevoloAccesspoint extends IPSModule
 
         $this->RegisterPropertyInteger('UpdateDataInterval', 5);
 
-        $this->RegisterTimer('UpdateData', 0, 'DevoloAP_UpdateData(' . $this->InstanceID . ');');
-
-        $this->ConnectParent('{122688B6-1306-4B99-A943-CBF39A6EFFD2}');
-
         $this->CreateVarProfile('Devolo.TransferRate', VARIABLETYPE_INTEGER, ' Mbit/s', 0, 300, 0, 0, '');
 
         $associations = [];
         $associations[] = ['Wert' =>  0, 'Name' => 'nie', 'Farbe' => -1];
         $associations[] = ['Wert' =>  1, 'Name' => '%d min', 'Farbe' => -1];
         $this->CreateVarProfile('Devolo.Timeout', VARIABLETYPE_INTEGER, '', 0, 0, 0, 0, 'Hourglass', $associations);
+
+        $this->ConnectParent('{122688B6-1306-4B99-A943-CBF39A6EFFD2}');
+
+        $this->RegisterTimer('UpdateData', 0, 'DevoloAP_UpdateData(' . $this->InstanceID . ');');
+
+        $this->RegisterMessage(0, IPS_KERNELMESSAGE);
+    }
+
+    public function MessageSink($TimeStamp, $SenderID, $Message, $Data)
+    {
+        parent::MessageSink($TimeStamp, $SenderID, $Message, $Data);
+
+        if ($Message == IPS_KERNELMESSAGE && $Data[0] == KR_READY) {
+            $this->SetUpdateInterval();
+        }
     }
 
     public function ApplyChanges()
@@ -89,12 +100,27 @@ class DevoloAccesspoint extends IPSModule
             return;
         }
 
-        if ($ap_name != '') {
-            $this->SetUpdateInterval();
-            $this->SetStatus(IS_ACTIVE);
-        } else {
+        if ($ap_name == '') {
             $this->SetStatus(IS_INACTIVE);
         }
+
+        if (IPS_GetKernelRunlevel() == KR_READY) {
+            $this->SetUpdateInterval();
+        }
+
+        $refs = $this->GetReferenceList();
+        foreach ($refs as $ref) {
+            $this->UnregisterReference($ref);
+        }
+        $propertyNames = ['visibility_script'];
+        foreach ($propertyNames as $name) {
+            $oid = $this->ReadPropertyInteger($name);
+            if ($oid > 0) {
+                $this->RegisterReference($oid);
+            }
+        }
+
+        $this->SetStatus(IS_ACTIVE);
     }
 
     public function GetConfigurationForm()

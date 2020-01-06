@@ -1,7 +1,7 @@
 # IPSymconDevoloWifi
 
 [![IPS-Version](https://img.shields.io/badge/Symcon_Version-5.3+-red.svg)](https://www.symcon.de/service/dokumentation/entwicklerbereich/sdk-tools/sdk-php/)
-![Module-Version](https://img.shields.io/badge/Modul_Version-1.15-blue.svg)
+![Module-Version](https://img.shields.io/badge/Modul_Version-1.16-blue.svg)
 ![Code](https://img.shields.io/badge/Code-PHP-blue.svg)
 [![License](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-green.svg)](https://creativecommons.org/licenses/by-nc-sa/4.0/)
 [![StyleCI](https://github.styleci.io/repos/127769152/shield?branch=master)](https://github.styleci.io/repos/127769152)
@@ -268,6 +268,9 @@ GUIDs
   - `{68DFE4E1-13BA-4CB0-97C7-3624436869F2}`: an DevoloAccesspoint
 
 ## 7. Versions-Historie
+
+- 1.16 @ 06.01.2020 11:17
+  - Nutzung von RegisterReference() für im Modul genutze Objekte (Scripte, Kategorien etc)
 
 - 1.15 @ 30.12.2019 10:56
   - Anpassungen an IPS 5.3
