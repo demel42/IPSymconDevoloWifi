@@ -267,6 +267,9 @@ GUIDs
 
 ## 7. Versions-Historie
 
+- 1.17 @ 13.07.2020 14:56
+  - LICENSE.md hinzugefügt
+
 - 1.16 @ 06.01.2020 11:17
   - Nutzung von RegisterReference() für im Modul genutze Objekte (Scripte, Kategorien etc)
 
